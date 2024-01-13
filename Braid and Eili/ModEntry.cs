@@ -21,8 +21,9 @@ namespace KBraid.BraidEili;
  * DONE : Make Revenge Action -find a way to keep track of lost hull during combat
  * DONE : SOLUTION: Lost Hull Status
  * DONE : Resolve Status -when hit, if you would drop below 1 hull, instead lose max hull
+ * KINDA: Make Retreat Action -find a way to access PlayerWon(g) and flag it noRewards = true
+ *        ISSUE: No retreat animation
  * REMAINING STUFF TO-DO
- * Make Retreat Action -find a way to access PlayerWon(g) and flag it noRewards = true
  * Make Inspiration Action -select card, remove exhaust from card
  * ASacrifice Action -select card, exhaust card, keep int of card cost, return it
  * AApplyTempBrittle Action 

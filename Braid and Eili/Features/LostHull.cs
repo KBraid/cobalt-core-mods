@@ -1,6 +1,4 @@
 ﻿using HarmonyLib;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace KBraid.BraidEili;
 internal sealed class LostHullManager : IStatusLogicHook
@@ -14,6 +12,10 @@ internal sealed class LostHullManager : IStatusLogicHook
             prefix: new HarmonyMethod(GetType(), nameof(Ship_DirectHullDamage_Prefix)),
             postfix: new HarmonyMethod(GetType(), nameof(Ship_DirectHullDamage_Postfix))
         );
+    }
+    public bool? IsAffectedByBoost(State state, Combat combat, Ship ship, Status status)
+    {
+        return false;
     }
     private static void Ship_DirectHullDamage_Prefix(Ship __instance, ref int __state)
         => __state = __instance.hull;

@@ -6,19 +6,11 @@ internal sealed class RetreatManager : IStatusLogicHook
     public RetreatManager()
     {
         ModEntry.Instance.KokoroApi.RegisterStatusLogicHook(this, 0);
-        /*ModEntry.Instance.Harmony.Patch(
-            original: AccessTools.DeclaredMethod(typeof(Combat), nameof(Combat.PlayerWon)),
-            prefix: new HarmonyMethod(GetType(), nameof(Combat_PlayerWon_Prefix))
-        );*/
     }
-    /*private static void Combat_PlayerWon_Prefix(
-        Combat __instance,
-        G g)
+    public bool? IsAffectedByBoost(State state, Combat combat, Ship ship, Status status)
     {
-        var state = g.state;
-        if (state != null && state.ship.Get(ModEntry.Instance.Retreat.Status) > 0)
-            __instance.noReward = true;
-    }*/
+        return false;
+    }
     public bool HandleStatusTurnAutoStep(State state, Combat combat, StatusTurnTriggerTiming timing, Ship ship, Status status, ref int amount, ref StatusTurnAutoStepSetStrategy setStrategy)
     {
         if (status != ModEntry.Instance.Retreat.Status)
