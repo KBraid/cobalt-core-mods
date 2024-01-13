@@ -10,33 +10,40 @@ using System.Linq;
 namespace KBraid.BraidEili;
 
 /* TO-DO
- * DisabledDampeners Status -keep track of X damage taken, gain X Evade, move X random. Decrease 1 on turn start
- * ShockAbsorber Status -keep track of X damage taken, gain X TempShieldNextTurn
- * TempShieldNextTurn Status
- * KineticGenerator Status -keep track of movement amounts, give temp shield accordingly
- * AApplyTempBrittle Action -if IsRandom, choose random enemy part and give it new TempBrittle. if !IsRandom, part in front of active cannon gets it, remove TempBrittle on hit
- * -new TempBrittle dmg modifier
- * AApplyTempArmor Action -keep track of current part dmg modifiers, apply new TempArmor dmg modifier until start of turn
- * -new TempArmor dmg modifier
+ * DONE : DisabledDampeners Status -keep track of X damage taken, gain X*status Evade, move X*status random. Decrease 1 on turn start
+ * DONE : ShockAbsorber Status -keep track of X damage taken, gain X*status TempShieldNextTurn
+ * DONE : TempShieldNextTurn Status
+ * DONE : KineticGenerator Status -keep track of X movement amounts, give X*status temp shield accordingly. Decrease 1 on turn start
+ * DONE : EqualPayback Status -keep track of all damage taken, fire the value*status. Decrease by 1 on turn start
+ * DONE : TempPowerdrive Status -powerdrive, lose all stacks on turn end
+ * DONE : Bide Status -keep track of X damage taken, gain X Biding My Time. Decrease 1 on turn start
+ * DONE : Perfect Timing status -powerdrive, lose all stacks on use
+ * DONE : Make Revenge Action -find a way to keep track of lost hull during combat
+ * DONE : SOLUTION: Lost Hull status
+ * 
+ * REMAINING STUFF TO-DO
  * Make Inspiration Action -select card, remove exhaust from card
- * ALaunchMidrow Action -find a way to add enemy intent mid-turn, active specific intents
- * EqualPayback Status -keep track of all damage taken, fire the value, remove at start of turn
- * TempPowerdrive Status -powerdrive, lose all stacks on turn end
- * Bide Status -keep track of all damage taken, add value to next attack, remove bide
  * ASacrifice Action -select card, exhaust card, keep int of card cost, return it
- * Make Revenge Action -find a way to keep track of lost hull during combat
  * Make Resolve Action -X = Solid Ship parts
  *                      Survive X
  *                      (Weak applied to damaged tile, Brittle if already Weak. Max Hull decreased by damage taken. Ship is destroyed if Max Hull reaches 0)
  * Make Retreat Action -find a way to access PlayerWon(g) and flag it noRewards = true
+ * AApplyTempBrittle Action 
+ *                      -if IsRandom, choose random enemy part and give it new TempBrittle.
+ *                      -if !IsRandom, part in front of active cannon gets it, remove TempBrittle on hit
+ * -new TempBrittle dmg modifier
+ * AApplyTempArmor Action -keep track of current part dmg modifiers, apply new TempArmor dmg modifier until start of turn
+ * -new TempArmor dmg modifier
+ * ALaunchMidrow Action -find a way to add enemy intent mid-turn, active specific intents
  * Eili Artifacts
  * Braid Artifacts
+ * Unlock Req:   Eili : Win 5 times
+ *              Braid : Win with Eili
  * Story
  */
 public sealed class ModEntry : SimpleMod
 {
     internal static ModEntry Instance { get; private set; } = null!;
-
     internal Harmony Harmony { get; }
     internal IKokoroApi KokoroApi { get; }
     internal ILocalizationProvider<IReadOnlyList<string>> AnyLocalizations { get; }
@@ -57,6 +64,8 @@ public sealed class ModEntry : SimpleMod
     internal IStatusEntry EqualPayback { get; }
     internal IStatusEntry TempPowerdrive { get; }
     internal IStatusEntry Bide { get; }
+    internal IStatusEntry PerfectTiming { get; }
+    internal IStatusEntry LostHull { get; }
     internal IList<string> faceSprites { get; } = [
         "blink",
         "crystallized",
@@ -89,9 +98,7 @@ public sealed class ModEntry : SimpleMod
         "braid",
         "eili"
     ];
-    internal Dictionary<string, ISpriteEntry> Sprites { get; } = [
-
-    ];
+    internal Dictionary<string, ISpriteEntry> Sprites { get; } = [];
 
     internal static IReadOnlyList<Type> EiliStarterCardTypes { get; } = [
         typeof(EiliPadding),
@@ -158,6 +165,18 @@ public sealed class ModEntry : SimpleMod
         typeof(BraidResolve),
         typeof(BraidRetreat),
     ];
+    internal static IReadOnlyList<Type> BraidCommonArtifactTypes { get; } = [
+
+    ];
+    internal static IReadOnlyList<Type> BraidBossArtifactTypes { get; } = [
+
+    ];
+    internal static IReadOnlyList<Type> EiliCommonArtifactTypes { get; } = [
+
+    ];
+    internal static IReadOnlyList<Type> EiliBossArtifactTypes { get; } = [
+
+    ];
 
     internal static IEnumerable<Type> BraidCardTypes
         => BraidStarterCardTypes
@@ -169,6 +188,12 @@ public sealed class ModEntry : SimpleMod
         .Concat(EiliCommonCardTypes)
         .Concat(EiliUncommonCardTypes)
         .Concat(EiliRareCardTypes);
+    internal static IEnumerable<Type> BraidArtifactTypes
+        => BraidCommonArtifactTypes
+        .Concat(BraidBossArtifactTypes);
+    internal static IEnumerable<Type> EiliArtifactTypes
+        => EiliCommonArtifactTypes
+        .Concat(EiliBossArtifactTypes);
 
     public ModEntry(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
     {
@@ -184,6 +209,10 @@ public sealed class ModEntry : SimpleMod
         _ = new ShockAbsorberManager();
         _ = new TempShieldNextTurnManager();
         _ = new KineticGeneratorManager();
+        _ = new TempPowerdriveManager();
+        _ = new BideManager();
+        _ = new PerfectTimingManager();
+        _ = new LostHullManager();
 
         CustomTTGlossary.ApplyPatches(Harmony);
         
@@ -252,7 +281,8 @@ public sealed class ModEntry : SimpleMod
             Definition = new()
             {
                 icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/disabledDampeners.png")).Sprite,
-                color = new("42add1")
+                color = new("42add1"),
+                isGood = true
             },
             Name = this.AnyLocalizations.Bind(["status", "DisabledDampeners", "name"]).Localize,
             Description = this.AnyLocalizations.Bind(["status", "DisabledDampeners", "description"]).Localize
@@ -262,7 +292,8 @@ public sealed class ModEntry : SimpleMod
             Definition = new()
             {
                 icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/shockAbsorber.png")).Sprite,
-                color = new("42add1")
+                color = new("42add1"),
+                isGood = true
             },
             Name = this.AnyLocalizations.Bind(["status", "ShockAbsorber", "name"]).Localize,
             Description = this.AnyLocalizations.Bind(["status", "ShockAbsorber", "description"]).Localize
@@ -271,8 +302,9 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/shockAbsorber.png")).Sprite,//tempShieldNextTurn.png")).Sprite,
-                color = new("42add1")
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/tempShieldNextTurn.png")).Sprite,
+                color = new("42add1"),
+                isGood = true
             },
             Name = this.AnyLocalizations.Bind(["status", "TempShieldNextTurn", "name"]).Localize,
             Description = this.AnyLocalizations.Bind(["status", "TempShieldNextTurn", "description"]).Localize
@@ -282,7 +314,8 @@ public sealed class ModEntry : SimpleMod
             Definition = new()
             {
                 icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/kineticGenerator.png")).Sprite,
-                color = new("42add1")
+                color = new("42add1"),
+                isGood = true
             },
             Name = this.AnyLocalizations.Bind(["status", "KineticGenerator", "name"]).Localize,
             Description = this.AnyLocalizations.Bind(["status", "KineticGenerator", "description"]).Localize
@@ -292,7 +325,8 @@ public sealed class ModEntry : SimpleMod
             Definition = new()
             {
                 icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/equalPayback.png")).Sprite,
-                color = new("c0c9e6")
+                color = new("c0c9e6"),
+                isGood = true
             },
             Name = this.AnyLocalizations.Bind(["status", "EqualPayback", "name"]).Localize,
             Description = this.AnyLocalizations.Bind(["status", "EqualPayback", "description"]).Localize
@@ -302,7 +336,8 @@ public sealed class ModEntry : SimpleMod
             Definition = new()
             {
                 icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/tempPowerdrive.png")).Sprite,
-                color = new("c0c9e6")
+                color = new("c0c9e6"),
+                isGood = true
             },
             Name = this.AnyLocalizations.Bind(["status", "TempPowerdrive", "name"]).Localize,
             Description = this.AnyLocalizations.Bind(["status", "TempPowerdrive", "description"]).Localize
@@ -312,10 +347,32 @@ public sealed class ModEntry : SimpleMod
             Definition = new()
             {
                 icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/bide.png")).Sprite,
-                color = new("c0c9e6")
+                color = new("c0c9e6"),
+                isGood = true
             },
             Name = this.AnyLocalizations.Bind(["status", "Bide", "name"]).Localize,
             Description = this.AnyLocalizations.Bind(["status", "Bide", "description"]).Localize
+        });
+        PerfectTiming = Helper.Content.Statuses.RegisterStatus("PerfectTiming", new()
+        {
+            Definition = new()
+            {
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/perfectTiming.png")).Sprite,
+                color = new("c0c9e6"),
+                isGood = true
+            },
+            Name = this.AnyLocalizations.Bind(["status", "PerfectTiming", "name"]).Localize,
+            Description = this.AnyLocalizations.Bind(["status", "PerfectTiming", "description"]).Localize
+        });
+        LostHull = Helper.Content.Statuses.RegisterStatus("LostHull", new()
+        {
+            Definition = new()
+            {
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/lostHull.png")).Sprite,
+                color = new("c0c9e6")
+            },
+            Name = this.AnyLocalizations.Bind(["status", "LostHull", "name"]).Localize,
+            Description = this.AnyLocalizations.Bind(["status", "LostHull", "description"]).Localize
         });
         // Register cards
         foreach (var cardType in BraidCardTypes)
@@ -726,5 +783,8 @@ public sealed class ModEntry : SimpleMod
                 ]
             }
         );
+
+        // TRANSPILER STUFF
+        _ = new EqualPaybackManager();
     }
 }
