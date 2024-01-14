@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<RootNamespace>KBraid.BraidEili</RootNamespace>
-		<Version>0.2.3</Version>
+		<Version>0.2.4</Version>
 		<IsNickelMod>True</IsNickelMod>
 		<LangVersion>12.0</LangVersion>
 		<ImplicitUsings>disable</ImplicitUsings>

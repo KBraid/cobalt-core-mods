@@ -26,6 +26,7 @@ public class BraidMaxBlast : Card, IModdedCard
         CardData data = new CardData();
         data.cost = 0;
         data.exhaust = true;
+        data.temporary = true;
         data.art = new Spr?(StableSpr.cards_Scattershot);
         return data;
     }
