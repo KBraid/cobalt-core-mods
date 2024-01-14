@@ -39,7 +39,7 @@ public class EiliInspiration : Card, IModdedCard
             case Upgrade.None:
                 List<CardAction> cardActionList1 = new List<CardAction>()
                 {
-                    new ACardSelect
+                    new ACardSelect()
                     {
                         filterExhaust = true,
                         browseAction = new AInspiration()
@@ -55,7 +55,7 @@ public class EiliInspiration : Card, IModdedCard
             case Upgrade.A:
                 List<CardAction> cardActionList2 = new List<CardAction>()
                 {
-                    new ACardSelect
+                    new ACardSelect()
                     {
                         filterExhaust = true,
                         browseAction = new AInspiration()
@@ -71,7 +71,7 @@ public class EiliInspiration : Card, IModdedCard
             case Upgrade.B:
                 List<CardAction> cardActionList3 = new List<CardAction>()
                 {
-                    new ACardSelect
+                    new ACardSelect()
                     {
                         filterExhaust = true,
                         browseAction = new AInspiration()

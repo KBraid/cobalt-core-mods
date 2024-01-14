@@ -53,6 +53,7 @@ public sealed class ModEntry : SimpleMod
     internal static Color BraidCardTitleColor => new("000000");
     internal static Color EiliCardTitleColor => new("000000");
     internal ISpriteEntry BasicBackground { get; }
+    internal ISpriteEntry ASacrificePermanent { get; }
     internal ISpriteEntry AApplyTempBrittle_Icon { get; }
     internal ISpriteEntry AApplyTempArmor_Icon { get; }
     internal IStatusEntry DisabledDampeners { get; }
@@ -226,6 +227,7 @@ public sealed class ModEntry : SimpleMod
             new CurrentLocaleOrEnglishLocalizationProvider<IReadOnlyList<string>>(this.AnyLocalizations)
         );
         BasicBackground = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/cards/empty_backgroud.png"));
+        ASacrificePermanent = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/sacrificePermanent.png"));
         AApplyTempBrittle_Icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/disabledDampeners.png"));
         AApplyTempArmor_Icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/disabledDampeners.png"));
 

@@ -1,23 +1,17 @@
 ﻿using FSPRO;
+using Nickel;
+using System;
+using System.Collections.Generic;
 
 namespace KBraid.BraidEili.Actions;
 
 internal class ASacrifice : CardAction
 {
-    public bool destroy;
+    public Upgrade upgrade;
+
     public override void Begin(G g, State s, Combat c)
     {
         Card? card = selectedCard;
-        if (card != null)
-        {
-            card.temporaryOverride = true;
-            c.SendCardToExhaust(s, card);
-            if (destroy)
-                c.exhausted.Remove(card);
-        }
-        else
-        {
-            Audio.Play(Event.CardHandling);
-        }
+        Extensions.TurnCardToEnergyAttack(s, c, card, this, upgrade);
     }
 }
