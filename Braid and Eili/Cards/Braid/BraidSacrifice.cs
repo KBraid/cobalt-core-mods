@@ -36,24 +36,20 @@ public class BraidSacrifice : Card, IModdedCard
 
     public override List<CardAction> GetActions(State s, Combat c)
     {
-        myDamage = new ACardSelect()
+        /*myDamage = new ACardSelect()
         {
             browseAction = new ASacrifice()
             {
                 destroy = false
             },
             browseSource = CardBrowse.Source.Hand
-        }.selectedCard.GetCurrentCost(s);
+        }.selectedCard.GetCurrentCost(s);*/
         List<CardAction> actions = new();
         switch (upgrade)
         {
             case Upgrade.None:
                 List<CardAction> cardActionList1 = new List<CardAction>()
                 {
-                    new AAttack()
-                    {
-                        damage = GetDmg(s,)
-                    }
                 };
                 actions = cardActionList1;
                 break;
