@@ -4,7 +4,7 @@
       "name": "Eili",
       "description": "<c=42add1>Eili</c>\nA bubbly little fellow who loves to <c=keyword>help others</c> with her <c=keyword>excentric solutions</c>."
     },
-     "Braid": {
+    "Braid": {
       "name": "Braid",
       "description": "<c=c0c9e6>Braid</c>\nA soldier who knows when victory necessitates <c=downside>sacrifice</c>."
     }
@@ -65,6 +65,14 @@
     "LostHull": {
       "name": "Lost Hull",
       "description": "The amount of hull this ship has lost this combat."
+    },
+    "Resolve": {
+      "name": "Resolve",
+      "description": "If you would take lethal damage, instead set your hull to 1 and lose <c=hurt>max hull</c> equal to the overflow."
+    },
+    "Retreat": {
+      "name": "Retreat",
+      "description": "<c=keyword>End combat on turn start</c> and skip all rewards."
     }
   },
   "artifact": {
@@ -175,9 +183,14 @@
     "Inspiration": {
       "name": "Inspiration",
       "description": {
-        "None": "Pick a card from your hand and remove its <c=cardtrait>exhaust</c>.",
-        "A": "Pick a card from your hand and remove its <c=cardtrait>exhaust</c>.",
-        "B": "Pick a card from your <c=keyword>draw pile</c> and remove its <c=cardtrait>exhaust</c>."
+        "None": "Pick a card from your hand. It no longer <c=cardtrait>exhausts</c>.",
+        "A": "Pick a card from your hand. It no longer <c=cardtrait>exhausts</c>.",
+        "B": "Pick a card from your <c=keyword>deck</c>. It no longer <c=cardtrait>exhausts</c>."
+      },
+      "special": {
+        "None": "Remove <c=cardtrait>Exhaust</c> from a card in your hand.",
+        "A": "Remove <c=cardtrait>Exhaust</c> from a card in your hand.",
+        "B": "Remove <c=cardtrait>Exhaust</c> from a card in your hand, draw or discard pile."
       }
     },
     "TargettingScramble": {
@@ -233,6 +246,10 @@
     "Sacrifice": {
       "name": "Sacrifice"
     },
+    "Retreat": {
+      "name": "Retreat",
+      "description": "<c=keyword>Escape</c> next turn. <c=downside>Cannot be played during boss battles</c>."
+    },
     "Revenge": {
       "name": "Revenge",
       "description": {
@@ -249,10 +266,6 @@
     },
     "Resolve": {
       "name": "Resolve"
-    },
-    "Retreat": {
-      "name": "Retreat",
-      "description": "<c=keyword>End combat</c> next turn and skip all rewards. <c=downside>Cannot be played during boss battles</c>."
     }
   }
 }
