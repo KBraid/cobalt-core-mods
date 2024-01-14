@@ -37,7 +37,7 @@ public class BraidResolve : Card, IModdedCard
                 break;
         }
         data.cost = num;
-        data.exhaust = upgrade == Upgrade.A ? true : false;
+        data.exhaust = upgrade == Upgrade.A ? false : true;
         data.art = new Spr?(StableSpr.cards_Scattershot);
         return data;
     }
