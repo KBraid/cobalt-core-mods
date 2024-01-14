@@ -49,6 +49,13 @@ public class EiliReroutePower : Card, IModdedCard
                     },
                     new AStatus()
                     {
+                        status = Status.shield,
+                        statusAmount = 0,
+                        targetPlayer = true,
+                        mode = AStatusMode.Set
+                    },
+                    new AStatus()
+                    {
                         status = Status.maxShield,
                         statusAmount = -1,
                         targetPlayer = true,
@@ -68,6 +75,13 @@ public class EiliReroutePower : Card, IModdedCard
                         changeAmount = s.ship.Get(Status.shield),
                         xHint = 1,
                     },
+                    new AStatus()
+                    {
+                        status = Status.shield,
+                        statusAmount = 0,
+                        targetPlayer = true,
+                        mode = AStatusMode.Set
+                    }
                 };
                 actions = cardActionList2;
                 break;
@@ -83,6 +97,13 @@ public class EiliReroutePower : Card, IModdedCard
                         changeAmount = s.ship.Get(Status.tempShield),
                         xHint = 1,
                     },
+                    new AStatus()
+                    {
+                        status = Status.tempShield,
+                        statusAmount = 0,
+                        targetPlayer = true,
+                        mode = AStatusMode.Set
+                    }
                 };
                 actions = cardActionList3;
                 break;
