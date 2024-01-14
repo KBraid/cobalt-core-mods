@@ -16,7 +16,8 @@ public class BraidSacrifice : Card, IModdedCard
             {
                 deck = ModEntry.Instance.BraidDeck.Deck,
                 rarity = Rarity.rare,
-                upgradesTo = [Upgrade.A, Upgrade.B]
+                upgradesTo = [Upgrade.A, Upgrade.B],
+                unreleased = true
             },
             Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "Sacrifice", "name"]).Localize
         });

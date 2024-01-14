@@ -15,7 +15,8 @@ public class EiliExtraPlating : Card, IModdedCard
             {
                 deck = ModEntry.Instance.EiliDeck.Deck,
                 rarity = Rarity.uncommon,
-                upgradesTo = [Upgrade.A, Upgrade.B]
+                upgradesTo = [Upgrade.A, Upgrade.B],
+                unreleased = true
             },
             Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "ExtraPlating", "name"]).Localize
         });

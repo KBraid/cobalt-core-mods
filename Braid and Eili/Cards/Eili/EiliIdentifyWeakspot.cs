@@ -15,7 +15,8 @@ public class EiliIdentifyWeakspot : Card, IModdedCard
             {
                 deck = ModEntry.Instance.EiliDeck.Deck,
                 rarity = Rarity.common,
-                upgradesTo = [Upgrade.A, Upgrade.B]
+                upgradesTo = [Upgrade.A, Upgrade.B],
+                unreleased = true
             },
             Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "IdentifyWeakspot", "name"]).Localize
         });
