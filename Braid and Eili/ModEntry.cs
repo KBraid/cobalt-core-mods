@@ -23,8 +23,8 @@ namespace KBraid.BraidEili;
  * DONE : Resolve Status -when hit, if you would drop below 1 hull, instead lose max hull
  * KINDA: Make Retreat Action -find a way to access PlayerWon(g) and flag it noRewards = true
  *        ISSUE: No retreat animation
+ * DONE : Make Inspiration Action -select card, remove exhaust from card
  * REMAINING STUFF TO-DO
- * Make Inspiration Action -select card, remove exhaust from card
  * ASacrifice Action -select card, exhaust card, keep int of card cost, return it
  * AApplyTempBrittle Action 
  *                      -if IsRandom, choose random enemy part and give it new TempBrittle.

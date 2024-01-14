@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.Design;
+﻿using FSPRO;
 
 namespace KBraid.BraidEili.Actions;
 
@@ -17,6 +16,10 @@ internal class AInspiration : CardAction
             {
                 card.exhaustOverrideIsPermanent = true;
             }
+        }
+        else
+        {
+            Audio.Play(Event.CardHandling);
         }
     }
 
