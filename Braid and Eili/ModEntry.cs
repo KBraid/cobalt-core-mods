@@ -10,22 +10,21 @@ using System.Linq;
 namespace KBraid.BraidEili;
 
 /* TO-DO
- * DONE : DisabledDampeners Status -keep track of X damage taken, gain X*status Evade, move X*status random. Decrease 1 on turn start
- * DONE : ShockAbsorber Status -keep track of X damage taken, gain X*status TempShieldNextTurn
+ * DONE : DisabledDampeners Status
+ * DONE : ShockAbsorber Status
  * DONE : TempShieldNextTurn Status
- * DONE : KineticGenerator Status -keep track of X movement amounts, give X*status temp shield accordingly. Decrease 1 on turn start
- * DONE : EqualPayback Status -keep track of all damage taken, fire the value*status. Decrease by 1 on turn start
- * DONE : TempPowerdrive Status -powerdrive, lose all stacks on turn end
- * DONE : Bide Status -keep track of X damage taken, gain X Biding My Time. Decrease 1 on turn start
- * DONE : Perfect Timing Status -powerdrive, lose all stacks on use
- * DONE : Make Revenge Action -find a way to keep track of lost hull during combat
- * DONE : SOLUTION: Lost Hull Status
- * DONE : Resolve Status -when hit, if you would drop below 1 hull, instead lose max hull
- * KINDA: Make Retreat Action -find a way to access PlayerWon(g) and flag it noRewards = true
+ * DONE : KineticGenerator Status
+ * DONE : EqualPayback Status
+ * DONE : TempPowerdrive Status
+ * DONE : Bide Status
+ * DONE : Perfect Timing Status
+ * DONE : Revenge: Lost Hull Status
+ * DONE : Resolve Status
+ * KINDA: ARetreat Action
  *        ISSUE: No retreat animation
- * DONE : Make Inspiration Action -select card, remove exhaust from card
+ * DONE : AInspiration Action
+ * DONE : ASacrifice Action + Extensions + ACardSelectSacrifice
  * REMAINING STUFF TO-DO
- * ASacrifice Action -select card, exhaust card, keep int of card cost, return it
  * AApplyTempBrittle Action 
  *                      -if IsRandom, choose random enemy part and give it new TempBrittle.
  *                      -if !IsRandom, part in front of active cannon gets it, remove TempBrittle on hit

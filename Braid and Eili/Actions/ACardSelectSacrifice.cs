@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace KBraid.BraidEili.Actions;
 
-internal class ACardSelectCopy : ACardSelect
+internal class ACardSelectSacrifice : ACardSelect
 {
     public Upgrade upgrade;
     public override void Begin(G g, State s, Combat c)

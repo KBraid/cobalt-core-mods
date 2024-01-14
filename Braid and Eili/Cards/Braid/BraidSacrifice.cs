@@ -35,7 +35,7 @@ public class BraidSacrifice : Card, IModdedCard
     {
         List<CardAction> actions = new()
         {
-            new ACardSelectCopy()
+            new ACardSelectSacrifice()
             {
                 browseAction = new ASacrifice()
                 {
