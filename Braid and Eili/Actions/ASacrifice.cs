@@ -1,26 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FSPRO;
 
 namespace KBraid.BraidEili.Actions;
 
-public class ASacrifice : CardAction
+internal class ASacrifice : CardAction
 {
     public bool destroy;
-    public int multiplier;
-    public int myDamage;
     public override void Begin(G g, State s, Combat c)
     {
-    }
-    public override List<Tooltip> GetTooltips(State s)
-    {
-        return new List<Tooltip>()
+        Card? card = selectedCard;
+        if (card != null)
         {
-        //    (Tooltip) new TTGlossary(ModEntry.Instance.A?.Head ?? throw new Exception("Missing ACobraField_Glossary"), Array.Empty<object>())
-        };
+            card.temporaryOverride = true;
+            c.SendCardToExhaust(s, card);
+            if (destroy)
+                c.exhausted.Remove(card);
+        }
+        else
+        {
+            Audio.Play(Event.CardHandling);
+        }
     }
-
-    public override Icon? GetIcon(State s) => new Icon?(new Icon(ModEntry.Instance.AApplyTempArmor_Icon.Sprite, new int?(), Colors.textMain));
 }

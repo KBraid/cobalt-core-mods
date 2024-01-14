@@ -6,6 +6,7 @@ using KBraid.BraidEili.Actions;
 namespace KBraid.BraidEili.Cards;
 public class BraidSacrifice : Card, IModdedCard
 {
+    public int myDamage;
     public static void Register(IModHelper helper)
     {
         helper.Content.Cards.RegisterCard("Sacrifice", new()
@@ -20,6 +21,9 @@ public class BraidSacrifice : Card, IModdedCard
             Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "Sacrifice", "name"]).Localize
         });
     }
+    public void GetSacrificeDmg(State s, Card card)
+    {
+    }
     public override string Name() => "Sacrifice";
     public override CardData GetData(State state)
     {
@@ -32,50 +36,47 @@ public class BraidSacrifice : Card, IModdedCard
 
     public override List<CardAction> GetActions(State s, Combat c)
     {
+        /*myDamage = new ACardSelect()
+        {
+            browseAction = new ASacrifice()
+            {
+                destroy = false
+            },
+            browseSource = CardBrowse.Source.Hand
+        }.selectedCard.GetCurrentCost(s);*/
         List<CardAction> actions = new();
         switch (upgrade)
         {
             case Upgrade.None:
-                var sacrifice_energy1 = new ASacrifice()
-                {
-                    destroy = false,
-                    multiplier = 2
-                };
                 List<CardAction> cardActionList1 = new List<CardAction>()
                 {
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, sacrifice_energy1.myDamage)
-                    }
                 };
                 actions = cardActionList1;
                 break;
             case Upgrade.A:
-                var sacrifice_energy2 = new ASacrifice()
-                {
-                    destroy = false,
-                    multiplier = 2
-                };
                 List<CardAction> cardActionList2 = new List<CardAction>()
                 {
-                    new AAttack()
+                    new ACardSelect
                     {
-                        damage = GetDmg(s, sacrifice_energy2.myDamage)
+                        browseAction = new ASacrifice()
+                        {
+                            destroy = false
+                        },
+                        browseSource = CardBrowse.Source.Hand,
                     }
                 };
                 actions = cardActionList2;
                 break;
             case Upgrade.B:
-                var sacrifice_energy3 = new ASacrifice()
-                {
-                    destroy = true,
-                    multiplier = 3
-                };
                 List<CardAction> cardActionList3 = new List<CardAction>()
                 {
-                    new AAttack()
+                    new ACardSelect
                     {
-                        damage = GetDmg(s, sacrifice_energy3.myDamage)
+                        browseAction = new ASacrifice()
+                        {
+                            destroy = true
+                        },
+                        browseSource = CardBrowse.Source.Hand,
                     }
                 };
                 actions = cardActionList3;
