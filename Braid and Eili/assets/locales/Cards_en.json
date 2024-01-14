@@ -183,9 +183,14 @@
     "Inspiration": {
       "name": "Inspiration",
       "description": {
-        "None": "Pick a card from your hand and remove its <c=cardtrait>exhaust</c>.",
-        "A": "Pick a card from your hand and remove its <c=cardtrait>exhaust</c>.",
-        "B": "Pick a card from your <c=keyword>draw pile</c> and remove its <c=cardtrait>exhaust</c>."
+        "None": "Pick a card from your hand. It no longer <c=cardtrait>exhausts</c>.",
+        "A": "Pick a card from your hand. It no longer <c=cardtrait>exhausts</c>.",
+        "B": "Pick a card from your <c=keyword>deck</c>. It no longer <c=cardtrait>exhausts</c>."
+      },
+      "special": {
+        "None": "Remove <c=cardtrait>Exhaust</c> from a card in your hand.",
+        "A": "Remove <c=cardtrait>Exhaust</c> from a card in your hand.",
+        "B": "Remove <c=cardtrait>Exhaust</c> from a card in your hand, draw or discard pile."
       }
     },
     "TargettingScramble": {

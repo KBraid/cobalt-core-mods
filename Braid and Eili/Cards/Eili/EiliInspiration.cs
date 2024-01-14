@@ -1,6 +1,7 @@
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
+using KBraid.BraidEili.Actions;
 
 namespace KBraid.BraidEili.Cards;
 public class EiliInspiration : Card, IModdedCard
@@ -38,18 +39,48 @@ public class EiliInspiration : Card, IModdedCard
             case Upgrade.None:
                 List<CardAction> cardActionList1 = new List<CardAction>()
                 {
+                    new ACardSelect
+                    {
+                        filterExhaust = true,
+                        browseAction = new AInspiration()
+                        {
+                            permanent = true,
+                            upgrade = upgrade
+                        },
+                        browseSource = CardBrowse.Source.Hand
+                    }
                 };
                 actions = cardActionList1;
                 break;
             case Upgrade.A:
                 List<CardAction> cardActionList2 = new List<CardAction>()
                 {
+                    new ACardSelect
+                    {
+                        filterExhaust = true,
+                        browseAction = new AInspiration()
+                        {
+                            permanent = true,
+                            upgrade = upgrade
+                        },
+                        browseSource = CardBrowse.Source.Hand,
+                    }
                 };
                 actions = cardActionList2;
                 break;
             case Upgrade.B:
                 List<CardAction> cardActionList3 = new List<CardAction>()
                 {
+                    new ACardSelect
+                    {
+                        filterExhaust = true,
+                        browseAction = new AInspiration()
+                        {
+                            permanent = true,
+                            upgrade = upgrade
+                        },
+                        browseSource = CardBrowse.Source.Deck
+                    }
                 };
                 actions = cardActionList3;
                 break;
