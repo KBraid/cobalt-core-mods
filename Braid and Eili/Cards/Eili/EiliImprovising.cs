@@ -25,8 +25,8 @@ public class EiliImprovising : Card, IModdedCard
     {
         CardData data = new CardData();
         data.cost = 1;
-        data.exhaust = upgrade == Upgrade.B ? false : true;
-        data.retain = upgrade == Upgrade.B ? true : false;
+        data.exhaust = upgrade == Upgrade.A ? false : true;
+        data.retain = upgrade == Upgrade.A ? true : false;
         data.art = ModEntry.Instance.BasicBackground.Sprite;
         return data;
     }

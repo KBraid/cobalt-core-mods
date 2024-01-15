@@ -379,7 +379,9 @@ public sealed class ModEntry : SimpleMod
             Definition = new()
             {
                 icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/lostHull.png")).Sprite,
-                color = new("c0c9e6")
+                color = new("c0c9e6"),
+                isGood = true
+                
             },
             Name = this.AnyLocalizations.Bind(["status", "LostHull", "name"]).Localize,
             Description = this.AnyLocalizations.Bind(["status", "LostHull", "description"]).Localize
@@ -417,6 +419,7 @@ public sealed class ModEntry : SimpleMod
         Helper.Content.Characters.RegisterCharacter("Eili", new()
         {
             Deck = EiliDeck.Deck,
+            //StartLocked = true,
             Description = this.AnyLocalizations.Bind(["character", "Eili", "description"]).Localize,
             BorderSprite = Sprites["eili_panel"].Sprite,
             StarterCardTypes = EiliStarterCardTypes,
@@ -443,6 +446,7 @@ public sealed class ModEntry : SimpleMod
         Helper.Content.Characters.RegisterCharacter("Braid", new()
         {
             Deck = BraidDeck.Deck,
+            //StartLocked = true,
             Description = this.AnyLocalizations.Bind(["character", "Braid", "description"]).Localize,
             BorderSprite = Sprites["braid_panel"].Sprite,
             StarterCardTypes = BraidStarterCardTypes,
@@ -817,6 +821,8 @@ public sealed class ModEntry : SimpleMod
             }
         );
 
+        // CHARACTER UNLOCK
+        _ = new UnlockCharactersManager();
         // TRANSPILER STUFF
         _ = new EqualPaybackManager();
     }

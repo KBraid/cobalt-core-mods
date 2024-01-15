@@ -21,7 +21,7 @@ public class EiliIdentifyWeakspot : Card, IModdedCard
             Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "IdentifyWeakspot", "name"]).Localize
         });
     }
-    public override string Name() => "IdentifyWeakspot";
+    public override string Name() => "Identify Weakspot";
 
     public override CardData GetData(State state)
     {
