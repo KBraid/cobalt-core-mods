@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using Nickel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,19 @@ internal sealed class UnlockCharactersManager
             original: AccessTools.DeclaredMethod(typeof(StoryVars), nameof(StoryVars.GetUnlockedChars)),
             prefix: new HarmonyMethod(GetType(), nameof(StoryVars_GetUnlockedChars_Prefix))
         );
+        ModEntry.Instance.Helper.Events.OnLoadStringsForLocale += EiliLockedLocale;
+        ModEntry.Instance.Helper.Events.OnLoadStringsForLocale += BraidLockedLocale;
     }
+
+    private void EiliLockedLocale(object? sender, Nickel.LoadStringsForLocaleEventArgs e)
+    {
+        e.Localizations[$"char.{ModEntry.Instance.EiliDeck.Deck}.desc.locked"] = ModEntry.Instance.AnyLocalizations.Bind(["character", "Eili", "locked"]).Localize(e.Locale) ?? "???";
+    }
+    private void BraidLockedLocale(object? sender, Nickel.LoadStringsForLocaleEventArgs e)
+    {
+        e.Localizations[$"char.{ModEntry.Instance.BraidDeck.Deck}.desc.locked"] = ModEntry.Instance.AnyLocalizations.Bind(["character", "Braid", "locked"]).Localize(e.Locale) ?? "???";
+    }
+
     private static void StoryVars_RecordRunWin_Prefix(
         StoryVars __instance, 
         State state)

@@ -2,13 +2,13 @@
   "character": {
     "Eili": {
       "name": "Eili",
-      "description": "<c=42add1>Eili</c>\nA bubbly little fellow who <c=keyword>loves to help others<c> with her <c=keyword>excentric solutions</c>.",
-      "locked": "<c=42add1>Eili</c>\nWin 5 runs to unlock <c=42add1>Eili</c>."
+      "description": "<c=42add1>EILI</c>\nA bubbly little fellow who <c=keyword>loves to help others<c> with her <c=keyword>excentric solutions</c>.",
+      "locked": "<c=42add1>EILI</c>\nWin 5 runs to unlock <c=42add1>Eili</c>!"
     },
     "Braid": {
       "name": "Braid",
-      "description": "<c=c0c9e6>Braid</c>\nA soldier who knows when victory necessitates <c=downside>sacrifice</c>.",
-      "locked": "<c=c0c9e6>Braid</c>\nWin a run with <c=42add1>Eili</c> to unlock <c=c0c9e6>Braid</c>."
+      "description": "<c=c0c9e6>BRAID</c>\nA soldier who knows when victory necessitates <c=downside>sacrifice</c>.",
+      "locked": "<c=c0c9e6>BRAID</c>\nWin a run with <c=42add1>Eili</c> to unlock <c=c0c9e6>Braid</c>!"
     }
   },
   "status": {

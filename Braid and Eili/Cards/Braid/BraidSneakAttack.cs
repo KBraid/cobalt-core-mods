@@ -52,6 +52,7 @@ public class BraidSneakAttack : Card, IModdedCard
                     new AAttack()
                     {
                         damage = GetDmg(s, s.ship.Get(Status.evade)),
+                        xHint = 1,
                     },
                     new AStatus()
                     {
@@ -79,6 +80,7 @@ public class BraidSneakAttack : Card, IModdedCard
                     new AAttack()
                     {
                         damage = GetDmg(s, s.ship.Get(Status.evade)),
+                        xHint = 1,
                     },
                     new AStatus()
                     {
@@ -106,6 +108,7 @@ public class BraidSneakAttack : Card, IModdedCard
                     new AAttack()
                     {
                         damage = GetDmg(s, s.ship.Get(Status.evade)),
+                        xHint = 1,
                     }
                 };
                 actions = cardActionList3;

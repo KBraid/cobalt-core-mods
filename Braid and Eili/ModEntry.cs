@@ -26,6 +26,7 @@ namespace KBraid.BraidEili;
  * DONE : ASacrifice Action + Extensions + ACardSelectSacrifice
  * DONE : ALaunchMidrow Action + AEnemyVolleySpawnFromAllMissileBays Action
  * REMAINING STUFF TO-DO
+ * Shove It move should be RANDOM
  * AApplyTempBrittle Action 
  *                      -if IsRandom, choose random enemy part and give it new TempBrittle.
  *                      -if !IsRandom, part in front of active cannon gets it, remove TempBrittle on hit
@@ -40,6 +41,7 @@ namespace KBraid.BraidEili;
  */
 public sealed class ModEntry : SimpleMod
 {
+    internal bool LockedChar = true;
     internal static ModEntry Instance { get; private set; } = null!;
     internal Harmony Harmony { get; }
     internal IKokoroApi KokoroApi { get; }
@@ -269,20 +271,20 @@ public sealed class ModEntry : SimpleMod
         }
 
         // Register decks
-        BraidDeck = Helper.Content.Decks.RegisterDeck("Braid", new()
-        {
-            Definition = new() { color = BraidColor, titleColor = BraidCardTitleColor },
-            DefaultCardArt = BasicBackground.Sprite,
-            BorderSprite = Sprites["braid_border"].Sprite,
-            Name = this.AnyLocalizations.Bind(["character", "Braid", "name"]).Localize
-        });
 
         EiliDeck = Helper.Content.Decks.RegisterDeck("Eili", new()
         {
             Definition = new() { color = EiliColor, titleColor = EiliCardTitleColor },
             DefaultCardArt = BasicBackground.Sprite,
             BorderSprite = Sprites["eili_border"].Sprite,
-            Name = this.AnyLocalizations.Bind(["character", "Eili", "name"]).Localize
+            Name = this.AnyLocalizations.Bind(["character", "Eili", "name"]).Localize,
+        });
+        BraidDeck = Helper.Content.Decks.RegisterDeck("Braid", new()
+        {
+            Definition = new() { color = BraidColor, titleColor = BraidCardTitleColor },
+            DefaultCardArt = BasicBackground.Sprite,
+            BorderSprite = Sprites["braid_border"].Sprite,
+            Name = this.AnyLocalizations.Bind(["character", "Braid", "name"]).Localize
         });
 
         // Register statuses
@@ -419,7 +421,7 @@ public sealed class ModEntry : SimpleMod
         Helper.Content.Characters.RegisterCharacter("Eili", new()
         {
             Deck = EiliDeck.Deck,
-            //StartLocked = true,
+            StartLocked = LockedChar,
             Description = this.AnyLocalizations.Bind(["character", "Eili", "description"]).Localize,
             BorderSprite = Sprites["eili_panel"].Sprite,
             StarterCardTypes = EiliStarterCardTypes,
@@ -446,7 +448,7 @@ public sealed class ModEntry : SimpleMod
         Helper.Content.Characters.RegisterCharacter("Braid", new()
         {
             Deck = BraidDeck.Deck,
-            //StartLocked = true,
+            StartLocked = LockedChar,
             Description = this.AnyLocalizations.Bind(["character", "Braid", "description"]).Localize,
             BorderSprite = Sprites["braid_panel"].Sprite,
             StarterCardTypes = BraidStarterCardTypes,
@@ -470,6 +472,7 @@ public sealed class ModEntry : SimpleMod
                 ]
             },
         });
+
         //Register Extra Animations
         Helper.Content.Characters.RegisterCharacterAnimation(
             "gameover",
@@ -820,7 +823,6 @@ public sealed class ModEntry : SimpleMod
                 ]
             }
         );
-
         // CHARACTER UNLOCK
         _ = new UnlockCharactersManager();
         // TRANSPILER STUFF
