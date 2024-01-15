@@ -23,7 +23,7 @@ internal sealed class ResolveManager : IStatusLogicHook
     {
         if (__instance.Get(ModEntry.Instance.Resolve.Status) <= 0)
             return;
-        if (amt >= __instance.hull)
+        if (amt >= __instance.hull && __instance.hullMax > 1)
         {
             __state = amt - __instance.hull;
             if (__state == 0)
