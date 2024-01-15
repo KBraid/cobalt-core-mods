@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace KBraid.BraidEili;
+﻿namespace KBraid.BraidEili;
 
 // Code from Eddie mod
 internal static class Extensions
@@ -49,36 +45,5 @@ internal static class Extensions
         {
             damage = card.GetDmg(s, multiplier * cost)
         });
-    }
-
-    public static void QueueImmediate<T>(this List<T> source, T item)
-    {
-        source.Insert(0, item);
-    }
-
-    public static void Queue<T>(this List<T> source, T item)
-    {
-        source.Add(item);
-    }
-    public static T GetModulo<T>(this T[] arr, int index)
-    {
-        return arr[Mutil.Mod(index, arr.Length)];
-    }
-
-    public static T Random<T>(this List<T> list, Rand rng)
-    {
-        return list[rng.NextInt() % list.Count];
-    }
-
-    public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source)
-    {
-        Random rnd = new Random();
-        return source.OrderBy((T item) => rnd.Next());
-    }
-
-    public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source, Rand rng)
-    {
-        Rand rng2 = rng;
-        return source.OrderBy((T item) => rng2.NextInt());
     }
 }

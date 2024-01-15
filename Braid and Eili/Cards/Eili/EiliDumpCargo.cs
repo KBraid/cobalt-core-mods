@@ -15,8 +15,7 @@ public class EiliDumpCargo : Card, IModdedCard
             {
                 deck = ModEntry.Instance.EiliDeck.Deck,
                 rarity = Rarity.rare,
-                upgradesTo = [Upgrade.A, Upgrade.B],
-                unreleased = true
+                upgradesTo = [Upgrade.A, Upgrade.B]
             },
             Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "DumpCargo", "name"]).Localize
         });
@@ -44,7 +43,7 @@ public class EiliDumpCargo : Card, IModdedCard
                 {
                     new ALaunchMidrow()
                     {
-                        MidrowType = 0
+                        thing = new Asteroid()
                     }
                 };
                 actions = cardActionList1;
@@ -54,7 +53,7 @@ public class EiliDumpCargo : Card, IModdedCard
                 {
                     new ALaunchMidrow()
                     {
-                        MidrowType = 1
+                        thing = new SpaceMine()
                     }
                 };
                 actions = cardActionList2;
@@ -64,7 +63,7 @@ public class EiliDumpCargo : Card, IModdedCard
                 {
                     new ALaunchMidrow()
                     {
-                        MidrowType = 2
+                        thing = new Missile()
                     }
                 };
                 actions = cardActionList3;

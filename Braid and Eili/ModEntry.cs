@@ -55,6 +55,10 @@ public sealed class ModEntry : SimpleMod
     internal ISpriteEntry ASacrificePermanent { get; }
     internal ISpriteEntry AApplyTempBrittle_Icon { get; }
     internal ISpriteEntry AApplyTempArmor_Icon { get; }
+    
+    //internal ISpriteEntry EiliUncommonBorder { get; }
+    //internal ISpriteEntry EiliRareBorder { get; }
+    
     internal IStatusEntry DisabledDampeners { get; }
     internal IStatusEntry ShockAbsorber { get; }
     internal IStatusEntry TempShieldNextTurn { get; }
@@ -229,7 +233,10 @@ public sealed class ModEntry : SimpleMod
         ASacrificePermanent = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/sacrificePermanent.png"));
         AApplyTempBrittle_Icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/disabledDampeners.png"));
         AApplyTempArmor_Icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/disabledDampeners.png"));
-
+        
+        //EiliUncommonBorder = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/cardShared/border_eili_uncommon.png"));
+        //EiliRareBorder = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/cardShared/border_eili_rare.png"));
+        
         // Register sprites
         foreach (string name in charNames)
         {
@@ -399,6 +406,7 @@ public sealed class ModEntry : SimpleMod
             Name = this.AnyLocalizations.Bind(["status", "Retreat", "name"]).Localize,
             Description = this.AnyLocalizations.Bind(["status", "Retreat", "description"]).Localize
         });
+
         // Register cards
         foreach (var cardType in BraidCardTypes)
             AccessTools.DeclaredMethod(cardType, nameof(IModdedCard.Register))?.Invoke(null, [helper]);

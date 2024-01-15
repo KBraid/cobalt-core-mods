@@ -9,6 +9,8 @@ internal sealed class RetreatManager : IStatusLogicHook
     }
     public bool? IsAffectedByBoost(State state, Combat combat, Ship ship, Status status)
     {
+        if (status != ModEntry.Instance.Retreat.Status)
+            return null;
         return false;
     }
     public bool HandleStatusTurnAutoStep(State state, Combat combat, StatusTurnTriggerTiming timing, Ship ship, Status status, ref int amount, ref StatusTurnAutoStepSetStrategy setStrategy)
