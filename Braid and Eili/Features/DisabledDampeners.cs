@@ -18,30 +18,53 @@ internal sealed class DisabledDampenersManager : IStatusLogicHook
             prefix: new HarmonyMethod(GetType(), nameof(Ship_DirectHullDamage_Prefix))
         );
     }
-
     private static void Ship_NormalDamage_Prefix(
         Ship __instance,
+        State s,
         Combat c,
+        int incomingDamage,
+        int? maybeWorldGridX,
         bool piercing = false)
     {
         if (__instance.Get(ModEntry.Instance.DisabledDampeners.Status) <= 0)
             return;
+
+        int num = incomingDamage;
+        if (maybeWorldGridX.HasValue)
+        {
+            int valueOrDefault = maybeWorldGridX.GetValueOrDefault();
+            Part? part = __instance.GetPartAtWorldX(valueOrDefault);
+            if (part != null)
+            {
+                num = __instance.ModifyDamageDueToParts(s, c, incomingDamage, part, piercing);
+            }
+        }
+        if (num == 0)
+            return;
         if (!piercing)
         {
-            var shl = __instance.Get(Status.shield) + __instance.Get(Status.tempShield);
-            if (shl > 0)
+            int num2 = __instance.Get(Status.shield) + __instance.Get(Status.tempShield);
+            if (num2 <= 0)
+                return;
+            int num3 = num - num2;
+            int num4 = num;
+            if (num3 > 0)
+                num4 = num3;
+            else if (num3 < 0)
+                num4 = -1 * num3;
+            if (num4 != 0)
             {
                 var disabledDampeners = ModEntry.Instance.DisabledDampeners.Status;
                 __instance.PulseStatus(disabledDampeners);
                 c.QueueImmediate(new AStatus()
                 {
                     status = Status.evade,
-                    statusAmount = shl * __instance.Get(disabledDampeners),
+                    statusAmount = num4 * __instance.Get(disabledDampeners),
                     targetPlayer = __instance.isPlayerShip
                 });
                 c.QueueImmediate(new AMove()
                 {
-                    dir = shl * __instance.Get(disabledDampeners),
+                    dir = num4 * __instance.Get(disabledDampeners),
                     isRandom = true,
                     targetPlayer = __instance.isPlayerShip
                 });
