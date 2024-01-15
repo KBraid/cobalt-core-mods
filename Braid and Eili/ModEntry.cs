@@ -24,6 +24,7 @@ namespace KBraid.BraidEili;
  *        ISSUE: No retreat animation
  * DONE : AInspiration Action
  * DONE : ASacrifice Action + Extensions + ACardSelectSacrifice
+ * DONE : ALaunchMidrow Action + AEnemyVolleySpawnFromAllMissileBays Action
  * REMAINING STUFF TO-DO
  * AApplyTempBrittle Action 
  *                      -if IsRandom, choose random enemy part and give it new TempBrittle.
@@ -31,7 +32,6 @@ namespace KBraid.BraidEili;
  * -new TempBrittle dmg modifier
  * AApplyTempArmor Action -keep track of current part dmg modifiers, apply new TempArmor dmg modifier until start of turn
  * -new TempArmor dmg modifier
- * ALaunchMidrow Action -find a way to add enemy intent mid-turn, active specific intents
  * Eili Artifacts
  * Braid Artifacts
  * Unlock Req:   Eili : Win 5 times
