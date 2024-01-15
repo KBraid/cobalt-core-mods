@@ -1,9 +1,4 @@
-﻿using FSPRO;
-using Nickel;
-using System;
-using System.Collections.Generic;
-
-namespace KBraid.BraidEili.Actions;
+﻿namespace KBraid.BraidEili.Actions;
 
 internal class ASacrifice : CardAction
 {

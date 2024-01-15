@@ -224,7 +224,7 @@ public sealed class ModEntry : SimpleMod
         
         this.AnyLocalizations = new JsonLocalizationProvider(
             tokenExtractor: new SimpleLocalizationTokenExtractor(),
-            localeStreamFunction: locale => package.PackageRoot.GetRelativeFile($"assets/locales/Cards_{locale}.json").OpenRead()
+            localeStreamFunction: locale => package.PackageRoot.GetRelativeFile($"assets/locales/{locale}.json").OpenRead()
         );
         this.Localizations = new MissingPlaceholderLocalizationProvider<IReadOnlyList<string>>(
             new CurrentLocaleOrEnglishLocalizationProvider<IReadOnlyList<string>>(this.AnyLocalizations)
