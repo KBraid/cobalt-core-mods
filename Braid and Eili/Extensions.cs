@@ -46,4 +46,14 @@ internal static class Extensions
             damage = card.GetDmg(s, multiplier * cost)
         });
     }
+    public static int GetRandomNonEmptyPart(State s, Combat c, bool targetPlayer)
+    {
+        var ship = targetPlayer ? s.ship : c.otherShip;
+        var rng = new Rand().Next();
+        for (var partIndex = 0; partIndex < ship.parts.Count; partIndex++)
+            if (rng < (partIndex + 1) / (ship.parts.Count) && (ship.parts[partIndex].type != PType.empty))
+                return partIndex;
+        return 0;
+    }
+
 }

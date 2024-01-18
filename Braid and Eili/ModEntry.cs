@@ -25,23 +25,20 @@ namespace KBraid.BraidEili;
  * DONE : AInspiration Action
  * DONE : ASacrifice Action + Extensions + ACardSelectSacrifice
  * DONE : ALaunchMidrow Action + AEnemyVolleySpawnFromAllMissileBays Action
+ * DONE : ATempBrittlePart Action + ATempBrittleAttack Action
+ * DONE : ATempArmorPart Action
+ * DONE : Unlock Req:   Eili : Win 5 times
+ *                      Braid : Win with Eili
  * REMAINING STUFF TO-DO
  * Shove It move should be RANDOM
- * AApplyTempBrittle Action 
- *                      -if IsRandom, choose random enemy part and give it new TempBrittle.
- *                      -if !IsRandom, part in front of active cannon gets it, remove TempBrittle on hit
- * -new TempBrittle dmg modifier
- * AApplyTempArmor Action -keep track of current part dmg modifiers, apply new TempArmor dmg modifier until start of turn
- * -new TempArmor dmg modifier
  * Eili Artifacts
  * Braid Artifacts
- * Unlock Req:   Eili : Win 5 times
- *              Braid : Win with Eili
  * Story
  */
 public sealed class ModEntry : SimpleMod
 {
-    internal bool LockedChar = true;
+    public static string Name => "KBraid.BraidEili";
+    internal bool LockedChar = false;
     internal static ModEntry Instance { get; private set; } = null!;
     internal Harmony Harmony { get; }
     internal IKokoroApi KokoroApi { get; }
@@ -72,6 +69,7 @@ public sealed class ModEntry : SimpleMod
     internal IStatusEntry LostHull { get; }
     internal IStatusEntry Resolve { get; }
     internal IStatusEntry Retreat { get; }
+    internal IStatusEntry EngineStallNextTurn { get; }
     internal IList<string> faceSprites { get; } = [
         "blink",
         "crystallized",
@@ -171,16 +169,16 @@ public sealed class ModEntry : SimpleMod
         typeof(BraidResolve),
         typeof(BraidRetreat),
     ];
-    internal static IReadOnlyList<Type> BraidCommonArtifactTypes { get; } = [
-
-    ];
-    internal static IReadOnlyList<Type> BraidBossArtifactTypes { get; } = [
-
-    ];
     internal static IReadOnlyList<Type> EiliCommonArtifactTypes { get; } = [
 
     ];
     internal static IReadOnlyList<Type> EiliBossArtifactTypes { get; } = [
+
+    ];
+    internal static IReadOnlyList<Type> BraidCommonArtifactTypes { get; } = [
+
+    ];
+    internal static IReadOnlyList<Type> BraidBossArtifactTypes { get; } = [
 
     ];
 
@@ -221,20 +219,21 @@ public sealed class ModEntry : SimpleMod
         _ = new LostHullManager();
         _ = new ResolveManager();
         _ = new RetreatManager();
+        _ = new EngineStallNextTurnManager();
 
         CustomTTGlossary.ApplyPatches(Harmony);
         
         this.AnyLocalizations = new JsonLocalizationProvider(
             tokenExtractor: new SimpleLocalizationTokenExtractor(),
-            localeStreamFunction: locale => package.PackageRoot.GetRelativeFile($"assets/locales/{locale}.json").OpenRead()
+            localeStreamFunction: locale => package.PackageRoot.GetRelativeFile($"i18n/{locale}.json").OpenRead()
         );
         this.Localizations = new MissingPlaceholderLocalizationProvider<IReadOnlyList<string>>(
             new CurrentLocaleOrEnglishLocalizationProvider<IReadOnlyList<string>>(this.AnyLocalizations)
         );
-        BasicBackground = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/cards/empty_backgroud.png"));
+        BasicBackground = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/cards/empty_backgroud.png"));
         ASacrificePermanent = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/sacrificePermanent.png"));
-        AApplyTempBrittle_Icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/disabledDampeners.png"));
-        AApplyTempArmor_Icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/disabledDampeners.png"));
+        AApplyTempBrittle_Icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/tempBrittle.png"));
+        AApplyTempArmor_Icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/tempArmorAction.png"));
         
         //EiliUncommonBorder = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/cardShared/border_eili_uncommon.png"));
         //EiliRareBorder = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/cardShared/border_eili_rare.png"));
@@ -409,6 +408,17 @@ public sealed class ModEntry : SimpleMod
             },
             Name = this.AnyLocalizations.Bind(["status", "Retreat", "name"]).Localize,
             Description = this.AnyLocalizations.Bind(["status", "Retreat", "description"]).Localize
+        });
+        EngineStallNextTurn = Helper.Content.Statuses.RegisterStatus("EngineStallNextTurn", new()
+        {
+            Definition = new()
+            {
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/engineStallNextTurn.png")).Sprite,
+                color = new("c0c9e6"),
+                isGood = false
+            },
+            Name = this.AnyLocalizations.Bind(["status", "EngineStallNextTurn", "name"]).Localize,
+            Description = this.AnyLocalizations.Bind(["status", "EngineStallNextTurn", "description"]).Localize
         });
 
         // Register cards

@@ -75,6 +75,11 @@
     "Retreat": {
       "name": "Retreat",
       "description": "<c=keyword>End combat on turn start</c> and skip all rewards."
+    },
+    "EngineStallNextTurn": {
+      "name": "Engine Stall Next Turn",
+      "description": "At the start of next turn, gain <c=status>ENGINE STALL</c>.",
+      "combatDescription": "At the start of next turn, gain <c=boldPink>{[Amount]}</c> <c=status>ENGINE STALL</c>."
     }
   },
   "cardtrait": {
@@ -107,6 +112,17 @@
           ]
         }
       }
+    }
+  },
+  "action": {
+    "TempBrittle": {
+      "name": "Lesser Brittle",
+      "description": "This type of brittle goes away after damaged."
+    },
+    "TempArmor": {
+      "name": "Temp Armor",
+      "description": "This type of armor will last until end of combat.",
+      "altdescription": "This type of armor only lasts a short while."
     }
   },
   "card": {
@@ -157,21 +173,26 @@
     },
     "IdentifyWeakspot": {
       "name": "Identify Weakspot",
-      "description": "A random enemy ship part gains Brittle until damaged."
+      "description": "A random enemy ship part gains <c=redd>Brittle</c> until damaged."
     },
     "ExtraPlating": {
       "name": "Extra Plating",
       "description": {
         "None": "A random ship part gains Armor until end of combat.",
         "A": "A random ship part gains Armor until end of combat.",
-        "B": "All ship parts gain Armor until next turn."
+        "B": "All your ship parts gain Armor until next turn."
       }
     },
     "SpeedIsSafety": {
       "name": "Speed Is Safety"
     },
     "HullCrack": {
-      "name": "Hull Crack"
+      "name": "Hull Crack",
+      "description": {
+        "None": "Pierce for 1. Apply <c=redd>Brittle</c> until damaged.",
+        "A": "Pierce for 1. Apply <c=redd>Brittle</c> until damaged.",
+        "B": "Pierce for 1. Apply <c=redd>Brittle</c>."
+      }
     },
     "AnchorShot": {
       "name": "Anchor Shot"
