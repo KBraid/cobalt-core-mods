@@ -13,7 +13,7 @@ public class BraidSneakAttack : Card, IModdedCard
             Meta = new()
             {
                 deck = ModEntry.Instance.BraidDeck.Deck,
-                rarity = Rarity.uncommon,
+                rarity = Rarity.common,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
             Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "SneakAttack", "name"]).Localize
