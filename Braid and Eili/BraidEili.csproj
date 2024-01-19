@@ -13,10 +13,8 @@
 		<CheckEolTargetFramework>false</CheckEolTargetFramework>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Nickel.ModBuildConfig" Version="0.4.0-prerelease1" />
-		<PackageReference Include="Nanoray.ExtractSingleFileApplicationResourceTask" Version="1.0.0" PrivateAssets="All" ExcludeAssets="runtime" />
+		<PackageReference Include="Nickel.ModBuildConfig" Version="0.4.0" />
 		<PackageReference Include="MakeTypesPublic" Version="1.0.3" PrivateAssets="All" ExcludeAssets="runtime" />
-		<PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" PrivateAssets="All" ExcludeAssets="runtime" />
 		<PackageReference Include="EnumByNameSourceGenerator" Version="1.1.1" PrivateAssets="All" ExcludeAssets="runtime" />
 	</ItemGroup>
 </Project>
