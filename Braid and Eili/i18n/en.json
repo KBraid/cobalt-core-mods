@@ -80,6 +80,11 @@
       "name": "Engine Stall Next Turn",
       "description": "At the start of next turn, gain <c=status>ENGINE STALL</c>.",
       "combatDescription": "At the start of next turn, gain <c=boldPink>{[Amount]}</c> <c=status>ENGINE STALL</c>."
+    },
+    "BusterCharge": {
+      "name": "Buster Charge",
+      "description": "Power up <c=card>Buster Shot</c>.",
+      "combatDescription": "Power up <c=card>Buster Shot</c>."
     }
   },
   "cardtrait": {
@@ -122,7 +127,11 @@
     "TempArmor": {
       "name": "Temp Armor",
       "description": "This type of armor will last until end of combat.",
-      "altdescription": "This type of armor only lasts a short while."
+      "altDescription": "This type of armor only lasts a short while."
+    },
+    "AAttackRandomMove": {
+      "name": "Random Shove",
+      "description": "Move the enemy randomly."
     }
   },
   "card": {
@@ -145,7 +154,8 @@
       "name": "Pummel"
     },
     "ShoveIt": {
-      "name": "ShoveIt"
+      "name": "ShoveIt",
+      "description": "Attack for <c=boldPink>{{Damage}}</c>. If it hits, move the enemy <c=boldPink>{{Move}}</c> randomly."
     },
     "Bap": {
       "name": "Bap"
@@ -237,8 +247,19 @@
         "B": "You and the enemy both lauch <c=midrow>missiles</c> from all missile bays."
       }
     },
-    "InductionCoils": {
-      "name": "Induction Coils"
+    "BusterCannon": {
+      "name": "Buster Cannon",
+      "description": {
+        "None": "Gain 2 <c=status>b. charge</c>. Add <c=boldPink>2</c> <c=card>B. Charge</c> & a <c=card>B. Shot</c> to your <c=keyword>draw pile</c>.",
+        "A": "Gain 2 <c=status>b. charge</c>. Add <c=boldPink>3</c> <c=card>B. Charge A</c> & a <c=card>B. Shot</c> to your <c=keyword>draw</c>.",
+        "B": "Gain 2 <c=status>b. charge</c>. Add <c=boldPink>a</c> <c=card>B. Charge B</c> to <c=keyword>hand</c> & a <c=card>B. Shot</c> to <c=keyword>draw</c>."
+      }
+    },
+    "BusterCharge": {
+      "name": "Buster Charge"
+    },
+    "BusterShot": {
+      "name": "Buster Shot"
     },
     "ChargeBlast": {
       "name": "Charge Blast",
