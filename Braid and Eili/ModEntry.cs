@@ -35,7 +35,7 @@ namespace KBraid.BraidEili;
  * Eili Artifacts
  * Braid Artifacts
  * Story
- * Find a better way to do custom Shove It render. Currently using clay's ATooltipDummy
+ * Find a better way to do custom Shove It render. Currently using text
  */
 public sealed class ModEntry : SimpleMod
 {
