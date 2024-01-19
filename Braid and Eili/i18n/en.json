@@ -154,7 +154,7 @@
       "name": "Pummel"
     },
     "ShoveIt": {
-      "name": "ShoveIt",
+      "name": "Shove It",
       "description": "Attack for <c=boldPink>{{Damage}}</c>. If it hits, move the enemy <c=boldPink>{{Move}}</c> randomly."
     },
     "Bap": {
