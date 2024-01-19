@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using KBraid.BraidEili.Cards;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace KBraid.BraidEili.Actions;
@@ -16,22 +17,50 @@ public sealed class ATempArmorPart : CardAction
     public override void Begin(G g, State s, Combat c)
     {
         base.Begin(g, s, c);
-        timer = 0;
-
-        var ship = TargetPlayer ? s.ship : c.otherShip;
-        if (ship.GetPartAtWorldX(WorldX) is not { } part || part.damageModifier == PDamMod.armor)
-            return;
-        var damageType = "DamageModifierBeforeExtraPlatingCombat";
         if (onlyOneTurn)
-            damageType = "DamageModifierBeforeExtraPlatingTemp";
-        ModEntry.Instance.KokoroApi.SetExtensionData(part, damageType, part.damageModifier);
-        c.QueueImmediate(new AArmor
         {
-            targetPlayer = TargetPlayer,
-            worldX = WorldX,
-            omitFromTooltips = true,
-        });
+            timer = 0;
+        }
+        var ship = TargetPlayer ? s.ship : c.otherShip;
+        if (ship.GetPartAtWorldX(WorldX) is not { } part)
+            return;
+
+        if (part.damageModifier != PDamMod.armor)
+        {
+            if (onlyOneTurn)
+            {
+                part.SetDamageModifierBeforeTempArmor(part.damageModifier);
+            }
+            else
+            {
+                part.SetDamageModifierBeforeFullCombatArmor(part.damageModifier);
+            }
+            c.QueueImmediate(new AArmor
+            {
+                targetPlayer = TargetPlayer,
+                worldX = WorldX
+            });
+        }
+        if (part.damageModifierOverrideWhileActive is not null && part.damageModifierOverrideWhileActive != PDamMod.armor)
+        {
+            if (onlyOneTurn)
+            {
+                part.SetDamageModifierOverrideWhileActiveBeforeTempArmor(part.damageModifierOverrideWhileActive);
+            }
+            else
+            {
+
+                part.SetDamageModifierOverrideWhileActiveBeforeFullCombatArmor(part.damageModifierOverrideWhileActive);
+            }
+            c.QueueImmediate(new AArmor
+            {
+                targetPlayer = TargetPlayer,
+                worldX = WorldX,
+                justTheActiveOverride = true
+            });
+        }
     }
+
     public override List<Tooltip> GetTooltips(State s)
     {
         List<Tooltip> list = new List<Tooltip>()

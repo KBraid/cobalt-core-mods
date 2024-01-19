@@ -20,18 +20,6 @@ public class EiliHullCrack : Card, IModdedCard
             },
             Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "HullCrack", "name"]).Localize
         });
-        helper.Events.RegisterBeforeArtifactsHook(nameof(Artifact.OnEnemyGetHit), (State s, Combat c) =>
-        {
-            var ship = c.otherShip;
-            foreach (var part in ((IEnumerable<Part>)ship.parts).Reverse())
-            {
-                if (!ModEntry.Instance.KokoroApi.TryGetExtensionData(part, "DamageModifierBeforeTempBrittle", out PDamMod damageModifierBeforeTempBrittle))
-                    continue;
-                ModEntry.Instance.KokoroApi.RemoveExtensionData(part, "DamageModifierBeforeTempBrittle");
-                if (part.damageModifier == PDamMod.brittle)
-                    part.damageModifier = damageModifierBeforeTempBrittle;
-            }
-        }, 0);
     }
     public override string Name() => "Hull Crack";
 

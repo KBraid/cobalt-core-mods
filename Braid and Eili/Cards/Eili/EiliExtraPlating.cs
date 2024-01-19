@@ -5,6 +5,32 @@ using System.Linq;
 using System.Reflection;
 
 namespace KBraid.BraidEili.Cards;
+internal static class TempArmorExt
+{
+    public static PDamMod? GetDamageModifierBeforeTempArmor(this Part self)
+        => ModEntry.Instance.Helper.ModData.GetOptionalModData<PDamMod>(self, "DamageModifierBeforeTempArmor");
+
+    public static void SetDamageModifierBeforeTempArmor(this Part self, PDamMod? value)
+        => ModEntry.Instance.Helper.ModData.SetOptionalModData(self, "DamageModifierBeforeTempArmor", value);
+
+    public static PDamMod? GetDamageModifierOverrideWhileActiveBeforeTempArmor(this Part self)
+        => ModEntry.Instance.Helper.ModData.GetOptionalModData<PDamMod>(self, "DamageModifierOverrideWhileActiveBeforeTempArmor");
+
+    public static void SetDamageModifierOverrideWhileActiveBeforeTempArmor(this Part self, PDamMod? value)
+        => ModEntry.Instance.Helper.ModData.SetOptionalModData(self, "DamageModifierOverrideWhileActiveBeforeTempArmor", value);
+    public static PDamMod? GetDamageModifierBeforeFullCombatArmor(this Part self)
+        => ModEntry.Instance.Helper.ModData.GetOptionalModData<PDamMod>(self, "DamageModifierBeforeFullCombatArmor");
+
+    public static void SetDamageModifierBeforeFullCombatArmor(this Part self, PDamMod? value)
+        => ModEntry.Instance.Helper.ModData.SetOptionalModData(self, "DamageModifierBeforeFullCombatArmor", value);
+
+    public static PDamMod? GetDamageModifierOverrideWhileActiveBeforeFullCombatArmor(this Part self)
+        => ModEntry.Instance.Helper.ModData.GetOptionalModData<PDamMod>(self, "DamageModifierOverrideWhileActiveBeforeFullCombatArmor");
+
+    public static void SetDamageModifierOverrideWhileActiveBeforeFullCombatArmor(this Part self, PDamMod? value)
+        => ModEntry.Instance.Helper.ModData.SetOptionalModData(self, "DamageModifierOverrideWhileActiveBeforeFullCombatArmor", value);
+}
+
 public class EiliExtraPlating : Card, IModdedCard
 {
     public static void Register(IModHelper helper)
@@ -20,30 +46,44 @@ public class EiliExtraPlating : Card, IModdedCard
             },
             Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "ExtraPlating", "name"]).Localize
         });
-        helper.Events.RegisterBeforeArtifactsHook(nameof(Artifact.OnCombatEnd), (State s) =>
+        helper.Events.RegisterBeforeArtifactsHook(nameof(Artifact.OnTurnStart), (State state, Combat combat) =>
         {
-            var ship = s.ship;
-            foreach (var part in ((IEnumerable<Part>)ship.parts).Reverse())
+            if (!combat.isPlayerTurn)
+                return;
+
+            List<Ship> ships = [state.ship, combat.otherShip];
+            foreach (var ship in ships)
             {
-                if (!ModEntry.Instance.KokoroApi.TryGetExtensionData(part, "DamageModifierBeforeExtraPlatingCombat", out PDamMod damageModifierBeforeExtraPlatingCombat))
-                    continue;
-                ModEntry.Instance.KokoroApi.RemoveExtensionData(part, "DamageModifierBeforeExtraPlatingCombat");
-                if (part.damageModifier == PDamMod.armor && damageModifierBeforeExtraPlatingCombat != PDamMod.armor)
-                    part.damageModifier = damageModifierBeforeExtraPlatingCombat;
+                foreach (var part in ship.parts)
+                {
+                    if (part.damageModifier == PDamMod.armor && part.GetDamageModifierBeforeTempArmor() is { } damageModifierBeforeTempArmor)
+                    {
+                        part.damageModifier = damageModifierBeforeTempArmor;
+                        part.SetDamageModifierBeforeTempArmor(null);
+                    }
+                    if (part.damageModifierOverrideWhileActive == PDamMod.armor && part.GetDamageModifierOverrideWhileActiveBeforeTempArmor() is { } damageModifierOverrideWhileActiveBeforeTempArmor)
+                    {
+                        part.damageModifierOverrideWhileActive = damageModifierOverrideWhileActiveBeforeTempArmor;
+                        part.SetDamageModifierOverrideWhileActiveBeforeTempArmor(null);
+                    }
+                }
             }
         }, 0);
-        helper.Events.RegisterBeforeArtifactsHook(nameof(Artifact.OnTurnStart), (State s, Combat c) =>
+        helper.Events.RegisterBeforeArtifactsHook(nameof(Artifact.OnCombatEnd), (State state) =>
         {
-            if (!c.isPlayerTurn)
-                return;
-            var ship = s.ship;
-            foreach (var part in ((IEnumerable<Part>)ship.parts).Reverse())
+            var ship = state.ship;
+            foreach (var part in ship.parts)
             {
-                if (!ModEntry.Instance.KokoroApi.TryGetExtensionData(part, "DamageModifierBeforeExtraPlatingTemp", out PDamMod damageModifierBeforeExtraPlatingTemp))
-                    continue;
-                ModEntry.Instance.KokoroApi.RemoveExtensionData(part, "DamageModifierBeforeExtraPlatingTemp");
-                if (part.damageModifier == PDamMod.armor)
-                    part.damageModifier = damageModifierBeforeExtraPlatingTemp;
+                if (part.damageModifier == PDamMod.armor && part.GetDamageModifierBeforeFullCombatArmor() is { } damageModifierBeforeFullCombatArmor)
+                {
+                    part.damageModifier = damageModifierBeforeFullCombatArmor;
+                    part.SetDamageModifierBeforeFullCombatArmor(null);
+                }
+                if (part.damageModifierOverrideWhileActive == PDamMod.armor && part.GetDamageModifierOverrideWhileActiveBeforeFullCombatArmor() is { } damageModifierOverrideWhileActiveBeforeFullCombatArmor)
+                {
+                    part.damageModifierOverrideWhileActive = damageModifierOverrideWhileActiveBeforeFullCombatArmor;
+                    part.SetDamageModifierOverrideWhileActiveBeforeFullCombatArmor(null);
+                }
             }
         }, 0);
     }
@@ -72,9 +112,8 @@ public class EiliExtraPlating : Card, IModdedCard
                 cardActionList1.Add(new ATempArmorPart
                 {
                     TargetPlayer = ship.isPlayerShip,
-                    WorldX = ship.x + Extensions.GetRandomNonEmptyPart(s, c, true),
+                    WorldX = ship.x + Extensions.GetRandomNonEmptyPart(s, c, true, "notArmor"),
                     onlyOneTurn = false,
-                    omitFromTooltips = true,
                 });
                 actions = cardActionList1;
                 break;
@@ -83,9 +122,8 @@ public class EiliExtraPlating : Card, IModdedCard
                 cardActionList2.Add(new ATempArmorPart
                 {
                     TargetPlayer = ship.isPlayerShip,
-                    WorldX = ship.x + Extensions.GetRandomNonEmptyPart(s, c, true),
+                    WorldX = ship.x + Extensions.GetRandomNonEmptyPart(s, c, true, "notArmor"),
                     onlyOneTurn = false,
-                    omitFromTooltips = true,
                 });
                 actions = cardActionList2;
                 break;

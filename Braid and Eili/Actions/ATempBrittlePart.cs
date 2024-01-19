@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using KBraid.BraidEili.Cards;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace KBraid.BraidEili.Actions;
@@ -17,15 +18,27 @@ public sealed class ATempBrittlePart : CardAction
         timer = 0;
 
         var ship = TargetPlayer ? s.ship : c.otherShip;
-        if (ship.GetPartAtWorldX(WorldX) is not { } part || part.damageModifier == PDamMod.brittle)
+        if (ship.GetPartAtWorldX(WorldX) is not { } part)
             return;
 
-        ModEntry.Instance.KokoroApi.SetExtensionData(part, "DamageModifierBeforeTempBrittle", part.damageModifier);
-        c.QueueImmediate(new ABrittle
+        if (part.damageModifier != PDamMod.brittle)
         {
-            targetPlayer = TargetPlayer,
-            worldX = WorldX
-        });
+            part.SetDamageModifierBeforeTempBrittle(part.damageModifier);
+            c.QueueImmediate(new ABrittle
+            {
+                targetPlayer = TargetPlayer,
+                worldX = WorldX
+            });
+        }
+        if (part.damageModifierOverrideWhileActive is not null && part.damageModifierOverrideWhileActive != PDamMod.brittle)
+        {
+            part.SetDamageModifierOverrideWhileActiveBeforeTempBrittle(part.damageModifierOverrideWhileActive);
+            c.QueueImmediate(new ABrittle
+            {
+                targetPlayer = TargetPlayer,
+                worldX = WorldX,
+            });
+        }
     }
     public override List<Tooltip> GetTooltips(State s)
     {

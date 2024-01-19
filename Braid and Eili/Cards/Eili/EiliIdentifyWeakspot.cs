@@ -5,6 +5,21 @@ using KBraid.BraidEili.Actions;
 using System.Linq;
 
 namespace KBraid.BraidEili.Cards;
+internal static class TempBrittleExt
+{
+    public static PDamMod? GetDamageModifierBeforeTempBrittle(this Part self)
+        => ModEntry.Instance.Helper.ModData.GetOptionalModData<PDamMod>(self, "DamageModifierBeforeTempBrittle");
+
+    public static void SetDamageModifierBeforeTempBrittle(this Part self, PDamMod? value)
+        => ModEntry.Instance.Helper.ModData.SetOptionalModData(self, "DamageModifierBeforeTempBrittle", value);
+
+    public static PDamMod? GetDamageModifierOverrideWhileActiveBeforeTempBrittle(this Part self)
+        => ModEntry.Instance.Helper.ModData.GetOptionalModData<PDamMod>(self, "DamageModifierOverrideWhileActiveBeforeTempBrittle");
+
+    public static void SetDamageModifierOverrideWhileActiveBeforeTempBrittle(this Part self, PDamMod? value)
+        => ModEntry.Instance.Helper.ModData.SetOptionalModData(self, "DamageModifierOverrideWhileActiveBeforeTempBrittle", value);
+}
+
 public class EiliIdentifyWeakspot : Card, IModdedCard
 {
     public static void Register(IModHelper helper)
@@ -20,16 +35,24 @@ public class EiliIdentifyWeakspot : Card, IModdedCard
             },
             Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "IdentifyWeakspot", "name"]).Localize
         });
-        helper.Events.RegisterBeforeArtifactsHook(nameof(Artifact.OnEnemyGetHit), (State s, Combat c) =>
+        helper.Events.RegisterBeforeArtifactsHook(nameof(Artifact.OnEnemyGetHit), (State state, Combat combat, Part? part) =>
         {
-            var ship = c.otherShip;
-            foreach (var part in ((IEnumerable<Part>)ship.parts).Reverse())
+            var ship = combat.otherShip;
+            foreach (var spart in ship.parts)
             {
-                if (!ModEntry.Instance.KokoroApi.TryGetExtensionData(part, "DamageModifierBeforeTempBrittle", out PDamMod damageModifierBeforeTempBrittle))
-                    continue;
-                ModEntry.Instance.KokoroApi.RemoveExtensionData(part, "DamageModifierBeforeTempBrittle");
-                if (part.damageModifier == PDamMod.brittle)
-                    part.damageModifier = damageModifierBeforeTempBrittle;
+                if (part != null && part == spart)
+                {
+                    if (spart.damageModifier == PDamMod.brittle && spart.GetDamageModifierBeforeTempBrittle() is { } damageModifierBeforeIdentifyWeakspot)
+                    {
+                        spart.damageModifier = damageModifierBeforeIdentifyWeakspot;
+                        spart.SetDamageModifierBeforeTempBrittle(null);
+                    }
+                    if (spart.damageModifierOverrideWhileActive == PDamMod.brittle && spart.GetDamageModifierOverrideWhileActiveBeforeTempBrittle() is { } damageModifierOverrideWhileActiveBeforeIdentifyWeakspot)
+                    {
+                        spart.damageModifierOverrideWhileActive = damageModifierOverrideWhileActiveBeforeIdentifyWeakspot;
+                        spart.SetDamageModifierOverrideWhileActiveBeforeTempBrittle(null);
+                    }
+                }
             }
         }, 0);
     }
@@ -55,7 +78,7 @@ public class EiliIdentifyWeakspot : Card, IModdedCard
             new ATempBrittlePart()
             {
                 TargetPlayer = ship.isPlayerShip,
-                WorldX = ship.x + Extensions.GetRandomNonEmptyPart(s, c, false)
+                WorldX = ship.x + Extensions.GetRandomNonEmptyPart(s, c, false, "notBrittle")
             }
         };
         return actions;

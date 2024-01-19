@@ -28,7 +28,7 @@ internal class ATempBrittleAttack : AAttack
             raycastResult = ((num.HasValue ? CombatUtils.RaycastFromShipLocal(s, c, num.Value, targetPlayer) : null));
         }
         base.Begin(g, s, c);
-        if (raycastResult != null)
+        if (raycastResult != null && raycastResult.hitShip)
         {
             c.QueueImmediate(new ATempBrittlePart
             {
