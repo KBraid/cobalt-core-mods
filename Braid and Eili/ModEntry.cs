@@ -25,15 +25,17 @@ namespace KBraid.BraidEili;
  * DONE : AInspiration Action
  * DONE : ASacrifice Action + Extensions + ACardSelectSacrifice
  * DONE : ALaunchMidrow Action + AEnemyVolleySpawnFromAllMissileBays Action
- * DONE : ATempBrittlePart Action + ATempBrittleAttack Action
- * DONE : ATempArmorPart Action
  * DONE : Unlock Req:   Eili : Win 5 times
  *                      Braid : Win with Eili
+ * DONE : ATempBrittlePart Action + ATempBrittleAttack Action
+ * DONE : ATempArmorPart Action
+ * DONE : Removed Coils card, added B.Cannon, B.Charge, B.Shot cards & B.Charge status
  * REMAINING STUFF TO-DO
  * Shove It move should be RANDOM
  * Eili Artifacts
  * Braid Artifacts
  * Story
+ * Find a better way to do custom Shove It render. Currently using clay's ATooltipDummy
  */
 public sealed class ModEntry : SimpleMod
 {
@@ -54,10 +56,11 @@ public sealed class ModEntry : SimpleMod
     internal ISpriteEntry ASacrificePermanent { get; }
     internal ISpriteEntry AApplyTempBrittle_Icon { get; }
     internal ISpriteEntry AApplyTempArmor_Icon { get; }
-    
+    internal ISpriteEntry ARandomMove { get; }
+
     //internal ISpriteEntry EiliUncommonBorder { get; }
     //internal ISpriteEntry EiliRareBorder { get; }
-    
+
     internal IStatusEntry DisabledDampeners { get; }
     internal IStatusEntry ShockAbsorber { get; }
     internal IStatusEntry TempShieldNextTurn { get; }
@@ -70,7 +73,8 @@ public sealed class ModEntry : SimpleMod
     internal IStatusEntry Resolve { get; }
     internal IStatusEntry Retreat { get; }
     internal IStatusEntry EngineStallNextTurn { get; }
-    internal IList<string> faceSprites { get; } = [
+    internal IStatusEntry BusterCharge { get; }
+    internal IList<string> FaceSprites { get; } = [
         "blink",
         "crystallized",
         "defeat",
@@ -98,7 +102,7 @@ public sealed class ModEntry : SimpleMod
         "manic",
         "sad"
     ];
-    internal IList<string> charNames { get; } = [
+    internal IList<string> CharNames { get; } = [
         "braid",
         "eili"
     ];
@@ -146,20 +150,22 @@ public sealed class ModEntry : SimpleMod
         typeof(BraidPummel),
         typeof(BraidLeftHook),
         typeof(BraidHaymaker),
-        typeof(BraidInductionCoils),
         typeof(BraidChargeBlast),
         typeof(BraidMaxBlast),
         typeof(BraidLimiterOff),
+        typeof(BraidSneakAttack),
     ];
 
     internal static IReadOnlyList<Type> BraidUncommonCardTypes { get; } = [
-        typeof(BraidSneakAttack),
+        typeof(BraidArmourLock),
+        typeof(BraidBide),
+        typeof(BraidBusterCannon),
+        typeof(BraidBusterCharge),
+        typeof(BraidBusterShot),
+        typeof(BraidDischarge),
         typeof(BraidFollowthrough),
         typeof(BraidRetaliate),
         typeof(BraidWindup),
-        typeof(BraidBide),
-        typeof(BraidArmourLock),
-        typeof(BraidDischarge),
     ];
 
     internal static IReadOnlyList<Type> BraidRareCardTypes { get; } = [
@@ -207,7 +213,6 @@ public sealed class ModEntry : SimpleMod
         //KokoroApi.RegisterTypeForExtensionData(typeof(AHurt));
         //KokoroApi.RegisterTypeForExtensionData(typeof(AAttack));
         //KokoroApi.RegisterCardRenderHook(new SpacingCardRenderHook(), 0);
-
         // Make stuff do stuff
         _ = new DisabledDampenersManager();
         _ = new ShockAbsorberManager();
@@ -230,38 +235,39 @@ public sealed class ModEntry : SimpleMod
         this.Localizations = new MissingPlaceholderLocalizationProvider<IReadOnlyList<string>>(
             new CurrentLocaleOrEnglishLocalizationProvider<IReadOnlyList<string>>(this.AnyLocalizations)
         );
-        BasicBackground = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/cards/empty_backgroud.png"));
-        ASacrificePermanent = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/sacrificePermanent.png"));
-        AApplyTempBrittle_Icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/tempBrittle.png"));
-        AApplyTempArmor_Icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/tempArmorAction.png"));
-        
-        //EiliUncommonBorder = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/cardShared/border_eili_uncommon.png"));
-        //EiliRareBorder = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/cardShared/border_eili_rare.png"));
-        
+        BasicBackground = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/empty_backgroud.png"));
+        ASacrificePermanent = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/sacrificePermanent.png"));
+        AApplyTempBrittle_Icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/tempBrittle.png"));
+        AApplyTempArmor_Icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/tempArmorAction.png"));
+        ARandomMove = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/randomMove.png"));
+
+        //EiliUncommonBorder = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cardShared/border_eili_uncommon.png"));
+        //EiliRareBorder = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cardShared/border_eili_rare.png"));
+
         // Register sprites
-        foreach (string name in charNames)
+        foreach (string name in CharNames)
         {
             //talking sprites such as happy and serious
-            foreach (string face in faceSprites)
+            foreach (string face in FaceSprites)
             {
                 IFileInfo file;
                 for (int frame = 0; frame < 10; frame++)
                 {
-                    file = package.PackageRoot.GetRelativeFile($"assets/sprites/characters/{name}/{name}_{face}_{frame}.png");
+                    file = package.PackageRoot.GetRelativeFile($"assets/characters/{name}/{name}_{face}_{frame}.png");
                     if (file.Exists)
                         Sprites.Add(key: $"{name}_{face}_{frame}", value: Helper.Content.Sprites.RegisterSprite(file));
                     else
                         break;
                 }
                 // Panels
-                file = package.PackageRoot.GetRelativeFile($"assets/sprites/panels/char_{name}.png");
+                file = package.PackageRoot.GetRelativeFile($"assets/panels/char_{name}.png");
                 if (file.Exists && !Sprites.ContainsKey($"{name}_panel"))
                     Sprites.Add(key: $"{name}_panel", value: Helper.Content.Sprites.RegisterSprite(file));
                 // Card Borders
-                file = package.PackageRoot.GetRelativeFile($"assets/sprites/cardShared/border_{name}.png");
+                file = package.PackageRoot.GetRelativeFile($"assets/cardShared/border_{name}.png");
                 if (file.Exists && !Sprites.ContainsKey($"{name}_border"))
                     Sprites.Add(key: $"{name}_border", value: Helper.Content.Sprites.RegisterSprite(file));
-                file = package.PackageRoot.GetRelativeFile($"assets/sprites/fullchars/{name}_end.png");
+                file = package.PackageRoot.GetRelativeFile($"assets/fullchars/{name}_end.png");
                 // Full bodies
                 if (file.Exists && !Sprites.ContainsKey($"{name}_fullchar"))
                     Sprites.Add(key: $"{name}_fullchar", value: Helper.Content.Sprites.RegisterSprite(file));
@@ -291,7 +297,7 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/disabledDampeners.png")).Sprite,
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/disabledDampeners.png")).Sprite,
                 color = new("42add1"),
                 isGood = true
             },
@@ -302,7 +308,7 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/shockAbsorber.png")).Sprite,
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/shockAbsorber.png")).Sprite,
                 color = new("42add1"),
                 isGood = true
             },
@@ -313,7 +319,7 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/tempShieldNextTurn.png")).Sprite,
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/tempShieldNextTurn.png")).Sprite,
                 color = new("42add1"),
                 isGood = true
             },
@@ -324,7 +330,7 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/kineticGenerator.png")).Sprite,
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/kineticGenerator.png")).Sprite,
                 color = new("42add1"),
                 isGood = true
             },
@@ -335,7 +341,7 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/equalPayback.png")).Sprite,
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/equalPayback.png")).Sprite,
                 color = new("c0c9e6"),
                 isGood = true
             },
@@ -346,7 +352,7 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/tempPowerdrive.png")).Sprite,
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/tempPowerdrive.png")).Sprite,
                 color = new("c0c9e6"),
                 isGood = true
             },
@@ -357,7 +363,7 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/bide.png")).Sprite,
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/bide.png")).Sprite,
                 color = new("c0c9e6"),
                 isGood = true
             },
@@ -368,7 +374,7 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/perfectTiming.png")).Sprite,
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/perfectTiming.png")).Sprite,
                 color = new("c0c9e6"),
                 isGood = true
             },
@@ -379,7 +385,7 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/lostHull.png")).Sprite,
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/lostHull.png")).Sprite,
                 color = new("c0c9e6"),
                 isGood = true
                 
@@ -391,7 +397,7 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/resolve.png")).Sprite,
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/resolve.png")).Sprite,
                 color = new("c0c9e6"),
                 isGood = true
             },
@@ -402,7 +408,7 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/retreat.png")).Sprite,
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/retreat.png")).Sprite,
                 color = new("c0c9e6"),
                 isGood = true
             },
@@ -413,12 +419,23 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/engineStallNextTurn.png")).Sprite,
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/engineStallNextTurn.png")).Sprite,
                 color = new("c0c9e6"),
                 isGood = false
             },
             Name = this.AnyLocalizations.Bind(["status", "EngineStallNextTurn", "name"]).Localize,
             Description = this.AnyLocalizations.Bind(["status", "EngineStallNextTurn", "description"]).Localize
+        });
+        BusterCharge = Helper.Content.Statuses.RegisterStatus("BusterCharge", new()
+        {
+            Definition = new()
+            {
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/busterCharge.png")).Sprite,
+                color = new("c0c9e6"),
+                isGood = true
+            },
+            Name = this.AnyLocalizations.Bind(["status", "BusterCharge", "name"]).Localize,
+            Description = this.AnyLocalizations.Bind(["status", "BusterCharge", "description"]).Localize
         });
 
         // Register cards
@@ -453,7 +470,7 @@ public sealed class ModEntry : SimpleMod
                 Frames = [
                    Sprites["eili_mini_0"].Sprite
                 ]
-            },
+            }
         });
         Helper.Content.Characters.RegisterCharacter("Braid", new()
         {
@@ -485,7 +502,7 @@ public sealed class ModEntry : SimpleMod
 
         //Register Extra Animations
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "gameover",
+            "eili_gameover",
             new()
             {
                 Deck = EiliDeck.Deck,
@@ -496,7 +513,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "cheeky",
+            "eili_cheeky",
             new()
             {
                 Deck = EiliDeck.Deck,
@@ -510,7 +527,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "cheeky_a",
+            "eili_cheeky_a",
             new()
             {
                 Deck = EiliDeck.Deck,
@@ -524,7 +541,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "concerned",
+            "eili_concerned",
             new()
             {
                 Deck = EiliDeck.Deck,
@@ -538,7 +555,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "happy",
+            "eili_happy",
             new()
             {
                 Deck = EiliDeck.Deck,
@@ -552,7 +569,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "manic",
+            "eili_manic",
             new()
             {
                 Deck = EiliDeck.Deck,
@@ -566,7 +583,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "sad",
+            "eili_sad",
             new()
             {
                 Deck = EiliDeck.Deck,
@@ -580,7 +597,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "squint",
+            "eili_squint",
             new()
             {
                 Deck = EiliDeck.Deck,
@@ -594,7 +611,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "gameover",
+            "braid_gameover",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -605,7 +622,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "squint",
+            "braid_squint",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -619,7 +636,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "blink",
+            "braid_blink",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -633,7 +650,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "ending_a",
+            "braid_ending_a",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -647,7 +664,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "ending_b",
+            "braid_ending_b",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -661,7 +678,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "ending_c",
+            "braid_ending_c",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -675,7 +692,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "eyes_closed",
+            "braid_eyes_closed",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -689,7 +706,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "hug_a",
+            "braid_hug_a",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -700,7 +717,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "hug_b",
+            "braid_hug_b",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -711,7 +728,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "serious",
+            "braid_serious",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -725,7 +742,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "serious_a",
+            "braid_serious_a",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -739,7 +756,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "serious_b",
+            "braid_serious_b",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -753,7 +770,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "serious_c",
+            "braid_serious_c",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -764,7 +781,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "shout",
+            "braid_shout",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -778,7 +795,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "shout_a",
+            "braid_shout_a",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -792,7 +809,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "shout_b",
+            "braid_shout_b",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -806,7 +823,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "shout_c",
+            "braid_shout_c",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -820,7 +837,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "unamused",
+            "braid_unamused",
             new()
             {
                 Deck = BraidDeck.Deck,

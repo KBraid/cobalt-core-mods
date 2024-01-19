@@ -1,4 +1,7 @@
-﻿namespace KBraid.BraidEili;
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace KBraid.BraidEili;
 
 // Code from Eddie mod
 internal static class Extensions
@@ -46,14 +49,30 @@ internal static class Extensions
             damage = card.GetDmg(s, multiplier * cost)
         });
     }
-    public static int GetRandomNonEmptyPart(State s, Combat c, bool targetPlayer)
+    public static int GetRandomNonEmptyPart(State s, Combat c, bool targetPlayer, string? filter = "none")
     {
         var ship = targetPlayer ? s.ship : c.otherShip;
-        var rng = new Rand().Next();
+        List<int> partIndexes = new List<int>();
         for (var partIndex = 0; partIndex < ship.parts.Count; partIndex++)
-            if (rng < (partIndex + 1) / (ship.parts.Count) && (ship.parts[partIndex].type != PType.empty))
-                return partIndex;
+            if (ship.parts[partIndex].type != PType.empty)
+            {
+                if (filter == "none")
+                    partIndexes.Add(partIndex);
+                else if (filter == "notBrittle" && ship.parts[partIndex].damageModifier != PDamMod.brittle)
+                    partIndexes.Add(partIndex);
+                else if (filter == "notArmor" && ship.parts[partIndex].damageModifier != PDamMod.armor)
+                    partIndexes.Add(partIndex);
+            }
+        if (partIndexes.Count > 0)
+        {
+            return partIndexes.Random(s.rngActions);
+        }
         return 0;
+    }
+    public static int GetRandomDirection(State s, int dir)
+    {
+        List<int> dirList = [dir, dir * -1];
+        return dirList.Random(s.rngActions);
     }
 
 }
