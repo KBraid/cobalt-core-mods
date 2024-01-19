@@ -51,7 +51,7 @@ public class BraidShoveIt : Card, IModdedCard
             cost = 1,
             art = new Spr?(StableSpr.cards_Strafe),
             flippable = flag,
-            description = ModEntry.Instance.Localizations.Localize(["card", "ShoveIt", "description"], new { Damage = GetDmg(state, dmg), Move = num })
+            description = upgrade == Upgrade.B ? null : ModEntry.Instance.Localizations.Localize(["card", "ShoveIt", "description"], new { Damage = GetDmg(state, dmg), Move = num })
         };
         return data;
     }
@@ -87,10 +87,10 @@ public class BraidShoveIt : Card, IModdedCard
             case Upgrade.B:
                 List<CardAction> cardActionList3 = new List<CardAction>()
                 {
-                    new AAttackRandomMove()
+                    new AAttack()
                     {
                         damage = GetDmg(s, 1),
-                        randomDir = 3
+                        moveEnemy = 3
                     }
                 };
                 actions = cardActionList3;
