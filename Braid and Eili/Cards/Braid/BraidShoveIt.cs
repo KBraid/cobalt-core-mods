@@ -1,6 +1,8 @@
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
+using KBraid.BraidEili.Actions;
+using System.Linq;
 
 namespace KBraid.BraidEili.Cards;
 public class BraidShoveIt : Card, IModdedCard
@@ -23,24 +25,34 @@ public class BraidShoveIt : Card, IModdedCard
 
     public override CardData GetData(State state)
     {
-        CardData data = new CardData();
-        data.cost = 1;
-        data.art = new Spr?(StableSpr.cards_Strafe);
-        Upgrade upgrade = this.upgrade;
         bool flag = false;
+        int dmg = 0;
+        int num = 0;
         switch (upgrade)
         {
             case Upgrade.None:
                 flag = false;
+                dmg = 1;
+                num = 3;
                 break;
             case Upgrade.A:
                 flag = false;
+                dmg = 2;
+                num = 5;
                 break;
             case Upgrade.B:
                 flag = true;
+                dmg = 1;
+                num = 3;
                 break;
         }
-        data.flippable = flag;
+        CardData data = new CardData()
+        {
+            cost = 1,
+            art = new Spr?(StableSpr.cards_Strafe),
+            flippable = flag,
+            description = ModEntry.Instance.Localizations.Localize(["card", "ShoveIt", "description"], new { Damage = GetDmg(state, dmg), Move = num })
+        };
         return data;
     }
 
@@ -51,30 +63,36 @@ public class BraidShoveIt : Card, IModdedCard
         switch (upgrade)
         {
             case Upgrade.None:
-                List<CardAction> cardActionList1 = new List<CardAction>();
-                cardActionList1.Add((CardAction)new AAttack()
+                List<CardAction> cardActionList1 = new List<CardAction>()
                 {
-                    damage = this.GetDmg(s, 1),
-                    moveEnemy = 3
-                });
+                    new AAttackRandomMove()
+                    {
+                        damage = GetDmg(s, 1),
+                        randomDir = 3
+                    }
+                };
                 actions = cardActionList1;
                 break;
             case Upgrade.A:
-                List<CardAction> cardActionList2 = new List<CardAction>();
-                cardActionList2.Add((CardAction)new AAttack()
+                List<CardAction> cardActionList2 = new List<CardAction>()
                 {
-                    damage = this.GetDmg(s, 2),
-                    moveEnemy = 5
-                });
+                    new AAttackRandomMove()
+                    {
+                        damage = GetDmg(s, 2),
+                        randomDir = 5
+                    }
+                };
                 actions = cardActionList2;
                 break;
             case Upgrade.B:
-                List<CardAction> cardActionList3 = new List<CardAction>();
-                cardActionList3.Add((CardAction)new AAttack()
+                List<CardAction> cardActionList3 = new List<CardAction>()
                 {
-                    damage = this.GetDmg(s, 1),
-                    moveEnemy = 3
-                });
+                    new AAttackRandomMove()
+                    {
+                        damage = GetDmg(s, 1),
+                        randomDir = 3
+                    }
+                };
                 actions = cardActionList3;
                 break;
         }
