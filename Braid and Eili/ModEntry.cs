@@ -30,12 +30,12 @@ namespace KBraid.BraidEili;
  * DONE : ATempBrittlePart Action + ATempBrittleAttack Action
  * DONE : ATempArmorPart Action
  * DONE : Removed Coils card, added B.Cannon, B.Charge, B.Shot cards & B.Charge status
+ * KINDA: Shove It random move
+ *        ISSUE: Render move random alongside attack. Currently using text instead
  * REMAINING STUFF TO-DO
- * Shove It move should be RANDOM
  * Eili Artifacts
  * Braid Artifacts
  * Story
- * Find a better way to do custom Shove It render. Currently using text
  */
 public sealed class ModEntry : SimpleMod
 {
