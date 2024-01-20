@@ -24,11 +24,13 @@ public class BraidMaxBlast : Card, IModdedCard
     public int myDamage;
     public override CardData GetData(State state)
     {
-        CardData data = new CardData();
-        data.cost = 0;
-        data.exhaust = true;
-        data.temporary = true;
-        data.art = new Spr?(StableSpr.cards_Scattershot);
+        CardData data = new CardData()
+        {
+            cost = 0,
+            exhaust = true,
+            temporary = true,
+            art = new Spr?(StableSpr.cards_Scattershot)
+        };
         return data;
     }
 
@@ -41,16 +43,9 @@ public class BraidMaxBlast : Card, IModdedCard
             case Upgrade.None:
                 List<CardAction> cardActionList1 = new List<CardAction>()
                 {
-                    new AVariableHint()
-                    {
-                        hand = true,
-                        handAmount = myDamage,
-                        omitFromTooltips = true
-                    },
                     new AAttack()
                     {
-                        damage = GetDmg(s,myDamage),
-                        xHint = 0
+                        damage = GetDmg(s,myDamage)
                     }
                 };
                 actions = cardActionList1;
@@ -58,17 +53,10 @@ public class BraidMaxBlast : Card, IModdedCard
             case Upgrade.A:
                 List<CardAction> cardActionList2 = new List<CardAction>()
                 {
-                    new AVariableHint()
-                    {
-                        hand = true,
-                        handAmount = myDamage,
-                        omitFromTooltips = true
-                    },
                     new AAttack()
                     {
                         damage = GetDmg(s,myDamage),
-                        piercing = true,
-                        xHint = 0
+                        piercing = true
                     }
                 };
                 actions = cardActionList2;
@@ -76,17 +64,10 @@ public class BraidMaxBlast : Card, IModdedCard
             case Upgrade.B:
                 List<CardAction> cardActionList3 = new List<CardAction>()
                 {
-                    new AVariableHint()
-                    {
-                        hand = true,
-                        handAmount = myDamage,
-                        omitFromTooltips = true
-                    },
                     new AAttack()
                     {
                         damage = GetDmg(s,myDamage),
-                        stunEnemy = true,
-                        xHint = 0
+                        stunEnemy = true
                     }
                 };
                 actions = cardActionList3;

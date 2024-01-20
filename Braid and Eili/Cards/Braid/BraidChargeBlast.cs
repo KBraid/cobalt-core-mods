@@ -23,10 +23,12 @@ public class BraidChargeBlast : Card, IModdedCard
 
     public override CardData GetData(State state)
     {
-        CardData data = new CardData();
-        data.cost = 2;
-        data.art = new Spr?(StableSpr.cards_Scattershot);
-        //data.description = ModEntry.Instance.Localizations.Localize(["card", "ChargeBlast", "description", upgrade.ToString()]);
+        CardData data = new CardData()
+        {
+            cost = 2,
+            art = new Spr?(StableSpr.cards_Scattershot),
+            description = ModEntry.Instance.Localizations.Localize(["card", "ChargeBlast", "description", upgrade.ToString()], new { Damage = GetDmg(state, GetCardsInHand(state))})
+        };
         return data;
     }
     public int GetCardsInHand(State s) => s.route is Combat route ? route.hand.Count - 1 : 0;
@@ -39,16 +41,7 @@ public class BraidChargeBlast : Card, IModdedCard
         };
         List<CardAction> actions = new()
         {
-            new AVariableHint()
-            {
-                hand = true,
-                handAmount = GetCardsInHand(s)
-            },
-            new ADiscard()
-            {
-                count = GetCardsInHand(s),
-                xHint = 1
-            },
+            new ADiscard(),
             new AAddCard()
             {
                 card = maxBlastCard,

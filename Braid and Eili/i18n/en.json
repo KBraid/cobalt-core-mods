@@ -55,7 +55,7 @@
     "Bide": {
       "name": "Bide",
       "description": [
-        "Damage received is stored as <c=status>PERFECT TIMING</c>.",
+        "Damage received is stored to power up your next attack.",
         "<c=downside>Decreases by 1 after each attack."
       ]
     },
@@ -264,9 +264,9 @@
     "ChargeBlast": {
       "name": "Charge Blast",
       "description": {
-        "None": "<c=keyword>Discard</c> your hand. Add a <c=card>Max Blast</c> to your hand. <c=downside>Gain -1 Energy next turn</c>.",
-        "A": "<c=keyword>Discard</c> your hand. Add a <c=card>Max Blast A</c> to your hand. <c=downside>Gain -1 Energy next turn</c>.",
-        "B": "<c=keyword>Discard</c> your hand. Add a <c=card>Max Blast</c> to your hand. <c=downside>Gain -1 Energy next turn</c>."
+        "None": "<c=keyword>Discard</c> your hand. Add a <c=card>Max Blast</c> (<c=keyword>{{Damage}}</c>) to hand. <c=downside>-1 energy next turn</c>.",
+        "A": "<c=keyword>Discard</c> your hand. Add a <c=card>Max Blast A</c> (<c=keyword>{{Damage}}</c>) to hand. <c=downside>-1 energy next turn</c>.",
+        "B": "<c=keyword>Discard</c> your hand. Add a <c=card>Max Blast</c> (<c=keyword>{{Damage}}</c>) to hand. <c=downside>-1 energy next turn</c>."
       }
     },
     "MaxBlast": {
