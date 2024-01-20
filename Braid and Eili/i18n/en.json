@@ -264,14 +264,19 @@
     "ChargeBlast": {
       "name": "Charge Blast",
       "description": {
-        "None": "<c=keyword>Discard</c> your hand. Add a <c=card>Max Blast</c> (<c=keyword>{{Damage}}</c>) to hand. <c=downside>-1 energy next turn</c>.",
-        "A": "<c=keyword>Discard</c> your hand. Add a <c=card>Max Blast A</c> (<c=keyword>{{Damage}}</c>) to hand. <c=downside>-1 energy next turn</c>.",
-        "B": "<c=keyword>Discard</c> your hand. Add a <c=card>Max Blast</c> (<c=keyword>{{Damage}}</c>) to hand. <c=downside>-1 energy next turn</c>."
+        "None": "<c=keyword>Discard</c> hand. Add a <c=card>Max Blast</c> (<c=keyword>{{Damage}}</c>) to hand. <c=downside>-1 energy next turn</c>.",
+        "A": "<c=keyword>Discard</c> hand. Add a <c=card>Max Blast A</c> (<c=keyword>{{Damage}}</c>) to hand. <c=downside>-1 energy next turn</c>.",
+        "B": "<c=keyword>Discard</c> hand. Add a <c=card>Max Blast</c> (<c=keyword>{{Damage}}</c>) to hand. <c=downside>-1 energy next turn</c>."
       }
     },
     "MaxBlast": {
-      "name": "Max Blast"
-    },
+      "name": "Max Blast",
+      "description": {
+        "None": "Attack. Dmg = Cards discarded when created. (<c=keyword>{{Damage}}</c>)",
+        "A": "Pierce ATK. Dmg = Cards discarded when created. (<c=keyword>{{Damage}}</c>)",
+        "B": "Stun ATK. Dmg = Cards discarded when created. (<c=keyword>{{Damage}}</c>)"
+      }
+      },
     "SneakAttack": {
       "name": "Sneak Attack"
     },

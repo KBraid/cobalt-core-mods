@@ -29,7 +29,8 @@ public class BraidMaxBlast : Card, IModdedCard
             cost = 0,
             exhaust = true,
             temporary = true,
-            art = new Spr?(StableSpr.cards_Scattershot)
+            art = new Spr?(StableSpr.cards_Scattershot),
+            description = ModEntry.Instance.Localizations.Localize(["card", "MaxBlast", "description", upgrade.ToString()], new { Damage = GetDmg(state, myDamage) })
         };
         return data;
     }
