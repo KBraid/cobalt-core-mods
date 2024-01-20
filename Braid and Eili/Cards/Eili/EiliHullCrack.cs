@@ -45,7 +45,7 @@ public class EiliHullCrack : Card, IModdedCard
                 {
                     new ATempBrittleAttack()
                     {
-                        damage = 1,
+                        damage = GetDmg(s, 1),
                         piercing = true,
                     },
                 };
@@ -56,7 +56,7 @@ public class EiliHullCrack : Card, IModdedCard
                 {
                     new ATempBrittleAttack()
                     {
-                        damage = 1,
+                        damage = GetDmg(s, 1),
                         piercing = true,
                     },
                 };
@@ -67,7 +67,7 @@ public class EiliHullCrack : Card, IModdedCard
                 {
                     new AAttack()
                     {
-                        damage = 1,
+                        damage = GetDmg(s, 1),
                         piercing = true,
                         brittle = true,
                     },
