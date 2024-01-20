@@ -30,14 +30,14 @@ public class BraidResolve : Card, IModdedCard
                 num = 2;
                 break;
             case Upgrade.A:
-                num = 3;
+                num = 0;
                 break;
             case Upgrade.B:
-                num = 0;
+                num = 3;
                 break;
         }
         data.cost = num;
-        data.exhaust = upgrade == Upgrade.A ? true : false;
+        data.exhaust = upgrade == Upgrade.B ? false : true;
         data.art = new Spr?(StableSpr.cards_Scattershot);
         return data;
     }

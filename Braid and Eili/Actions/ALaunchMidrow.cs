@@ -1,20 +1,49 @@
-﻿using System.Collections.Generic;
+﻿namespace KBraid.BraidEili.Actions;
 
-namespace KBraid.BraidEili.Actions;
-
-public class ALaunchMidrow : CardAction
+public class ALaunchMidrow : ASpawn
 {
-    public int? MidrowType;
     public override void Begin(G g, State s, Combat c)
     {
-    }
-    public override List<Tooltip> GetTooltips(State s)
-    {
-        return new List<Tooltip>()
+        if (thing is Asteroid)
         {
-        //    (Tooltip) new TTGlossary(ModEntry.Instance.A?.Head ?? throw new Exception("Missing ACobraField_Glossary"), Array.Empty<object>())
-        };
+            c.QueueImmediate(new AEnemyVolleySpawnFromAllMissileBays()
+            {
+                spawn = new ASpawn()
+                {
+                    thing = new Asteroid(),
+                    fromPlayer = false
+                }
+            });
+        }
+        else if (thing is SpaceMine)
+        {
+            c.QueueImmediate(new AEnemyVolleySpawnFromAllMissileBays()
+            {
+                spawn = new ASpawn()
+                {
+                    thing = new SpaceMine(),
+                    fromPlayer = false
+                }
+            });
+        }
+        else if (thing is Missile)
+        {
+            c.QueueImmediate(new AEnemyVolleySpawnFromAllMissileBays()
+            {
+                spawn = new ASpawn()
+                {
+                    thing = new Missile()
+                    {
+                        targetPlayer = true,
+                    },
+                    fromPlayer = false
+                }
+            });
+        }
+        c.QueueImmediate(new ASpawn()
+        {
+            thing = thing,
+            fromPlayer = true
+        });
     }
-
-    public override Icon? GetIcon(State s) => new Icon?(new Icon(ModEntry.Instance.AApplyTempArmor_Icon.Sprite, new int?(), Colors.textMain));
 }

@@ -40,12 +40,20 @@ public class EiliReroutePower : Card, IModdedCard
                 {
                     new AVariableHint()
                     {
-                        status = Status.shield
+                        status = Status.shield,
+                        dialogueSelector = ".card_reroutepower_played"
                     },
                     new AEnergy()
                     {
                         changeAmount = s.ship.Get(Status.shield),
                         xHint = 1,
+                    },
+                    new AStatus()
+                    {
+                        status = Status.shield,
+                        statusAmount = 0,
+                        targetPlayer = true,
+                        mode = AStatusMode.Set
                     },
                     new AStatus()
                     {
@@ -61,13 +69,21 @@ public class EiliReroutePower : Card, IModdedCard
                 {
                     new AVariableHint()
                     {
-                        status = Status.shield
+                        status = Status.shield,
+                        dialogueSelector = ".card_reroutepower_played"
                     },
                     new AEnergy()
                     {
                         changeAmount = s.ship.Get(Status.shield),
                         xHint = 1,
                     },
+                    new AStatus()
+                    {
+                        status = Status.shield,
+                        statusAmount = 0,
+                        targetPlayer = true,
+                        mode = AStatusMode.Set
+                    }
                 };
                 actions = cardActionList2;
                 break;
@@ -76,13 +92,21 @@ public class EiliReroutePower : Card, IModdedCard
                 {
                     new AVariableHint()
                     {
-                        status = Status.tempShield
+                        status = Status.tempShield,
+                        dialogueSelector = ".card_reroutepower_played"
                     },
                     new AEnergy()
                     {
                         changeAmount = s.ship.Get(Status.tempShield),
                         xHint = 1,
                     },
+                    new AStatus()
+                    {
+                        status = Status.tempShield,
+                        statusAmount = 0,
+                        targetPlayer = true,
+                        mode = AStatusMode.Set
+                    }
                 };
                 actions = cardActionList3;
                 break;

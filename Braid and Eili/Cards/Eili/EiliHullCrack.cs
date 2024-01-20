@@ -1,6 +1,7 @@
 using KBraid.BraidEili.Actions;
 using Nickel;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace KBraid.BraidEili.Cards;
@@ -24,10 +25,13 @@ public class EiliHullCrack : Card, IModdedCard
 
     public override CardData GetData(State state)
     {
-        CardData data = new CardData();
-        data.cost = 2;
-        data.exhaust = upgrade == Upgrade.A ? false : true;
-        data.art = ModEntry.Instance.BasicBackground.Sprite;
+        CardData data = new CardData()
+        {
+            cost = 2,
+            exhaust = upgrade == Upgrade.A ? false : true,
+            art = ModEntry.Instance.BasicBackground.Sprite,
+            description = ModEntry.Instance.Localizations.Localize(["card", "HullCrack", "description", upgrade.ToString()]),
+        };
         return data;
     }
 
@@ -39,30 +43,22 @@ public class EiliHullCrack : Card, IModdedCard
             case Upgrade.None:
                 List<CardAction> cardActionList1 = new List<CardAction>()
                 {
-                    new AAttack()
+                    new ATempBrittleAttack()
                     {
-                        damage = 1,
+                        damage = GetDmg(s, 1),
                         piercing = true,
                     },
-                    new AApplyTempBrittle()
-                    {
-                        IsRandom = false,
-                    }
                 };
                 actions = cardActionList1;
                 break;
             case Upgrade.A:
                 List<CardAction> cardActionList2 = new List<CardAction>()
                 {
-                    new AAttack()
+                    new ATempBrittleAttack()
                     {
-                        damage = 1,
+                        damage = GetDmg(s, 1),
                         piercing = true,
                     },
-                    new AApplyTempBrittle()
-                    {
-                        IsRandom = false,
-                    }
                 };
                 actions = cardActionList2;
                 break;
@@ -71,9 +67,9 @@ public class EiliHullCrack : Card, IModdedCard
                 {
                     new AAttack()
                     {
-                        damage = 1,
+                        damage = GetDmg(s, 1),
                         piercing = true,
-                        brittle = true
+                        brittle = true,
                     },
                 };
                 actions = cardActionList3;

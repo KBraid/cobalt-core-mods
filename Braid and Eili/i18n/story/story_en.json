@@ -1,0 +1,524 @@
+/* INSTRUCTIONS FOR LOCALIZATION
+ *   eili : KBraid.BraidEili::Eili
+ *  braid : KBraid.BraidEili::Braid
+ * loopTag: ALWAYS in english
+
+        BRAID-only loopTags
+        "blink"
+        "ending_a"
+        "ending_b"
+        "ending_c"
+        "eyes_closed"
+        "hug_a"
+        "hug_b"
+        "serious"
+        "serious_a"
+        "serious_b"
+        "serious_c"
+        "shout"
+        "shout_a"
+        "shout_b"
+        "shout_c"
+        "unamused"
+
+        EILI-only loopTags
+        "cheeky"
+        "cheeky_a"
+        "concerned"
+        "happy"
+        "manic"
+        "sad"
+
+        BRAID AND EILI loopTags
+        "crystallized"
+        "defeat"
+        "neutral"
+*/
+{
+  "ChoiceCardRewardOfYourColorChoice_KBraid.BraidEili::Eili_0": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "Hey guys! i just had the craziest idea!",
+      "loopTag": "happy"
+    }
+  },
+  "ChoiceCardRewardOfYourColorChoice_KBraid.BraidEili::Braid_0": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "...",
+      "loopTag": "serious"
+    }
+  },
+  "LoseCharacterCard_KBraid.BraidEili::Eili_0": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "Aw... That was my favorite...",
+      "loopTag": "sad"
+    }
+  },
+  "LoseCharacterCard_KBraid.BraidEili::Eili_1": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "To be honest, i actually wasn't expecting that to work.",
+      "loopTag": "concerned"
+    }
+  },
+  "LoseCharacterCard_KBraid.BraidEili::Braid_0": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "Survival was more important.",
+      "loopTag": "serious"
+    }
+  },
+  "CrystallizedFriendEvent_KBraid.BraidEili::Eili_0": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "SMmmh... is it morning already?",
+      "loopTag": "sad"
+    }
+  },
+  "CrystallizedFriendEvent_KBraid.BraidEili::Eili_1": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "Hello again!",
+      "loopTag": "happy"
+    }
+  },
+  "CrystallizedFriendEvent_KBraid.BraidEili::Braid_0": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "...",
+      "loopTag": "blink"
+    }
+  },
+  "CrystallizedFriendEvent_KBraid.BraidEili::Braid_1": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "What are your orders."
+    }
+  },
+  "GrandmaShop_KBraid.BraidEili::Eili_0": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "Brownies."
+    }
+  },
+  "GrandmaShop_KBraid.BraidEili::Braid_0": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "Ammo."
+    }
+  },
+  "KBraid.BraidEili::Eili_CharStart_0": {
+    "dialogue1": {
+      "who": "comp",
+      "what": "Alright team! Time to take another..."
+    },
+    "dialogue2": {
+      "who": "comp",
+      "what": "Wait who-?",
+      "loopTag": "grumpy"
+    },
+    "dialogue3": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "Hello!",
+      "flipped": true
+    },
+    "dialogue4": {
+      "who": "comp",
+      "what": "...",
+      "loopTag": "worried"
+    },
+    "dialogue5": {
+      "who": "comp",
+      "what": "Hello?",
+      "loopTag": "squint"
+    },
+    "dialogue6": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "Hi!",
+      "flipped": true
+    },
+    "dialogue7": {
+      "who": "comp",
+      "what": "Welcome abord!"
+    },
+    "dialogue8": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "Thank you!",
+      "loopTag": "happy",
+      "flipped": true
+    }
+  },
+  "KBraid.BraidEili::Braid_CharStart_0": {
+    "dialogue1": {
+      "who": "comp",
+      "what": "Ah. Another one.",
+      "loopTag": "grumpy"
+    },
+    "dialogue2": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "...",
+      "loopTag": "blink",
+      "flipped": true
+    },
+    "dialogue3": {
+      "who": "comp",
+      "what": "...",
+      "loopTag": "worried"
+    },
+    "dialogue4": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "...",
+      "flipped": true
+    },
+    "dialogue5": {
+      "who": "comp",
+      "what": "...",
+      "loopTag": "mad"
+    },
+    "dialogue6": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "...",
+      "flipped": true
+    },
+    "dialogue7": {
+      "who": "comp",
+      "what": "...",
+      "loopTag": "squint"
+    },
+    "dialogue8": {
+      "who": "comp",
+      "what": "Don't talk much do you?",
+      "loopTag": "neutral"
+    },
+    "dialogue9": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "I take orders.",
+      "flipped": true
+    },
+    "dialogue10": {
+      "who": "comp",
+      "what": "Right...",
+      "loopTag": "squint"
+    }
+  },
+  "KBraid.BraidEili::BraidEili_CharStart_0": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "..."
+    },
+    "dialogue2": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "...",
+      "flipped": true
+    },
+    "dialogue3": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "...",
+      "loopTag": "happy"
+    }
+  },
+  "KBraid.BraidEili::VoidZoneEiliBraid_0": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "...",
+      "loopTag": "cheeky"
+    },
+    "dialogue2": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "...",
+      "loopTag": "neutral",
+      "flipped": true
+    },
+    "dialogue3": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "...",
+      "loopTag": "cheeky_a"
+    },
+    "dialogue4": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "...",
+      "loopTag": "unamused",
+      "flipped": true
+    },
+    "dialogue5": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "...",
+      "loopTag": "hug_a",
+      "flipped": true
+    },
+    "dialogue6": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "...",
+      "loopTag": "hug_b",
+      "flipped": true
+    }
+  },
+  "KBraid.BraidEili::Braid_Eili_WentMissing_0": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "Eili? EILI!!!",
+      "loopTag": "shout"
+    }
+  },
+  "KBraid.BraidEili::Eili_Braid_WentMissing_0": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "B! Where'd you go!? Guys, B's gone!!",
+      "loopTag": "sad"
+    }
+  },
+  "KBraid.BraidEili::Eili_JustPlayedASashaCard_0": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "SportballGO!!!",
+      "loopTag": "happy"
+    }
+  },
+  "KBraid.BraidEili::Eili_OneHitPointThisIsFine_0": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "We're gonna be alright.... Right?",
+      "loopTag": "sad"
+    }
+  },
+  "KBraid.BraidEili::Eili_OneHitPointThisIsFine_1": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "I'm... I'm scared...",
+      "loopTag": "sad"
+    }
+  },
+  "KBraid.BraidEili::Eili_OneHitPointThisIsFine_2": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "N-no! No more! Please!",
+      "loopTag": "sad"
+    }
+  },
+  "KBraid.BraidEili::Braid_OneHitPointThisIsFine_0": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "Not yet...",
+      "loopTag": "serious_c"
+    }
+  },
+  "KBraid.BraidEili::Eili_WeAreMovingAroundALot_0": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "Wheeeee!",
+      "loopTag": "happy"
+    }
+  },
+  "KBraid.BraidEili::Braid_WeGotHurtButNotTooBad_0": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "Walk it off, we're fine.",
+      "loopTag": "serious"
+    }
+  },
+  "KBraid.BraidEili::Eili_WeDidOverFiveDamage_0": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "Bang Bang Pow!",
+      "loopTag": "happy"
+    },
+    "dialogue2": {
+      "who": "crew",
+      "what": "Love the enthusiasm."
+    }
+  },
+  "KBraid.BraidEili::Eili_ThatsALotOfDamageToThem_0": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "KILL!! MURDER!!!",
+      "loopTag": "manic"
+    },
+    "dialogue2": {
+      "who": "crew",
+      "what": "Whoa! Calm down Eili!"
+    }
+  },
+  "KBraid.BraidEili::Eili_Card_IdentifyWeakpoint_0": {
+    "dialogue1": {
+      "choice1": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "There, hit 'em there!"
+      },
+      "choice2": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "A-ha! That spot!"
+      }
+    }
+  },
+  "KBraid.BraidEili::Eili_Card_DisableDampeners_0": {
+    "dialogue1": {
+      "choice1": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "We don't need this right now do we?",
+        "loopTag": "concerned"
+      },
+      "choice2": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "Alright trust me on this."
+      }
+    },
+    "dialogue2": {
+      "choice1": {
+        "who": "crew",
+        "what": "Eili, turn that back on!"
+      },
+      "choice2": {
+        "who": "crew",
+        "what": "Eili, don't do that!"
+      }
+    }
+  },
+  "KBraid.BraidEili::Eili_Card_Hotwire_0": {
+    "dialogue1": {
+      "choice1": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "Whoops! Uh... anyone got a fire extinquisher?",
+        "loopTag": "concerned"
+      },
+      "choice2": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "Ouch! ...Uhoh.",
+        "loopTag": "concerned"
+      },
+      "choice3": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "Eek! ...Uh, good news, more shields!",
+        "loopTag": "concerned"
+      }
+    },
+    "dialogue2": {
+      "choice1": {
+        "who": "crew",
+        "what": "Eili!!!"
+      },
+      "choice2": {
+        "who": "crew",
+        "what": "I don't think that's helping!"
+      },
+      "choice3": {
+        "who": "crew",
+        "what": "Eili be careful!"
+      },
+      "choice4": {
+        "who": "crew",
+        "what": "Stop messing with the wiring!"
+      }
+    }
+  },
+  "KBraid.BraidEili::Eili_Card_AnchorShot_0": {
+    "dialogue1": {
+      "choice1": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "Gotcha!"
+      },
+      "choice2": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "Locked down!"
+      }
+    }
+  },
+  "KBraid.BraidEili::Eili_Card_PickMeUp_0": {
+    "dialogue1": {
+      "choice1": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "Ahh... Refreshing!",
+        "loopTag": "happy"
+      },
+      "choice2": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "Time for a stretch!",
+        "loopTag": "happy"
+      },
+      "choice3": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "A quick little break... and back to it!",
+        "loopTag": "happy"
+      }
+    }
+  },
+  "KBraid.BraidEili::Eili_Card_Inspiration_0": {
+    "dialogue1": {
+      "choice1": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "This will work... This will work!",
+        "loopTag": "happy"
+      },
+      "choice2": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "Oh yeah, it's all coming together!",
+        "loopTag": "happy"
+      },
+      "choice3": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "Now things get fun!",
+        "loopTag": "happy"
+      }
+    }
+  },
+  "KBraid.BraidEili::Eili_Card_TargettingScramble_0": {
+    "dialogue1": {
+      "choice1": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "Beep beep boop!"
+      },
+      "choice2": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "IFF targeting... swapped!"
+      },
+      "choice3": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "Your enemy is now your owner!"
+      }
+    }
+  },
+  "KBraid.BraidEili::Eili_Card_ReroutePower_0": {
+    "dialogue1": {
+      "choice1": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "Rerouting shields!"
+      },
+      "choice2": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "Dumping shield charge into energy banks!"
+      }
+    }
+  },
+  "KBraid.BraidEili::Eili_Card_DumpCargo_0": {
+    "dialogue1": {
+      "choice1": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "Dump Cargo!!!",
+        "loopTag": "happy"
+      },
+      "choice2": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "Whopsiedoodle!",
+        "loopTag": "happy"
+      },
+      "choice3": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "Wrong button!",
+        "loopTag": "happy"
+      },
+      "choice4": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "Special Delivery!",
+        "loopTag": "happy"
+      }
+    }
+  },
+  "KBraid.BraidEili::Braid_ResolveTriggered_0": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "NOT YET! WE'RE NOT FINISHED YET!!!",
+      "loopTag": "serious_c"
+    }
+  }
+}

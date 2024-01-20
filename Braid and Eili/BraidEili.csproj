@@ -1,22 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<RootNamespace>KBraid.BraidEili</RootNamespace>
-		<Version>0.2.0</Version>
+		<Version>0.5.0</Version>
 		<IsNickelMod>True</IsNickelMod>
+		<IncludedModProjectPaths>assets;i18n</IncludedModProjectPaths>
+		<TargetFramework>net8.0</TargetFramework>
+		<ModZipPath>$(MSBuildProjectDirectory)\.release\$(MSBuildProjectName)-$(Version).zip</ModZipPath>
 		<LangVersion>12.0</LangVersion>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<WarningsAsErrors>Nullable</WarningsAsErrors>
 		<CheckEolTargetFramework>false</CheckEolTargetFramework>
-		<IsNickelMod Condition="'$(IsNickelMod)' == ''">False</IsNickelMod>
-		<DefineConstants Condition="$(IsNickelMod)">$(DefineConstants);IS_NICKEL_MOD</DefineConstants>
-		<TargetFramework>net8.0</TargetFramework>
-		<TargetFramework Condition="$(IsNickelMod)">net8.0</TargetFramework>
-		<ModZipPath>$(MSBuildProjectDirectory)\.release\$(MSBuildProjectName)-$(Version).zip</ModZipPath>
-		<IncludedModProjectPaths>assets</IncludedModProjectPaths>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Condition="$(IsNickelMod)" Include="Nickel.ModBuildConfig" Version="0.2.0" />
+		<PackageReference Include="Nickel.ModBuildConfig" Version="0.4.0" />
+		<PackageReference Include="MakeTypesPublic" Version="1.0.3" PrivateAssets="All" ExcludeAssets="runtime" />
 		<PackageReference Include="EnumByNameSourceGenerator" Version="1.1.1" PrivateAssets="All" ExcludeAssets="runtime" />
 	</ItemGroup>
 </Project>

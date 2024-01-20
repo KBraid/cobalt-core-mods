@@ -46,6 +46,7 @@ public class BraidFollowthrough : Card, IModdedCard
                     new AAttack()
                     {
                         damage = GetDmg(s, s.ship.Get(Status.evade)),
+                        xHint = 1
                     },
                     new AStatus()
                     {
@@ -67,6 +68,7 @@ public class BraidFollowthrough : Card, IModdedCard
                     new AAttack()
                     {
                         damage = GetDmg(s, s.ship.Get(Status.evade)),
+                        xHint = 1
                     },
                 };
                 actions = cardActionList2;
@@ -81,6 +83,7 @@ public class BraidFollowthrough : Card, IModdedCard
                     new AAttack()
                     {
                         damage = GetDmg(s, s.ship.Get(Status.evade)),
+                        xHint = 1
                     },
                     new AStatus()
                     {

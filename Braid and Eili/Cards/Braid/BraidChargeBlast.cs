@@ -23,10 +23,12 @@ public class BraidChargeBlast : Card, IModdedCard
 
     public override CardData GetData(State state)
     {
-        CardData data = new CardData();
-        data.cost = 2;
-        data.art = new Spr?(StableSpr.cards_Scattershot);
-        //data.description = ModEntry.Instance.Localizations.Localize(["card", "ChargeBlast", "description", upgrade.ToString()]);
+        CardData data = new CardData()
+        {
+            cost = 2,
+            art = new Spr?(StableSpr.cards_Scattershot),
+            description = ModEntry.Instance.Localizations.Localize(["card", "ChargeBlast", "description", upgrade.ToString()], new { Damage = GetDmg(state, GetCardsInHand(state))})
+        };
         return data;
     }
     public int GetCardsInHand(State s) => s.route is Combat route ? route.hand.Count - 1 : 0;
@@ -35,89 +37,24 @@ public class BraidChargeBlast : Card, IModdedCard
         var maxBlastCard = new BraidMaxBlast()
         {
             myDamage = GetCardsInHand(s),
-            temporaryOverride = true,
             upgrade = this.upgrade,
         };
-        List<CardAction> actions = new();
-        switch (upgrade)
+        List<CardAction> actions = new()
         {
-            case Upgrade.None:
-                List<CardAction> cardActionList1 = new List<CardAction>()
-                {
-                    new AVariableHint()
-                    {
-                        hand = true,
-                        handAmount = GetCardsInHand(s)
-                    },
-                    new ADiscard()
-                    {
-                        count = GetCardsInHand(s),
-                        xHint = 1
-                    },
-                    new AAddCard()
-                    {
-                        card = maxBlastCard,
-                        amount = 1,
-                        destination = CardDestination.Hand
-                    },
-                    new AStatus()
-                    {
-                        status = Status.energyLessNextTurn,
-                        statusAmount = 1,
-                        targetPlayer = true
-                    }
-                };
-                actions = cardActionList1;
-                break;
-            case Upgrade.A:
-                List<CardAction> cardActionList2 = new List<CardAction>()
-                {
-                    new AVariableHint()
-                    {
-                        hand = true,
-                        handAmount = GetCardsInHand(s)
-                    },
-                    new AExhaustEntireHand(),
-                    new AAddCard()
-                    {
-                        card = maxBlastCard,
-                        amount = 1,
-                        destination = CardDestination.Hand
-                    },
-                    new AStatus()
-                    {
-                        status = Status.energyLessNextTurn,
-                        statusAmount = 1,
-                        targetPlayer = true
-                    }
-                };
-                actions = cardActionList2;
-                break;
-            case Upgrade.B:
-                List<CardAction> cardActionList3 = new List<CardAction>()
-                {
-                    new AVariableHint()
-                    {
-                        hand = true,
-                        handAmount = GetCardsInHand(s)
-                    },
-                    new AExhaustEntireHand(),
-                    new AAddCard()
-                    {
-                        card = maxBlastCard,
-                        amount = 1,
-                        destination = CardDestination.Hand
-                    },
-                    new AStatus()
-                    {
-                        status = Status.energyLessNextTurn,
-                        statusAmount = 1,
-                        targetPlayer = true
-                    }
-                };
-                actions = cardActionList3;
-                break;
-        }
+            new ADiscard(),
+            new AAddCard()
+            {
+                card = maxBlastCard,
+                amount = 1,
+                destination = CardDestination.Hand
+            },
+            new AStatus()
+            {
+                status = Status.energyLessNextTurn,
+                statusAmount = 1,
+                targetPlayer = true
+            }
+        };
         return actions;
     }
 }

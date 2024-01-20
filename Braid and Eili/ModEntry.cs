@@ -10,51 +10,61 @@ using System.Linq;
 namespace KBraid.BraidEili;
 
 /* TO-DO
- * DONE : DisabledDampeners Status -keep track of X damage taken, gain X*status Evade, move X*status random. Decrease 1 on turn start
- * DONE : ShockAbsorber Status -keep track of X damage taken, gain X*status TempShieldNextTurn
+ * DONE : DisabledDampeners Status
+ * DONE : ShockAbsorber Status
  * DONE : TempShieldNextTurn Status
- * DONE : KineticGenerator Status -keep track of X movement amounts, give X*status temp shield accordingly. Decrease 1 on turn start
- * DONE : EqualPayback Status -keep track of all damage taken, fire the value*status. Decrease by 1 on turn start
- * DONE : TempPowerdrive Status -powerdrive, lose all stacks on turn end
- * DONE : Bide Status -keep track of X damage taken, gain X Biding My Time. Decrease 1 on turn start
- * DONE : Perfect Timing Status -powerdrive, lose all stacks on use
- * DONE : Make Revenge Action -find a way to keep track of lost hull during combat
- * DONE : SOLUTION: Lost Hull Status
- * DONE : Resolve Status -when hit, if you would drop below 1 hull, instead lose max hull
- * KINDA: Make Retreat Action -find a way to access PlayerWon(g) and flag it noRewards = true
+ * DONE : KineticGenerator Status
+ * DONE : EqualPayback Status
+ * DONE : TempPowerdrive Status
+ * DONE : Bide Status
+ * DONE : Perfect Timing Status
+ * DONE : Revenge: Lost Hull Status
+ * DONE : Resolve Status
+ * KINDA: ARetreat Action
  *        ISSUE: No retreat animation
- * DONE : Make Inspiration Action -select card, remove exhaust from card
+ * DONE : AInspiration Action
+ * DONE : ASacrifice Action + Extensions + ACardSelectSacrifice
+ * DONE : ALaunchMidrow Action + AEnemyVolleySpawnFromAllMissileBays Action
+ * DONE : Unlock Req:   Eili : Win 5 times
+ *                      Braid : Win with Eili
+ * DONE : ATempBrittlePart Action + ATempBrittleAttack Action
+ * DONE : ATempArmorPart Action
+ * DONE : Removed Coils card, added B.Cannon, B.Charge, B.Shot cards & B.Charge status
+ * KINDA: Shove It random move
+ *        ISSUE: Render move random alongside attack. Currently using text instead
  * REMAINING STUFF TO-DO
- * ASacrifice Action -select card, exhaust card, keep int of card cost, return it
- * AApplyTempBrittle Action 
- *                      -if IsRandom, choose random enemy part and give it new TempBrittle.
- *                      -if !IsRandom, part in front of active cannon gets it, remove TempBrittle on hit
- * -new TempBrittle dmg modifier
- * AApplyTempArmor Action -keep track of current part dmg modifiers, apply new TempArmor dmg modifier until start of turn
- * -new TempArmor dmg modifier
- * ALaunchMidrow Action -find a way to add enemy intent mid-turn, active specific intents
  * Eili Artifacts
  * Braid Artifacts
- * Unlock Req:   Eili : Win 5 times
- *              Braid : Win with Eili
  * Story
  */
 public sealed class ModEntry : SimpleMod
 {
+    public static string Name => "KBraid.BraidEili";
+    internal bool LockedChar = false;
     internal static ModEntry Instance { get; private set; } = null!;
     internal Harmony Harmony { get; }
     internal IKokoroApi KokoroApi { get; }
     internal ILocalizationProvider<IReadOnlyList<string>> AnyLocalizations { get; }
     internal ILocaleBoundNonNullLocalizationProvider<IReadOnlyList<string>> Localizations { get; }
+    internal ILocalizationProvider<IReadOnlyList<string>> AnyStoryLoc { get; }
+    internal ILocaleBoundNonNullLocalizationProvider<IReadOnlyList<string>> StoryLocs { get; }
     internal IDeckEntry BraidDeck { get; }
     internal IDeckEntry EiliDeck { get; }
+    internal ICharacterEntry BraidChar { get; }
+    internal ICharacterEntry EiliChar { get; }
     internal static Color BraidColor => new("c0c9e6");
     internal static Color EiliColor => new("42add1");
     internal static Color BraidCardTitleColor => new("000000");
     internal static Color EiliCardTitleColor => new("000000");
     internal ISpriteEntry BasicBackground { get; }
+    internal ISpriteEntry ASacrificePermanent { get; }
     internal ISpriteEntry AApplyTempBrittle_Icon { get; }
     internal ISpriteEntry AApplyTempArmor_Icon { get; }
+    internal ISpriteEntry ARandomMove { get; }
+
+    //internal ISpriteEntry EiliUncommonBorder { get; }
+    //internal ISpriteEntry EiliRareBorder { get; }
+
     internal IStatusEntry DisabledDampeners { get; }
     internal IStatusEntry ShockAbsorber { get; }
     internal IStatusEntry TempShieldNextTurn { get; }
@@ -66,7 +76,9 @@ public sealed class ModEntry : SimpleMod
     internal IStatusEntry LostHull { get; }
     internal IStatusEntry Resolve { get; }
     internal IStatusEntry Retreat { get; }
-    internal IList<string> faceSprites { get; } = [
+    internal IStatusEntry EngineStallNextTurn { get; }
+    internal IStatusEntry BusterCharge { get; }
+    internal IList<string> FaceSprites { get; } = [
         "blink",
         "crystallized",
         "defeat",
@@ -94,7 +106,7 @@ public sealed class ModEntry : SimpleMod
         "manic",
         "sad"
     ];
-    internal IList<string> charNames { get; } = [
+    internal IList<string> CharNames { get; } = [
         "braid",
         "eili"
     ];
@@ -142,20 +154,22 @@ public sealed class ModEntry : SimpleMod
         typeof(BraidPummel),
         typeof(BraidLeftHook),
         typeof(BraidHaymaker),
-        typeof(BraidInductionCoils),
         typeof(BraidChargeBlast),
         typeof(BraidMaxBlast),
         typeof(BraidLimiterOff),
+        typeof(BraidSneakAttack),
     ];
 
     internal static IReadOnlyList<Type> BraidUncommonCardTypes { get; } = [
-        typeof(BraidSneakAttack),
+        typeof(BraidArmourLock),
+        typeof(BraidBide),
+        typeof(BraidBusterCannon),
+        typeof(BraidBusterCharge),
+        typeof(BraidBusterShot),
+        typeof(BraidDischarge),
         typeof(BraidFollowthrough),
         typeof(BraidRetaliate),
         typeof(BraidWindup),
-        typeof(BraidBide),
-        typeof(BraidArmourLock),
-        typeof(BraidDischarge),
     ];
 
     internal static IReadOnlyList<Type> BraidRareCardTypes { get; } = [
@@ -165,35 +179,38 @@ public sealed class ModEntry : SimpleMod
         typeof(BraidResolve),
         typeof(BraidRetreat),
     ];
-    internal static IReadOnlyList<Type> BraidCommonArtifactTypes { get; } = [
-
-    ];
-    internal static IReadOnlyList<Type> BraidBossArtifactTypes { get; } = [
-
-    ];
     internal static IReadOnlyList<Type> EiliCommonArtifactTypes { get; } = [
 
     ];
     internal static IReadOnlyList<Type> EiliBossArtifactTypes { get; } = [
 
     ];
+    internal static IReadOnlyList<Type> BraidCommonArtifactTypes { get; } = [
 
-    internal static IEnumerable<Type> BraidCardTypes
-        => BraidStarterCardTypes
-        .Concat(BraidCommonCardTypes)
-        .Concat(BraidUncommonCardTypes)
-        .Concat(BraidRareCardTypes);
+    ];
+    internal static IReadOnlyList<Type> BraidBossArtifactTypes { get; } = [
+
+    ];
+
     internal static IEnumerable<Type> EiliCardTypes
         => EiliStarterCardTypes
         .Concat(EiliCommonCardTypes)
         .Concat(EiliUncommonCardTypes)
         .Concat(EiliRareCardTypes);
-    internal static IEnumerable<Type> BraidArtifactTypes
-        => BraidCommonArtifactTypes
-        .Concat(BraidBossArtifactTypes);
+    internal static IEnumerable<Type> BraidCardTypes
+        => BraidStarterCardTypes
+        .Concat(BraidCommonCardTypes)
+        .Concat(BraidUncommonCardTypes)
+        .Concat(BraidRareCardTypes);
+    internal static IEnumerable<Type> AllCards
+        => EiliCardTypes
+        .Concat(BraidCardTypes);
     internal static IEnumerable<Type> EiliArtifactTypes
         => EiliCommonArtifactTypes
         .Concat(EiliBossArtifactTypes);
+    internal static IEnumerable<Type> BraidArtifactTypes
+        => BraidCommonArtifactTypes
+        .Concat(BraidBossArtifactTypes);
 
     public ModEntry(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
     {
@@ -203,7 +220,6 @@ public sealed class ModEntry : SimpleMod
         //KokoroApi.RegisterTypeForExtensionData(typeof(AHurt));
         //KokoroApi.RegisterTypeForExtensionData(typeof(AAttack));
         //KokoroApi.RegisterCardRenderHook(new SpacingCardRenderHook(), 0);
-
         // Make stuff do stuff
         _ = new DisabledDampenersManager();
         _ = new ShockAbsorberManager();
@@ -215,44 +231,57 @@ public sealed class ModEntry : SimpleMod
         _ = new LostHullManager();
         _ = new ResolveManager();
         _ = new RetreatManager();
+        _ = new EngineStallNextTurnManager();
 
         CustomTTGlossary.ApplyPatches(Harmony);
         
         this.AnyLocalizations = new JsonLocalizationProvider(
             tokenExtractor: new SimpleLocalizationTokenExtractor(),
-            localeStreamFunction: locale => package.PackageRoot.GetRelativeFile($"assets/locales/Cards_{locale}.json").OpenRead()
+            localeStreamFunction: locale => package.PackageRoot.GetRelativeFile($"i18n/{locale}.json").OpenRead()
         );
         this.Localizations = new MissingPlaceholderLocalizationProvider<IReadOnlyList<string>>(
             new CurrentLocaleOrEnglishLocalizationProvider<IReadOnlyList<string>>(this.AnyLocalizations)
         );
-        BasicBackground = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/cards/empty_backgroud.png"));
-        AApplyTempBrittle_Icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/disabledDampeners.png"));
-        AApplyTempArmor_Icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/disabledDampeners.png"));
+        this.AnyStoryLoc = new JsonLocalizationProvider(
+            tokenExtractor: new SimpleLocalizationTokenExtractor(),
+            localeStreamFunction: locale => package.PackageRoot.GetRelativeFile($"i18n/story/story_{locale}.json").OpenRead()
+        );
+        this.StoryLocs = new MissingPlaceholderLocalizationProvider<IReadOnlyList<string>>(
+            new CurrentLocaleOrEnglishLocalizationProvider<IReadOnlyList<string>>(this.AnyStoryLoc)
+        );
+        BasicBackground = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/empty_backgroud.png"));
+        ASacrificePermanent = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/sacrificePermanent.png"));
+        AApplyTempBrittle_Icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/tempBrittle.png"));
+        AApplyTempArmor_Icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/tempArmorAction.png"));
+        ARandomMove = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/randomMove.png"));
+
+        //EiliUncommonBorder = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cardShared/border_eili_uncommon.png"));
+        //EiliRareBorder = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cardShared/border_eili_rare.png"));
 
         // Register sprites
-        foreach (string name in charNames)
+        foreach (string name in CharNames)
         {
             //talking sprites such as happy and serious
-            foreach (string face in faceSprites)
+            foreach (string face in FaceSprites)
             {
                 IFileInfo file;
                 for (int frame = 0; frame < 10; frame++)
                 {
-                    file = package.PackageRoot.GetRelativeFile($"assets/sprites/characters/{name}/{name}_{face}_{frame}.png");
+                    file = package.PackageRoot.GetRelativeFile($"assets/characters/{name}/{name}_{face}_{frame}.png");
                     if (file.Exists)
                         Sprites.Add(key: $"{name}_{face}_{frame}", value: Helper.Content.Sprites.RegisterSprite(file));
                     else
                         break;
                 }
                 // Panels
-                file = package.PackageRoot.GetRelativeFile($"assets/sprites/panels/char_{name}.png");
+                file = package.PackageRoot.GetRelativeFile($"assets/panels/char_{name}.png");
                 if (file.Exists && !Sprites.ContainsKey($"{name}_panel"))
                     Sprites.Add(key: $"{name}_panel", value: Helper.Content.Sprites.RegisterSprite(file));
                 // Card Borders
-                file = package.PackageRoot.GetRelativeFile($"assets/sprites/cardShared/border_{name}.png");
+                file = package.PackageRoot.GetRelativeFile($"assets/cardShared/border_{name}.png");
                 if (file.Exists && !Sprites.ContainsKey($"{name}_border"))
                     Sprites.Add(key: $"{name}_border", value: Helper.Content.Sprites.RegisterSprite(file));
-                file = package.PackageRoot.GetRelativeFile($"assets/sprites/fullchars/{name}_end.png");
+                file = package.PackageRoot.GetRelativeFile($"assets/fullchars/{name}_end.png");
                 // Full bodies
                 if (file.Exists && !Sprites.ContainsKey($"{name}_fullchar"))
                     Sprites.Add(key: $"{name}_fullchar", value: Helper.Content.Sprites.RegisterSprite(file));
@@ -261,6 +290,14 @@ public sealed class ModEntry : SimpleMod
         }
 
         // Register decks
+
+        EiliDeck = Helper.Content.Decks.RegisterDeck("Eili", new()
+        {
+            Definition = new() { color = EiliColor, titleColor = EiliCardTitleColor },
+            DefaultCardArt = BasicBackground.Sprite,
+            BorderSprite = Sprites["eili_border"].Sprite,
+            Name = this.AnyLocalizations.Bind(["character", "Eili", "name"]).Localize,
+        });
         BraidDeck = Helper.Content.Decks.RegisterDeck("Braid", new()
         {
             Definition = new() { color = BraidColor, titleColor = BraidCardTitleColor },
@@ -269,20 +306,12 @@ public sealed class ModEntry : SimpleMod
             Name = this.AnyLocalizations.Bind(["character", "Braid", "name"]).Localize
         });
 
-        EiliDeck = Helper.Content.Decks.RegisterDeck("Eili", new()
-        {
-            Definition = new() { color = EiliColor, titleColor = EiliCardTitleColor },
-            DefaultCardArt = BasicBackground.Sprite,
-            BorderSprite = Sprites["eili_border"].Sprite,
-            Name = this.AnyLocalizations.Bind(["character", "Eili", "name"]).Localize
-        });
-
         // Register statuses
         DisabledDampeners = Helper.Content.Statuses.RegisterStatus("DisabledDampeners", new()
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/disabledDampeners.png")).Sprite,
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/disabledDampeners.png")).Sprite,
                 color = new("42add1"),
                 isGood = true
             },
@@ -293,7 +322,7 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/shockAbsorber.png")).Sprite,
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/shockAbsorber.png")).Sprite,
                 color = new("42add1"),
                 isGood = true
             },
@@ -304,7 +333,7 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/tempShieldNextTurn.png")).Sprite,
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/tempShieldNextTurn.png")).Sprite,
                 color = new("42add1"),
                 isGood = true
             },
@@ -315,7 +344,7 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/kineticGenerator.png")).Sprite,
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/kineticGenerator.png")).Sprite,
                 color = new("42add1"),
                 isGood = true
             },
@@ -326,7 +355,7 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/equalPayback.png")).Sprite,
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/equalPayback.png")).Sprite,
                 color = new("c0c9e6"),
                 isGood = true
             },
@@ -337,7 +366,7 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/tempPowerdrive.png")).Sprite,
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/tempPowerdrive.png")).Sprite,
                 color = new("c0c9e6"),
                 isGood = true
             },
@@ -348,7 +377,7 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/bide.png")).Sprite,
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/bide.png")).Sprite,
                 color = new("c0c9e6"),
                 isGood = true
             },
@@ -359,7 +388,7 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/perfectTiming.png")).Sprite,
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/perfectTiming.png")).Sprite,
                 color = new("c0c9e6"),
                 isGood = true
             },
@@ -370,8 +399,10 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/lostHull.png")).Sprite,
-                color = new("c0c9e6")
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/lostHull.png")).Sprite,
+                color = new("c0c9e6"),
+                isGood = true
+                
             },
             Name = this.AnyLocalizations.Bind(["status", "LostHull", "name"]).Localize,
             Description = this.AnyLocalizations.Bind(["status", "LostHull", "description"]).Localize
@@ -380,7 +411,7 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/resolve.png")).Sprite,
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/resolve.png")).Sprite,
                 color = new("c0c9e6"),
                 isGood = true
             },
@@ -391,13 +422,36 @@ public sealed class ModEntry : SimpleMod
         {
             Definition = new()
             {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/sprites/icons/retreat.png")).Sprite,
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/retreat.png")).Sprite,
                 color = new("c0c9e6"),
                 isGood = true
             },
             Name = this.AnyLocalizations.Bind(["status", "Retreat", "name"]).Localize,
             Description = this.AnyLocalizations.Bind(["status", "Retreat", "description"]).Localize
         });
+        EngineStallNextTurn = Helper.Content.Statuses.RegisterStatus("EngineStallNextTurn", new()
+        {
+            Definition = new()
+            {
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/engineStallNextTurn.png")).Sprite,
+                color = new("c0c9e6"),
+                isGood = false
+            },
+            Name = this.AnyLocalizations.Bind(["status", "EngineStallNextTurn", "name"]).Localize,
+            Description = this.AnyLocalizations.Bind(["status", "EngineStallNextTurn", "description"]).Localize
+        });
+        BusterCharge = Helper.Content.Statuses.RegisterStatus("BusterCharge", new()
+        {
+            Definition = new()
+            {
+                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/busterCharge.png")).Sprite,
+                color = new("c0c9e6"),
+                isGood = true
+            },
+            Name = this.AnyLocalizations.Bind(["status", "BusterCharge", "name"]).Localize,
+            Description = this.AnyLocalizations.Bind(["status", "BusterCharge", "description"]).Localize
+        });
+
         // Register cards
         foreach (var cardType in BraidCardTypes)
             AccessTools.DeclaredMethod(cardType, nameof(IModdedCard.Register))?.Invoke(null, [helper]);
@@ -405,9 +459,10 @@ public sealed class ModEntry : SimpleMod
             AccessTools.DeclaredMethod(cardType, nameof(IModdedCard.Register))?.Invoke(null, [helper]);
 
         // Register characters
-        Helper.Content.Characters.RegisterCharacter("Eili", new()
+        EiliChar = Helper.Content.Characters.RegisterCharacter("Eili", new()
         {
             Deck = EiliDeck.Deck,
+            StartLocked = LockedChar,
             Description = this.AnyLocalizations.Bind(["character", "Eili", "description"]).Localize,
             BorderSprite = Sprites["eili_panel"].Sprite,
             StarterCardTypes = EiliStarterCardTypes,
@@ -429,11 +484,12 @@ public sealed class ModEntry : SimpleMod
                 Frames = [
                    Sprites["eili_mini_0"].Sprite
                 ]
-            },
+            }
         });
-        Helper.Content.Characters.RegisterCharacter("Braid", new()
+        BraidChar = Helper.Content.Characters.RegisterCharacter("Braid", new()
         {
             Deck = BraidDeck.Deck,
+            StartLocked = LockedChar,
             Description = this.AnyLocalizations.Bind(["character", "Braid", "description"]).Localize,
             BorderSprite = Sprites["braid_panel"].Sprite,
             StarterCardTypes = BraidStarterCardTypes,
@@ -457,9 +513,10 @@ public sealed class ModEntry : SimpleMod
                 ]
             },
         });
+
         //Register Extra Animations
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "gameover",
+            "eili_gameover",
             new()
             {
                 Deck = EiliDeck.Deck,
@@ -470,7 +527,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "cheeky",
+            "eili_cheeky",
             new()
             {
                 Deck = EiliDeck.Deck,
@@ -484,7 +541,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "cheeky_a",
+            "eili_cheeky_a",
             new()
             {
                 Deck = EiliDeck.Deck,
@@ -498,7 +555,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "concerned",
+            "eili_concerned",
             new()
             {
                 Deck = EiliDeck.Deck,
@@ -512,7 +569,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "happy",
+            "eili_happy",
             new()
             {
                 Deck = EiliDeck.Deck,
@@ -526,7 +583,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "manic",
+            "eili_manic",
             new()
             {
                 Deck = EiliDeck.Deck,
@@ -540,7 +597,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "sad",
+            "eili_sad",
             new()
             {
                 Deck = EiliDeck.Deck,
@@ -554,7 +611,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "squint",
+            "eili_squint",
             new()
             {
                 Deck = EiliDeck.Deck,
@@ -568,7 +625,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "gameover",
+            "braid_gameover",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -579,7 +636,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "squint",
+            "braid_squint",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -593,7 +650,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "blink",
+            "braid_blink",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -607,7 +664,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "ending_a",
+            "braid_ending_a",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -621,7 +678,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "ending_b",
+            "braid_ending_b",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -635,7 +692,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "ending_c",
+            "braid_ending_c",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -649,7 +706,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "eyes_closed",
+            "braid_eyes_closed",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -663,7 +720,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "hug_a",
+            "braid_hug_a",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -674,7 +731,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "hug_b",
+            "braid_hug_b",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -685,7 +742,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "serious",
+            "braid_serious",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -699,7 +756,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "serious_a",
+            "braid_serious_a",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -713,7 +770,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "serious_b",
+            "braid_serious_b",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -727,7 +784,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "serious_c",
+            "braid_serious_c",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -738,7 +795,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "shout",
+            "braid_shout",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -752,7 +809,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "shout_a",
+            "braid_shout_a",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -766,7 +823,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "shout_b",
+            "braid_shout_b",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -780,7 +837,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "shout_c",
+            "braid_shout_c",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -794,7 +851,7 @@ public sealed class ModEntry : SimpleMod
             }
         );
         Helper.Content.Characters.RegisterCharacterAnimation(
-            "unamused",
+            "braid_unamused",
             new()
             {
                 Deck = BraidDeck.Deck,
@@ -807,8 +864,11 @@ public sealed class ModEntry : SimpleMod
                 ]
             }
         );
-
+        // CHARACTER UNLOCK
+        _ = new UnlockCharactersManager();
         // TRANSPILER STUFF
         _ = new EqualPaybackManager();
+
+        _ = new Dialogue();
     }
 }

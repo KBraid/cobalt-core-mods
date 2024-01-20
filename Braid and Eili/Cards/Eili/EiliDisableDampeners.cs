@@ -44,6 +44,7 @@ public class EiliDisableDampeners : Card, IModdedCard
                         status = disableDampeners_status,
                         statusAmount = 1,
                         targetPlayer = true,
+                        dialogueSelector = ".card_disableddampeners_played"
                     }
                 };
                 actions = cardActionList1;
@@ -56,6 +57,7 @@ public class EiliDisableDampeners : Card, IModdedCard
                         status = disableDampeners_status,
                         statusAmount = 1,
                         targetPlayer = true,
+                        dialogueSelector = ".card_disableddampeners_played"
                     }
                 };
                 actions = cardActionList2;
@@ -68,6 +70,7 @@ public class EiliDisableDampeners : Card, IModdedCard
                         status = disableDampeners_status,
                         statusAmount = 2,
                         targetPlayer = true,
+                        dialogueSelector = ".card_disableddampeners_played"
                     }
                 };
                 actions = cardActionList3;

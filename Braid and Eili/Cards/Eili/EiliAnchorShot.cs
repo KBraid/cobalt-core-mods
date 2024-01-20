@@ -42,7 +42,8 @@ public class EiliAnchorShot : Card, IModdedCard
                     {
                         damage = 3,
                         status = Status.lockdown,
-                        statusAmount = 1
+                        statusAmount = 1,
+                        dialogueSelector = ".card_anchorshot_played"
                     },
                 };
                 actions = cardActionList1;
@@ -54,7 +55,8 @@ public class EiliAnchorShot : Card, IModdedCard
                     {
                         damage = 3,
                         status = Status.lockdown,
-                        statusAmount = 1
+                        statusAmount = 1,
+                        dialogueSelector = ".card_anchorshot_played"
                     },
                 };
                 actions = cardActionList2;
@@ -67,7 +69,8 @@ public class EiliAnchorShot : Card, IModdedCard
                         damage = 3,
                         stunEnemy = true,
                         status = Status.lockdown,
-                        statusAmount = 1
+                        statusAmount = 1,
+                        dialogueSelector = ".card_anchorshot_played"
                     },
                 };
                 actions = cardActionList3;
