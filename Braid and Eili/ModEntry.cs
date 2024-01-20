@@ -232,6 +232,7 @@ public sealed class ModEntry : SimpleMod
         _ = new ResolveManager();
         _ = new RetreatManager();
         _ = new EngineStallNextTurnManager();
+        _ = new ATooltipDummyManager();
 
         CustomTTGlossary.ApplyPatches(Harmony);
         

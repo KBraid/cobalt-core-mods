@@ -26,33 +26,24 @@ public class BraidShoveIt : Card, IModdedCard
     public override CardData GetData(State state)
     {
         bool flag = false;
-        int dmg = 0;
-        int num = 0;
         switch (upgrade)
         {
             case Upgrade.None:
                 flag = false;
-                dmg = 1;
-                num = 3;
                 break;
             case Upgrade.A:
                 flag = false;
-                dmg = 2;
-                num = 5;
                 break;
             case Upgrade.B:
                 flag = true;
-                dmg = 1;
-                num = 3;
                 break;
         }
         CardData data = new CardData()
         {
             cost = 1,
             art = new Spr?(StableSpr.cards_Strafe),
-            flippable = flag,
-            description = upgrade == Upgrade.B ? null : ModEntry.Instance.Localizations.Localize(["card", "ShoveIt", "description"], new { Damage = GetDmg(state, dmg), Move = num })
-        };
+            flippable = flag
+            };
         return data;
     }
 
@@ -65,6 +56,15 @@ public class BraidShoveIt : Card, IModdedCard
             case Upgrade.None:
                 List<CardAction> cardActionList1 = new List<CardAction>()
                 {
+                    new ADummyAction(),
+                    new ATooltipDummy()
+                    {
+                        icons = new()
+                        {
+                            new Icon(StableSpr.icons_attack, GetDmg(s, 1), Colors.redd),
+                            new Icon(ModEntry.Instance.ARandomMove.Sprite, 3, Colors.redd)
+                        }
+                    },
                     new AAttackRandomMove()
                     {
                         damage = GetDmg(s, 1),
@@ -76,6 +76,15 @@ public class BraidShoveIt : Card, IModdedCard
             case Upgrade.A:
                 List<CardAction> cardActionList2 = new List<CardAction>()
                 {
+                    new ADummyAction(),
+                    new ATooltipDummy()
+                    {
+                        icons = new()
+                        {
+                            new Icon(StableSpr.icons_attack, GetDmg(s, 1), Colors.redd),
+                            new Icon(ModEntry.Instance.ARandomMove.Sprite, 5, Colors.redd)
+                        }
+                    },
                     new AAttackRandomMove()
                     {
                         damage = GetDmg(s, 2),
