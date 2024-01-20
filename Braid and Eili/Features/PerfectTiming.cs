@@ -17,6 +17,12 @@ internal sealed class PerfectTimingManager : IStatusLogicHook
             postfix: new HarmonyMethod(GetType(), nameof(AAttack_Begin_Postfix))
         );
     }
+    public bool? IsAffectedByBoost(State state, Combat combat, Ship ship, Status status)
+    {
+        if (status != ModEntry.Instance.LostHull.Status)
+            return null;
+        return false;
+    }
     private static void Card_GetActualDamage_Postfix(
         State s,
         bool targetPlayer,
