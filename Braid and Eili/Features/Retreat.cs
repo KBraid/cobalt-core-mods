@@ -1,5 +1,4 @@
-﻿using HarmonyLib;
-using KBraid.BraidEili.Actions;
+﻿using KBraid.BraidEili.Actions;
 namespace KBraid.BraidEili;
 internal sealed class RetreatManager : IStatusLogicHook
 {

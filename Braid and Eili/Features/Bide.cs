@@ -1,7 +1,6 @@
 ﻿using HarmonyLib;
 using System.Collections.Generic;
 using System.Linq;
-using static HarmonyLib.Code;
 
 namespace KBraid.BraidEili;
 internal sealed class BideManager : IStatusLogicHook

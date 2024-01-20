@@ -1,7 +1,6 @@
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
-using KBraid.BraidEili.Actions;
 
 namespace KBraid.BraidEili.Cards;
 public class BraidRevenge : Card, IModdedCard
@@ -31,7 +30,7 @@ public class BraidRevenge : Card, IModdedCard
         data.art = new Spr?(StableSpr.cards_Scattershot);
         var str = "";
         if (state.route is Combat)
-            str = string.Format("\n<c=boldPink>{0}</c>.",GetDmg(state, state.ship.Get(ModEntry.Instance.LostHull.Status)));
+            str = string.Format("\n<c=boldPink>{0}</c>.", GetDmg(state, state.ship.Get(ModEntry.Instance.LostHull.Status)));
         data.description = ModEntry.Instance.Localizations.Localize(["card", "Revenge", "description", upgrade.ToString()], new { Amount = str });
         return data;
     }

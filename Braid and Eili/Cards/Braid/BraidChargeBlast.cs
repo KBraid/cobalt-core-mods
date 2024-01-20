@@ -27,7 +27,7 @@ public class BraidChargeBlast : Card, IModdedCard
         {
             cost = 2,
             art = new Spr?(StableSpr.cards_Scattershot),
-            description = ModEntry.Instance.Localizations.Localize(["card", "ChargeBlast", "description", upgrade.ToString()], new { Damage = GetDmg(state, GetCardsInHand(state))})
+            description = ModEntry.Instance.Localizations.Localize(["card", "ChargeBlast", "description", upgrade.ToString()], new { Damage = GetDmg(state, GetCardsInHand(state)) })
         };
         return data;
     }

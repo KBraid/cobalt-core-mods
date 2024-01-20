@@ -20,7 +20,7 @@ internal sealed class TempShieldNextTurnManager : IStatusLogicHook
                 statusAmount = amount,
                 targetPlayer = ship.isPlayerShip,
             });
-            amount = 0;
+        amount = 0;
         return false;
     }
 }
