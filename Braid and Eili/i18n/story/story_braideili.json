@@ -159,11 +159,6 @@
         "braid"
       ]
     },
-
-
-
-
-
     "KB_Eili_CharStart_0": {
       "type": "event",
       "lookup": [
@@ -210,7 +205,6 @@
         }, 
       ]
     },
-
     "KB_Braid_CharStart_0": {
       "type": "event",
       "lookup": [
@@ -259,11 +253,6 @@
         }, 
       ]
     },
-
-
-
-
-
     "KB_Finale_Braid_1": {
       "type": "event",
       "oncePerCombat": true,
@@ -299,7 +288,6 @@
         "braid"
       ]
     },
-
     "Finale_PirateBoss_1": {
       "type": "event",
       "oncePerCombat": true,
@@ -544,11 +532,6 @@
         "braid"
       ]
     },
-
-
-
-
-
     "KB_Finale_Braid_1": {
       "type": "event",
       "oncePerCombat": true,
@@ -584,7 +567,6 @@
         "braid"
       ]
     },
-
     "Finale_PirateBoss_1": {
       "type": "event",
       "oncePerCombat": true,
@@ -829,7 +811,6 @@
         "braid"
       ]
     },
-
     "KB_BraidEili_CharStart_0": {
       "type": "event",
       "lookup": [
@@ -854,9 +835,6 @@
         "loopTag": "happy"},
       ]
     },
-
-
-
     "KB_VoidZoneEiliBraid_0": {
       "type": "event",
       "lookup": [
@@ -905,7 +883,6 @@
         },
       ]
     },
-
     "KB_Eili_Card_IdentifyWeakpoint": {
       "type": "combat",
       "lookup": [
@@ -1327,7 +1304,6 @@
         "eili"
       ]
     },
-
     "KB_Braid_EiliWentMissing": {
       "type": "combat",
       "lastTurnPlayerStatuses": [
@@ -1462,7 +1438,6 @@
         "braid"
       ]
     },
-
     "KB_Eili_WeDidOverFiveDamage_0": {
       "type": "combat",
       "playerShotJustHit": true,
@@ -1581,7 +1556,6 @@
         "braid"
       ]
     },
-
     "KB_Braid_MinerOncePerFightShouts": {
       "type": "combat",
       "turnStart": true,
@@ -1604,7 +1578,6 @@
           "who": "miner",
         },
       ]
-    },
-
+    }
   }
 }

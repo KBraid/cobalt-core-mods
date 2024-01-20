@@ -44,12 +44,21 @@ internal sealed class ResolveManager : IStatusLogicHook
         {
             __instance.PulseStatus(ModEntry.Instance.Resolve.Status);
             __instance.hullMax -= __state;
-            c.QueueImmediate(new AStatus()
+            if (__instance.hullMax <= 0)
             {
-                status = ModEntry.Instance.LostHull.Status,
-                statusAmount = __state,
-                targetPlayer = __instance.isPlayerShip
-            });
+                __instance.hull = 0;
+            }
+            else
+            {
+                c.QueueImmediate(new AStatus()
+                {
+                    status = ModEntry.Instance.LostHull.Status,
+                    statusAmount = __state,
+                    targetPlayer = __instance.isPlayerShip,
+                    dialogueSelector = ".resolvetriggered"
+
+                });
+            }
         }
     }
     public bool HandleStatusTurnAutoStep(State state, Combat combat, StatusTurnTriggerTiming timing, Ship ship, Status status, ref int amount, ref StatusTurnAutoStepSetStrategy setStrategy)

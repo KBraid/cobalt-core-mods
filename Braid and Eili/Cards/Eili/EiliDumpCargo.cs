@@ -43,7 +43,8 @@ public class EiliDumpCargo : Card, IModdedCard
                 {
                     new ALaunchMidrow()
                     {
-                        thing = new Asteroid()
+                        thing = new Asteroid(),
+                        dialogueSelector = ".card_dumpcargo_played"
                     }
                 };
                 actions = cardActionList1;
@@ -53,7 +54,8 @@ public class EiliDumpCargo : Card, IModdedCard
                 {
                     new ALaunchMidrow()
                     {
-                        thing = new SpaceMine()
+                        thing = new SpaceMine(),
+                        dialogueSelector = ".card_dumpcargo_played"
                     }
                 };
                 actions = cardActionList2;
@@ -63,7 +65,8 @@ public class EiliDumpCargo : Card, IModdedCard
                 {
                     new ALaunchMidrow()
                     {
-                        thing = new Missile()
+                        thing = new Missile(),
+                        dialogueSelector = ".card_dumpcargo_played"
                     }
                 };
                 actions = cardActionList3;

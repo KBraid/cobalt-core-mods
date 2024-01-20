@@ -156,32 +156,32 @@
   "KB_Eili_Card_DisableDampeners:0b": "Alright trust me on this.",
   "KB_Eili_Card_DisableDampeners:1a": "Eili turn that back on!",
   "KB_Eili_Card_DisableDampeners:1b": "Eili don't do that!",
-  "KB_Eili_Card_Hotwire:0a": "Whoops! Uh... anyone got a fire extinquisher?",
-  "KB_Eili_Card_Hotwire:0b": "Ouch! ...Uhoh.",
-  "KB_Eili_Card_Hotwire:0c": "Eek! ...Uh, good news, more shields!",
+  "KB_Eili_Card_Hotwire:0a": "Whoops! Uh... anyone got a fire extinquisher?", //concerned
+  "KB_Eili_Card_Hotwire:0b": "Ouch! ...Uhoh.", //concerned
+  "KB_Eili_Card_Hotwire:0c": "Eek! ...Uh, good news, more shields!", //concerned
   "KB_Eili_Card_Hotwire:1a": "Eili!!!",
   "KB_Eili_Card_Hotwire:1b": "I don't think that's helping!",
   "KB_Eili_Card_Hotwire:1c": "Eili be careful!",
   "KB_Eili_Card_Hotwire:1d": "Stop messing with the wiring!",
   "KB_Eili_Card_AnchorShot:0a": "Gotcha!",
   "KB_Eili_Card_AnchorShot:0b": "Locked down!",
-  "KB_Eili_Card_PickMeUp:0a": "Ahh... Refreshing!",
-  "KB_Eili_Card_PickMeUp:0b": "Time for a stretch!",
-  "KB_Eili_Card_PickMeUp:0c": "A quick little break... and back to it!",
-  "KB_Eili_Card_Inspiration:0a": "This will work... This will work!",
-  "KB_Eili_Card_Inspiration:0b": "Oh yeah, it's all coming together!",
-  "KB_Eili_Card_Inspiration:0c": "Now things get fun!",
+  "KB_Eili_Card_PickMeUp:0a": "Ahh... Refreshing!", //happy
+  "KB_Eili_Card_PickMeUp:0b": "Time for a stretch!", //happy
+  "KB_Eili_Card_PickMeUp:0c": "A quick little break... and back to it!", //happy
+  "KB_Eili_Card_Inspiration:0a": "This will work... This will work!", //happy
+  "KB_Eili_Card_Inspiration:0b": "Oh yeah, it's all coming together!", //happy
+  "KB_Eili_Card_Inspiration:0c": "Now things get fun!", //happy
   "KB_Eili_Card_TargettingScramble:0a": "Beep beep boop!",
   "KB_Eili_Card_TargettingScramble:0b": "IFF targeting... swapped!",
   "KB_Eili_Card_TargettingScramble:0c": "Your enemy is now your owner!",
   "KB_Eili_Card_ReroutePower:0a": "Rerouting shields!",
   "KB_Eili_Card_ReroutePower:0b": "Dumping shield charge into energy banks!",
-  "KB_Eili_Card_DumpCargo:0a": "Dump Cargo!!!",
-  "KB_Eili_Card_DumpCargo:0b": "Whopsiedoodle!",
-  "KB_Eili_Card_DumpCargo:0c": "Wrong button!",
-  "KB_Eili_Card_DumpCargo:0d": "Special Delivery!",
+  "KB_Eili_Card_DumpCargo:0a": "Dump Cargo!!!", //happy
+  "KB_Eili_Card_DumpCargo:0b": "Whopsiedoodle!", //happy
+  "KB_Eili_Card_DumpCargo:0c": "Wrong button!", //happy
+  "KB_Eili_Card_DumpCargo:0d": "Special Delivery!", //happy
 
-  "KB_Braid_Card_Resolve_HullDepleated:0": "NOT YET! WE'RE NOT FINISHED YET!!!",
+  "KB_Braid_Card_Resolve_HullDepleated:0": "NOT YET! WE'RE NOT FINISHED YET!!!", //shout c
   
   "KB_Braid_EiliWentMissing:0": "Eili? EILI!!!",
   "KB_Eili_BraidWentMissing:0": "B! Where'd you go!? Guys B's gone!!",
@@ -232,14 +232,14 @@
   
   "KB__StrafeHit:0": "",
 
-  "KB_Eili_WeDidOverFiveDamage_0:0": "Bang Bang Pow!",
+  "KB_Eili_WeDidOverFiveDamage_0:0": "Bang Bang Pow!", //happy
   "KB_Eili_WeDidOverFiveDamage_0:1": "Love the enthusiasm.",
   
   "KB__WeMissedOopsie_0:0": "",
   
   
   
-  "KB_Eili_ThatsALotOfDamageToThem_0:0": "KILL!! MURDER!!!",
+  "KB_Eili_ThatsALotOfDamageToThem_0:0": "KILL!! MURDER!!!", //manic
   "KB_Eili_ThatsALotOfDamageToThem_0:1": "Whoa! Calm down Eili!",
   "KB__ThatsALotOfDamageToUs_0:0": "",
   

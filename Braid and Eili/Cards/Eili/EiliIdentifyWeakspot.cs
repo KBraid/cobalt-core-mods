@@ -78,7 +78,8 @@ public class EiliIdentifyWeakspot : Card, IModdedCard
             new ATempBrittlePart()
             {
                 TargetPlayer = ship.isPlayerShip,
-                WorldX = ship.x + Extensions.GetRandomNonEmptyPart(s, c, false, "notBrittle")
+                WorldX = ship.x + Extensions.GetRandomNonEmptyPart(s, c, false, "notBrittle"),
+                dialogueSelector = ".card_identifyweakspot_played"
             }
         };
         return actions;

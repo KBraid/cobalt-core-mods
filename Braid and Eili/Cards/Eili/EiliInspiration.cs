@@ -47,7 +47,8 @@ public class EiliInspiration : Card, IModdedCard
                             permanent = true,
                             upgrade = upgrade
                         },
-                        browseSource = CardBrowse.Source.Hand
+                        browseSource = CardBrowse.Source.Hand,
+                        dialogueSelector = ".card_inspiration_played"
                     }
                 };
                 actions = cardActionList1;
@@ -64,6 +65,7 @@ public class EiliInspiration : Card, IModdedCard
                             upgrade = upgrade
                         },
                         browseSource = CardBrowse.Source.Hand,
+                        dialogueSelector = ".card_inspiration_played"
                     }
                 };
                 actions = cardActionList2;
@@ -79,7 +81,8 @@ public class EiliInspiration : Card, IModdedCard
                             permanent = true,
                             upgrade = upgrade
                         },
-                        browseSource = CardBrowse.Source.Deck
+                        browseSource = CardBrowse.Source.Deck,
+                        dialogueSelector = ".card_inspiration_played"
                     }
                 };
                 actions = cardActionList3;

@@ -37,51 +37,60 @@ public class EiliHotwire : Card, IModdedCard
         switch (upgrade)
         {
             case Upgrade.None:
-                List<CardAction> cardActionList1 = new List<CardAction>();
-                cardActionList1.Add((CardAction)new AStatus()
+                List<CardAction> cardActionList1 = new List<CardAction>()
                 {
-                    status = Status.shield,
-                    statusAmount = 1,
-                    targetPlayer = true
-                });
-                cardActionList1.Add((CardAction)new AStatus()
-                {
-                    status = Status.heat,
-                    statusAmount = 1,
-                    targetPlayer = true
-                });
+                    new AStatus()
+                    {
+                        status = Status.shield,
+                        statusAmount = 1,
+                        targetPlayer = true,
+                        dialogueSelector = ".card_hotwire_played"
+                    },
+                    new AStatus()
+                    {
+                        status = Status.heat,
+                        statusAmount = 1,
+                        targetPlayer = true
+                    }
+                };
                 actions = cardActionList1;
                 break;
             case Upgrade.A:
-                List<CardAction> cardActionList2 = new List<CardAction>();
-                cardActionList2.Add((CardAction)new AStatus()
+                List<CardAction> cardActionList2 = new List<CardAction>()
                 {
-                    status = Status.shield,
-                    statusAmount = 2,
-                    targetPlayer = true
-                });
-                cardActionList2.Add((CardAction)new AStatus()
-                {
-                    status = Status.heat,
-                    statusAmount = 1,
-                    targetPlayer = true
-                });
+                    new AStatus()
+                    {
+                        status = Status.shield,
+                        statusAmount = 2,
+                        targetPlayer = true,
+                        dialogueSelector = ".card_hotwire_played"
+                    },
+                    new AStatus()
+                    {
+                        status = Status.heat,
+                        statusAmount = 1,
+                        targetPlayer = true
+                    }
+                };
                 actions = cardActionList2;
                 break;
             case Upgrade.B:
-                List<CardAction> cardActionList3 = new List<CardAction>();
-                cardActionList3.Add((CardAction)new AStatus()
+                List<CardAction> cardActionList3 = new List<CardAction>()
                 {
-                    status = Status.tempShield,
-                    statusAmount = 3,
-                    targetPlayer = true
-                });
-                cardActionList3.Add((CardAction)new AStatus()
-                {
-                    status = Status.heat,
-                    statusAmount = 1,
-                    targetPlayer = true
-                });
+                    new AStatus()
+                    {
+                        status = Status.tempShield,
+                        statusAmount = 3,
+                        targetPlayer = true,
+                        dialogueSelector = ".card_hotwire_played"
+                    },
+                    new AStatus()
+                    {
+                        status = Status.heat,
+                        statusAmount = 1,
+                        targetPlayer = true
+                    }
+                };
                 actions = cardActionList3;
                 break;
         }

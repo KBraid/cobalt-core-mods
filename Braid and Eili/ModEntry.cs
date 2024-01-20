@@ -46,8 +46,12 @@ public sealed class ModEntry : SimpleMod
     internal IKokoroApi KokoroApi { get; }
     internal ILocalizationProvider<IReadOnlyList<string>> AnyLocalizations { get; }
     internal ILocaleBoundNonNullLocalizationProvider<IReadOnlyList<string>> Localizations { get; }
+    internal ILocalizationProvider<IReadOnlyList<string>> AnyStoryLoc { get; }
+    internal ILocaleBoundNonNullLocalizationProvider<IReadOnlyList<string>> StoryLocs { get; }
     internal IDeckEntry BraidDeck { get; }
     internal IDeckEntry EiliDeck { get; }
+    internal ICharacterEntry BraidChar { get; }
+    internal ICharacterEntry EiliChar { get; }
     internal static Color BraidColor => new("c0c9e6");
     internal static Color EiliColor => new("42add1");
     internal static Color BraidCardTitleColor => new("000000");
@@ -188,22 +192,25 @@ public sealed class ModEntry : SimpleMod
 
     ];
 
-    internal static IEnumerable<Type> BraidCardTypes
-        => BraidStarterCardTypes
-        .Concat(BraidCommonCardTypes)
-        .Concat(BraidUncommonCardTypes)
-        .Concat(BraidRareCardTypes);
     internal static IEnumerable<Type> EiliCardTypes
         => EiliStarterCardTypes
         .Concat(EiliCommonCardTypes)
         .Concat(EiliUncommonCardTypes)
         .Concat(EiliRareCardTypes);
-    internal static IEnumerable<Type> BraidArtifactTypes
-        => BraidCommonArtifactTypes
-        .Concat(BraidBossArtifactTypes);
+    internal static IEnumerable<Type> BraidCardTypes
+        => BraidStarterCardTypes
+        .Concat(BraidCommonCardTypes)
+        .Concat(BraidUncommonCardTypes)
+        .Concat(BraidRareCardTypes);
+    internal static IEnumerable<Type> AllCards
+        => EiliCardTypes
+        .Concat(BraidCardTypes);
     internal static IEnumerable<Type> EiliArtifactTypes
         => EiliCommonArtifactTypes
         .Concat(EiliBossArtifactTypes);
+    internal static IEnumerable<Type> BraidArtifactTypes
+        => BraidCommonArtifactTypes
+        .Concat(BraidBossArtifactTypes);
 
     public ModEntry(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
     {
@@ -234,6 +241,13 @@ public sealed class ModEntry : SimpleMod
         );
         this.Localizations = new MissingPlaceholderLocalizationProvider<IReadOnlyList<string>>(
             new CurrentLocaleOrEnglishLocalizationProvider<IReadOnlyList<string>>(this.AnyLocalizations)
+        );
+        this.AnyStoryLoc = new JsonLocalizationProvider(
+            tokenExtractor: new SimpleLocalizationTokenExtractor(),
+            localeStreamFunction: locale => package.PackageRoot.GetRelativeFile($"i18n/story/story_{locale}.json").OpenRead()
+        );
+        this.StoryLocs = new MissingPlaceholderLocalizationProvider<IReadOnlyList<string>>(
+            new CurrentLocaleOrEnglishLocalizationProvider<IReadOnlyList<string>>(this.AnyStoryLoc)
         );
         BasicBackground = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/empty_backgroud.png"));
         ASacrificePermanent = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/sacrificePermanent.png"));
@@ -445,7 +459,7 @@ public sealed class ModEntry : SimpleMod
             AccessTools.DeclaredMethod(cardType, nameof(IModdedCard.Register))?.Invoke(null, [helper]);
 
         // Register characters
-        Helper.Content.Characters.RegisterCharacter("Eili", new()
+        EiliChar = Helper.Content.Characters.RegisterCharacter("Eili", new()
         {
             Deck = EiliDeck.Deck,
             StartLocked = LockedChar,
@@ -472,7 +486,7 @@ public sealed class ModEntry : SimpleMod
                 ]
             }
         });
-        Helper.Content.Characters.RegisterCharacter("Braid", new()
+        BraidChar = Helper.Content.Characters.RegisterCharacter("Braid", new()
         {
             Deck = BraidDeck.Deck,
             StartLocked = LockedChar,
@@ -854,5 +868,7 @@ public sealed class ModEntry : SimpleMod
         _ = new UnlockCharactersManager();
         // TRANSPILER STUFF
         _ = new EqualPaybackManager();
+
+        _ = new Dialogue();
     }
 }

@@ -40,7 +40,8 @@ public class EiliReroutePower : Card, IModdedCard
                 {
                     new AVariableHint()
                     {
-                        status = Status.shield
+                        status = Status.shield,
+                        dialogueSelector = ".card_reroutepower_played"
                     },
                     new AEnergy()
                     {
@@ -68,7 +69,8 @@ public class EiliReroutePower : Card, IModdedCard
                 {
                     new AVariableHint()
                     {
-                        status = Status.shield
+                        status = Status.shield,
+                        dialogueSelector = ".card_reroutepower_played"
                     },
                     new AEnergy()
                     {
@@ -90,7 +92,8 @@ public class EiliReroutePower : Card, IModdedCard
                 {
                     new AVariableHint()
                     {
-                        status = Status.tempShield
+                        status = Status.tempShield,
+                        dialogueSelector = ".card_reroutepower_played"
                     },
                     new AEnergy()
                     {

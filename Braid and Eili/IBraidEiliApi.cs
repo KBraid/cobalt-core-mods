@@ -3,8 +3,8 @@
 namespace KBraid.BraidEili;
 public interface IBraidEiliApi
 {
-    IDeckEntry BraidIDeckEntry { get; }
-    IDeckEntry EiliIDeckEntry { get; }
+    IDeckEntry BraidDeck { get; }
+    IDeckEntry EiliDeck { get; }
     IStatusEntry DisabledDampeners { get; }
     IStatusEntry ShockAbsorber { get; }
     IStatusEntry TempShieldNextTurn { get; }
