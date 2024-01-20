@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,27 +21,50 @@ internal sealed class ShockAbsorberManager : IStatusLogicHook
     }
     private static void Ship_NormalDamage_Prefix(
         Ship __instance,
+        State s,
         Combat c,
+        int incomingDamage,
+        int? maybeWorldGridX,
         bool piercing = false)
     {
         if (__instance.Get(ModEntry.Instance.ShockAbsorber.Status) <= 0)
             return;
+
+        int num = incomingDamage;
+        if (maybeWorldGridX.HasValue)
+        {
+            int valueOrDefault = maybeWorldGridX.GetValueOrDefault();
+            Part? part = __instance.GetPartAtWorldX(valueOrDefault);
+            if (part != null)
+            {
+                num = __instance.ModifyDamageDueToParts(s, c, incomingDamage, part, piercing);
+            }
+        }
+        if (num == 0)
+            return;
         if (!piercing)
         {
-            var shl = __instance.Get(Status.shield) + __instance.Get(Status.tempShield);
-            if (shl > 0)
+            int num2 = __instance.Get(Status.shield) + __instance.Get(Status.tempShield);
+            if (num2 <= 0)
+                return;
+            int num3 = num - num2;
+            int num4 = num;
+            if (num3 > 0)
+                num4 = num3;
+            else if (num3 < 0)
+                num4 = -1 * num3;
+            if (num4 != 0)
             {
                 var shockAbsorber = ModEntry.Instance.ShockAbsorber.Status;
                 __instance.PulseStatus(shockAbsorber);
                 c.QueueImmediate(new AStatus()
                 {
                     status = ModEntry.Instance.TempShieldNextTurn.Status,
-                    statusAmount = shl * __instance.Get(shockAbsorber),
+                    statusAmount = num4 * __instance.Get(shockAbsorber),
                     targetPlayer = __instance.isPlayerShip
                 });
             }
         }
-        return;
     }
     private static void Ship_DirectHullDamage_Prefix(
         Ship __instance,
@@ -59,7 +83,6 @@ internal sealed class ShockAbsorberManager : IStatusLogicHook
             statusAmount = amt * __instance.Get(shockAbsorber),
             targetPlayer = __instance.isPlayerShip
         });
-        return;
     }
     public List<Tooltip> OverrideStatusTooltips(Status status, int amount, bool isForShipStatus, List<Tooltip> tooltips)
     {

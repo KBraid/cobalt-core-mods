@@ -3,29 +3,35 @@ using System.Collections.Generic;
 using System.Reflection;
 
 namespace KBraid.BraidEili.Cards;
-public class BraidInductionCoils : Card, IModdedCard
+public class BraidBusterCharge : Card, IModdedCard
 {
     public static void Register(IModHelper helper)
     {
-        helper.Content.Cards.RegisterCard("InductionCoils", new()
+        helper.Content.Cards.RegisterCard("BusterCharge", new()
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new()
             {
                 deck = ModEntry.Instance.BraidDeck.Deck,
-                rarity = Rarity.common,
-                upgradesTo = [Upgrade.A, Upgrade.B]
+                rarity = Rarity.uncommon,
+                upgradesTo = [Upgrade.A, Upgrade.B],
+                dontOffer = true
             },
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "InductionCoils", "name"]).Localize
+            Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "BusterCharge", "name"]).Localize
         });
     }
-    public override string Name() => "Induction Coils";
+    public override string Name() => "Buster Charge";
 
     public override CardData GetData(State state)
     {
-        CardData data = new CardData();
-        data.cost = 1;
-        data.art = new Spr?(StableSpr.cards_Scattershot);
+        CardData data = new CardData()
+        {
+            cost = upgrade == Upgrade.B ? 1 : 0,
+            temporary = true,
+            infinite = upgrade == Upgrade.B ? true : false,
+            retain = upgrade == Upgrade.B ? true : false,
+            art = new Spr?(StableSpr.cards_Scattershot),
+        };
         return data;
     }
 
@@ -37,16 +43,15 @@ public class BraidInductionCoils : Card, IModdedCard
             case Upgrade.None:
                 List<CardAction> cardActionList1 = new List<CardAction>()
                 {
-                    new AVariableHint()
-                    {
-                        status = Status.heat
-                    },
                     new AStatus()
                     {
-                        status = Status.tempShield,
-                        statusAmount = s.ship.Get(Status.heat),
-                        xHint = 1,
+                        status = ModEntry.Instance.BusterCharge.Status,
+                        statusAmount = 1,
                         targetPlayer = true
+                    },
+                    new ADrawCard()
+                    {
+                        count = 1
                     }
                 };
                 actions = cardActionList1;
@@ -54,14 +59,15 @@ public class BraidInductionCoils : Card, IModdedCard
             case Upgrade.A:
                 List<CardAction> cardActionList2 = new List<CardAction>()
                 {
-                    new AVariableHint()
+                    new AStatus()
                     {
-                        status = Status.heat
+                        status = ModEntry.Instance.BusterCharge.Status,
+                        statusAmount = 2,
+                        targetPlayer = true
                     },
-                    new AAttack()
+                    new ADrawCard()
                     {
-                        damage = s.ship.Get(Status.heat),
-                        xHint = 1,
+                        count = 1
                     }
                 };
                 actions = cardActionList2;
@@ -69,15 +75,10 @@ public class BraidInductionCoils : Card, IModdedCard
             case Upgrade.B:
                 List<CardAction> cardActionList3 = new List<CardAction>()
                 {
-                    new AVariableHint()
-                    {
-                        status = Status.heat
-                    },
                     new AStatus()
                     {
-                        status = Status.evade,
-                        statusAmount = s.ship.Get(Status.heat),
-                        xHint = 1,
+                        status = ModEntry.Instance.BusterCharge.Status,
+                        statusAmount = 1,
                         targetPlayer = true
                     }
                 };

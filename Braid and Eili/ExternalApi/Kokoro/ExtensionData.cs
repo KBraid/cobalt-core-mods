@@ -1,7 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace KBraid.BraidEili;
+
 public partial interface IKokoroApi
 {
     void RegisterTypeForExtensionData(Type type);

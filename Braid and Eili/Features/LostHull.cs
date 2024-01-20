@@ -15,6 +15,8 @@ internal sealed class LostHullManager : IStatusLogicHook
     }
     public bool? IsAffectedByBoost(State state, Combat combat, Ship ship, Status status)
     {
+        if (status != ModEntry.Instance.LostHull.Status)
+            return null;
         return false;
     }
     private static void Ship_DirectHullDamage_Prefix(Ship __instance, ref int __state)

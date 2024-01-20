@@ -60,7 +60,7 @@ public class BraidArmourLock : Card, IModdedCard
                     },
                     new AStatus()
                     {
-                        status = Status.engineStall,
+                        status = ModEntry.Instance.EngineStallNextTurn.Status,
                         statusAmount = 1,
                         targetPlayer = true
                     },
@@ -98,7 +98,7 @@ public class BraidArmourLock : Card, IModdedCard
                     },
                     new AStatus()
                     {
-                        status = Status.engineStall,
+                        status = ModEntry.Instance.EngineStallNextTurn.Status,
                         statusAmount = 1,
                         targetPlayer = true
                     },

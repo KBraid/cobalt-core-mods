@@ -25,8 +25,8 @@ public class EiliImprovising : Card, IModdedCard
     {
         CardData data = new CardData();
         data.cost = 1;
-        data.exhaust = upgrade == Upgrade.B ? false : true;
-        data.retain = upgrade == Upgrade.B ? true : false;
+        data.exhaust = upgrade == Upgrade.A ? false : true;
+        data.retain = upgrade == Upgrade.A ? true : false;
         data.art = ModEntry.Instance.BasicBackground.Sprite;
         return data;
     }
@@ -46,7 +46,8 @@ public class EiliImprovising : Card, IModdedCard
                     new AStatus()
                     {
                         status = Status.drawNextTurn,
-                        statusAmount = 2
+                        statusAmount = 2,
+                        targetPlayer = true
                     }
                 };
                 actions = cardActionList1;
@@ -61,7 +62,8 @@ public class EiliImprovising : Card, IModdedCard
                     new AStatus()
                     {
                         status = Status.drawNextTurn,
-                        statusAmount = 2
+                        statusAmount = 2,
+                        targetPlayer = true
                     }
                 };
                 actions = cardActionList2;
@@ -76,7 +78,8 @@ public class EiliImprovising : Card, IModdedCard
                     new AStatus()
                     {
                         status = Status.drawNextTurn,
-                        statusAmount = 4
+                        statusAmount = 4,
+                        targetPlayer = true
                     }
                 };
                 actions = cardActionList3;

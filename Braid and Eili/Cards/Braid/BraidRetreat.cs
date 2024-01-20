@@ -29,11 +29,12 @@ public class BraidRetreat : Card, IModdedCard
         data.singleUse = upgrade == Upgrade.B ? false : true;
         data.art = new Spr?(StableSpr.cards_Scattershot);
         data.description = ModEntry.Instance.Localizations.Localize(["card", "Retreat", "description"]);
-        if (state.map.markers[state.map.currentLocation].contents is MapBattle contents)
-        {
-            if (contents.battleType == BattleType.Boss)
-                data.unplayable = true;
-        }
+        if (state.route is Combat)
+            if (state.map.markers[state.map.currentLocation].contents is MapBattle contents)
+            {
+                if (contents.battleType == BattleType.Boss)
+                    data.unplayable = true;
+            }
         return data;
     }
 

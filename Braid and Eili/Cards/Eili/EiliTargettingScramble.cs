@@ -36,6 +36,9 @@ public class EiliTargettingScramble : Card, IModdedCard
         List<CardAction> actions = new()
         {
             new ADroneFlip()
+            {
+               dialogueSelector = ".card_targettingscramble_played"
+            }
         };
         return actions;
     }

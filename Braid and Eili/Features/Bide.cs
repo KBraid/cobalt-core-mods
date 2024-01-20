@@ -19,6 +19,12 @@ internal sealed class BideManager : IStatusLogicHook
             prefix: new HarmonyMethod(GetType(), nameof(Ship_DirectHullDamage_Prefix))
         );
     }
+    public bool? IsAffectedByBoost(State state, Combat combat, Ship ship, Status status)
+    {
+        if (status != ModEntry.Instance.Bide.Status)
+            return null;
+        return false;
+    }
     private static void Ship_NormalDamage_Prefix(
         Ship __instance,
         State s,

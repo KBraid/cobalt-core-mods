@@ -39,23 +39,7 @@ public class EiliInspiration : Card, IModdedCard
             case Upgrade.None:
                 List<CardAction> cardActionList1 = new List<CardAction>()
                 {
-                    new ACardSelect
-                    {
-                        filterExhaust = true,
-                        browseAction = new AInspiration()
-                        {
-                            permanent = true,
-                            upgrade = upgrade
-                        },
-                        browseSource = CardBrowse.Source.Hand
-                    }
-                };
-                actions = cardActionList1;
-                break;
-            case Upgrade.A:
-                List<CardAction> cardActionList2 = new List<CardAction>()
-                {
-                    new ACardSelect
+                    new ACardSelect()
                     {
                         filterExhaust = true,
                         browseAction = new AInspiration()
@@ -64,14 +48,15 @@ public class EiliInspiration : Card, IModdedCard
                             upgrade = upgrade
                         },
                         browseSource = CardBrowse.Source.Hand,
+                        dialogueSelector = ".card_inspiration_played"
                     }
                 };
-                actions = cardActionList2;
+                actions = cardActionList1;
                 break;
-            case Upgrade.B:
-                List<CardAction> cardActionList3 = new List<CardAction>()
+            case Upgrade.A:
+                List<CardAction> cardActionList2 = new List<CardAction>()
                 {
-                    new ACardSelect
+                    new ACardSelect()
                     {
                         filterExhaust = true,
                         browseAction = new AInspiration()
@@ -79,7 +64,25 @@ public class EiliInspiration : Card, IModdedCard
                             permanent = true,
                             upgrade = upgrade
                         },
-                        browseSource = CardBrowse.Source.Deck
+                        browseSource = CardBrowse.Source.Hand,
+                        dialogueSelector = ".card_inspiration_played"
+                    }
+                };
+                actions = cardActionList2;
+                break;
+            case Upgrade.B:
+                List<CardAction> cardActionList3 = new List<CardAction>()
+                {
+                    new ACardSelect()
+                    {
+                        filterExhaust = true,
+                        browseAction = new AInspiration()
+                        {
+                            permanent = true,
+                            upgrade = upgrade
+                        },
+                        browseSource = CardBrowse.Source.Deck,
+                        dialogueSelector = ".card_inspiration_played"
                     }
                 };
                 actions = cardActionList3;

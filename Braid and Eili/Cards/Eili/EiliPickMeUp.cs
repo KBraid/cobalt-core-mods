@@ -40,7 +40,8 @@ public class EiliPickMeUp : Card, IModdedCard
                     new AHeal()
                     {
                         healAmount = 1,
-                        targetPlayer = true
+                        targetPlayer = true,
+                        dialogueSelector = ".card_pickmeup_played"
                     }
                 };
                 actions = cardActionList1;
@@ -51,7 +52,8 @@ public class EiliPickMeUp : Card, IModdedCard
                     new AHeal()
                     {
                         healAmount = 1,
-                        targetPlayer = true
+                        targetPlayer = true,
+                        dialogueSelector = ".card_pickmeup_played"
                     },
                     new AStatus()
                     {
@@ -68,7 +70,8 @@ public class EiliPickMeUp : Card, IModdedCard
                     new AHeal()
                     {
                         healAmount = 1,
-                        targetPlayer = true
+                        targetPlayer = true,
+                        dialogueSelector = ".card_pickmeup_played"
                     },
                     new AStatus()
                     {

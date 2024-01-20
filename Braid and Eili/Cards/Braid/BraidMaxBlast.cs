@@ -14,7 +14,8 @@ public class BraidMaxBlast : Card, IModdedCard
             {
                 deck = ModEntry.Instance.BraidDeck.Deck,
                 rarity = Rarity.common,
-                upgradesTo = [Upgrade.A, Upgrade.B]
+                upgradesTo = [Upgrade.A, Upgrade.B],
+                dontOffer = true,
             },
             Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "MaxBlast", "name"]).Localize
         });
@@ -26,6 +27,7 @@ public class BraidMaxBlast : Card, IModdedCard
         CardData data = new CardData();
         data.cost = 0;
         data.exhaust = true;
+        data.temporary = true;
         data.art = new Spr?(StableSpr.cards_Scattershot);
         return data;
     }

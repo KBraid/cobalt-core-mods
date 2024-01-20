@@ -32,37 +32,42 @@ public class EiliBap : Card, IModdedCard
 
     public override List<CardAction> GetActions(State s, Combat c)
     {
-        Upgrade upgrade = this.upgrade;
         List<CardAction> actions = new();
         switch (upgrade)
         {
             case Upgrade.None:
-                List<CardAction> cardActionList1 = new List<CardAction>();
-                cardActionList1.Add((CardAction)new AAttack()
+                List<CardAction> cardActionList1 = new List<CardAction>()
                 {
-                    damage = this.GetDmg(s, 1),
-                });
+                    new AAttack()
+                    {
+                        damage = GetDmg(s, 1),
+                    }
+                };
                 actions = cardActionList1;
                 break;
             case Upgrade.A:
-                List<CardAction> cardActionList2 = new List<CardAction>();
-                cardActionList2.Add((CardAction)new AAttack()
+                List<CardAction> cardActionList2 = new List<CardAction>()
                 {
-                    damage = this.GetDmg(s, 1),
-                });
-                cardActionList2.Add((CardAction)new AAttack()
-                {
-                    damage = this.GetDmg(s, 1),
-                });
+                    new AAttack()
+                    {
+                        damage = GetDmg(s, 1),
+                    },
+                    new AAttack()
+                    {
+                        damage = GetDmg(s, 1),
+                    }
+                };
                 actions = cardActionList2;
                 break;
             case Upgrade.B:
-                List<CardAction> cardActionList3 = new List<CardAction>();
-                cardActionList3.Add((CardAction)new AAttack()
+                List<CardAction> cardActionList3 = new List<CardAction>()
                 {
-                    damage = this.GetDmg(s, 1),
-                    stunEnemy = true
-                });
+                    new AAttack()
+                    {
+                        damage = GetDmg(s, 1),
+                        stunEnemy = true
+                    }
+                };
                 actions = cardActionList3;
                 break;
         }
