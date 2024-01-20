@@ -1,8 +1,7 @@
+using KBraid.BraidEili.Actions;
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
-using KBraid.BraidEili.Actions;
-using System.Linq;
 
 namespace KBraid.BraidEili.Cards;
 public class BraidShoveIt : Card, IModdedCard
@@ -43,7 +42,7 @@ public class BraidShoveIt : Card, IModdedCard
             cost = 1,
             art = new Spr?(StableSpr.cards_Strafe),
             flippable = flag
-            };
+        };
         return data;
     }
 

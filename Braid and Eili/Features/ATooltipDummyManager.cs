@@ -1,8 +1,6 @@
 ﻿using HarmonyLib;
 using KBraid.BraidEili.Actions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace KBraid.BraidEili;
 internal sealed class ATooltipDummyManager

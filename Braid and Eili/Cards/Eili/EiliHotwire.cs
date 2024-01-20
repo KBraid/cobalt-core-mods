@@ -20,7 +20,7 @@ public class EiliHotwire : Card, IModdedCard
         });
     }
     public override string Name() => "Hotwire";
-    
+
     public override CardData GetData(State state)
     {
         return new CardData()

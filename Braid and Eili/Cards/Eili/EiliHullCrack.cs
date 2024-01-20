@@ -1,7 +1,6 @@
 using KBraid.BraidEili.Actions;
 using Nickel;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace KBraid.BraidEili.Cards;
@@ -71,7 +70,7 @@ public class EiliHullCrack : Card, IModdedCard
                             new Icon(StableSpr.icons_attack, GetDmg(s, 1), Colors.redd),
                             new Icon(ModEntry.Instance.AApplyTempBrittle_Icon.Sprite, null, Colors.textMain)
                         },
-                        
+
                     },
                     new ATempBrittleAttack()
                     {

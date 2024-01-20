@@ -235,7 +235,7 @@ public sealed class ModEntry : SimpleMod
         _ = new ATooltipDummyManager();
 
         CustomTTGlossary.ApplyPatches(Harmony);
-        
+
         this.AnyLocalizations = new JsonLocalizationProvider(
             tokenExtractor: new SimpleLocalizationTokenExtractor(),
             localeStreamFunction: locale => package.PackageRoot.GetRelativeFile($"i18n/{locale}.json").OpenRead()
@@ -403,7 +403,7 @@ public sealed class ModEntry : SimpleMod
                 icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/lostHull.png")).Sprite,
                 color = new("c0c9e6"),
                 isGood = true
-                
+
             },
             Name = this.AnyLocalizations.Bind(["status", "LostHull", "name"]).Localize,
             Description = this.AnyLocalizations.Bind(["status", "LostHull", "description"]).Localize

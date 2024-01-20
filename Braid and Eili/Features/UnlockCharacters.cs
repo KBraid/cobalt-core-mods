@@ -1,7 +1,6 @@
 ﻿using HarmonyLib;
 using Nickel;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace KBraid.BraidEili;
@@ -32,7 +31,7 @@ internal sealed class UnlockCharactersManager
     }
 
     private static void StoryVars_RecordRunWin_Prefix(
-        StoryVars __instance, 
+        StoryVars __instance,
         State state)
     {
         if (FeatureFlags.BypassUnlocks)

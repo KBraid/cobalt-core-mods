@@ -1,7 +1,6 @@
 using KBraid.BraidEili.Actions;
 using Nickel;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace KBraid.BraidEili.Cards;
