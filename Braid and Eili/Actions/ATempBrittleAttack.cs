@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KBraid.BraidEili.Actions;
 
-internal class ATempBrittleAttack : AAttack
+public class ATempBrittleAttack : AAttackNoIcon
 {
     public override void Begin(G g, State s, Combat c)
     {
