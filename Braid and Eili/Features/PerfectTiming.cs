@@ -48,6 +48,7 @@ internal sealed class PerfectTimingManager : IStatusLogicHook
             var perfectTiming = ModEntry.Instance.PerfectTiming.Status;
             c.QueueImmediate(new AStatus()
             {
+                timer = 0,
                 status = perfectTiming,
                 statusAmount = 0,
                 mode = AStatusMode.Set,
@@ -57,6 +58,7 @@ internal sealed class PerfectTimingManager : IStatusLogicHook
             if (source.Get(bide) != 0)
                 c.QueueImmediate(new AStatus()
                 {
+                    timer = 0,
                     status = bide,
                     statusAmount = source.Get(bide) > 0 ? -1 : 1,
                     targetPlayer = source.isPlayerShip

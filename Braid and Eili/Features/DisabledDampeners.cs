@@ -1,6 +1,4 @@
-﻿using HarmonyLib;
-
-namespace KBraid.BraidEili;
+﻿namespace KBraid.BraidEili;
 internal sealed class DisabledDampenersManager : IStatusLogicHook
 {
     public DisabledDampenersManager()

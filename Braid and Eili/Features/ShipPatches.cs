@@ -1,9 +1,5 @@
 ﻿using HarmonyLib;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KBraid.BraidEili;
 
@@ -90,6 +86,7 @@ internal sealed class ShipPatchesManager
                     __instance.PulseStatus(disabledDampeners);
                     c.QueueImmediate(new AStatus()
                     {
+                        timer = 0,
                         status = Status.evade,
                         statusAmount = __state * __instance.Get(disabledDampeners),
                         targetPlayer = __instance.isPlayerShip
@@ -156,8 +153,10 @@ internal sealed class ShipPatchesManager
                 {
                     c.QueueImmediate(new AStatus()
                     {
+                        timer = 0,
                         status = ModEntry.Instance.LostHull.Status,
-                        statusAmount = value,
+                        statusAmount = value + __instance.Get(ModEntry.Instance.LostHull.Status),
+                        mode = AStatusMode.Set,
                         targetPlayer = __instance.isPlayerShip,
                         dialogueSelector = __instance.isPlayerShip ? ".resolvetriggered" : null
 
@@ -171,8 +170,10 @@ internal sealed class ShipPatchesManager
         {
             c.QueueImmediate(new AStatus()
             {
+                timer = 0,
                 status = ModEntry.Instance.LostHull.Status,
-                statusAmount = value2 - __instance.hull,
+                statusAmount = (value2 - __instance.hull) + __instance.Get(ModEntry.Instance.LostHull.Status),
+                mode = AStatusMode.Set,
                 targetPlayer = __instance.isPlayerShip
             });
         }
