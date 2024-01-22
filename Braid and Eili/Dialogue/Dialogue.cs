@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 
 namespace KBraid.BraidEili;
 
@@ -8,6 +7,7 @@ internal sealed class Dialogue
     public Dialogue()
     {
         CombatDialogue.Inject();
+        EventDialogue.Inject();
 
         foreach (var cardType in ModEntry.AllCards)
         {

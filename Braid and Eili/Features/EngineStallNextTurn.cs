@@ -1,5 +1,4 @@
-﻿
-namespace KBraid.BraidEili;
+﻿namespace KBraid.BraidEili;
 internal sealed class EngineStallNextTurnManager : IStatusLogicHook
 {
     public EngineStallNextTurnManager()

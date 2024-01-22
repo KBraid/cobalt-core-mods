@@ -38,12 +38,12 @@ internal sealed class UnlockCharactersManager
             return;
         if (__instance.winCount > 4)
             __instance.UnlockChar(ModEntry.Instance.EiliDeck.Deck);
-        if (state.characters.Any<Character>((Func<Character, bool>)(ch =>
+        if (state.characters.Any(ch =>
         {
             Deck? deckType = ch.deckType;
             Deck deck = ModEntry.Instance.EiliDeck.Deck;
             return deckType.GetValueOrDefault() == deck & deckType.HasValue;
-        })))
+        }))
             __instance.UnlockChar(ModEntry.Instance.BraidDeck.Deck);
     }
     private static void StoryVars_GetUnlockedChars_Prefix(

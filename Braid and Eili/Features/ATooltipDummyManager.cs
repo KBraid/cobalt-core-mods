@@ -61,7 +61,23 @@ internal sealed class ATooltipDummyManager
 
         return false;
     }
-    private static void IconAndOrNumber(Spr icon, ref bool isFirst, ref int w, G g, CardAction action, State state, Color spriteColor, bool dontDraw, int iconNumberPadding = 2, int iconWidth = 8, int numberWidth = 6, int? amount = null, Color? textColor = null, bool flipY = false, int? x = null, int iconPadding = 4)
+    private static void IconAndOrNumber(
+        Spr icon,
+        ref bool isFirst,
+        ref int w,
+        G g,
+        CardAction action,
+        State state,
+        Color spriteColor,
+        bool dontDraw,
+        int iconNumberPadding = 2,
+        int iconWidth = 8,
+        int numberWidth = 6,
+        int? amount = null,
+        Color? textColor = null,
+        bool flipY = false,
+        int? x = null,
+        int iconPadding = 4)
     {
         if (!isFirst)
         {
