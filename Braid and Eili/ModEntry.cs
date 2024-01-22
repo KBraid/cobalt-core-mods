@@ -146,18 +146,18 @@ public sealed class ModEntry : SimpleMod
 
     internal static IReadOnlyList<Type> BraidStarterCardTypes { get; } = [
         typeof(BraidBigHit),
-        typeof(BraidShoveIt)
+        typeof(BraidLeftHook)
     ];
 
     internal static IReadOnlyList<Type> BraidCommonCardTypes { get; } = [
         typeof(BraidDriveby),
         typeof(BraidPummel),
-        typeof(BraidLeftHook),
         typeof(BraidHaymaker),
         typeof(BraidChargeBlast),
         typeof(BraidMaxBlast),
         typeof(BraidLimiterOff),
         typeof(BraidSneakAttack),
+        typeof(BraidShoveIt)
     ];
 
     internal static IReadOnlyList<Type> BraidUncommonCardTypes { get; } = [
@@ -211,7 +211,6 @@ public sealed class ModEntry : SimpleMod
     internal static IEnumerable<Type> BraidArtifactTypes
         => BraidCommonArtifactTypes
         .Concat(BraidBossArtifactTypes);
-
     public ModEntry(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
     {
         Instance = this;
@@ -233,6 +232,7 @@ public sealed class ModEntry : SimpleMod
         _ = new RetreatManager();
         _ = new EngineStallNextTurnManager();
         _ = new ATooltipDummyManager();
+        _ = new ShipPatchesManager();
 
         CustomTTGlossary.ApplyPatches(Harmony);
 
