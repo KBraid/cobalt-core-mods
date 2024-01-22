@@ -61,13 +61,13 @@ public class BraidShoveIt : Card, IModdedCard
                         icons = new()
                         {
                             new Icon(StableSpr.icons_attack, GetDmg(s, 1), Colors.redd),
-                            new Icon(ModEntry.Instance.ARandomMove.Sprite, 3, Colors.redd)
+                            new Icon(ModEntry.Instance.ARandomMove.Sprite, 2, Colors.redd)
                         }
                     },
                     new AAttackRandomMove()
                     {
                         damage = GetDmg(s, 1),
-                        randomDir = 3
+                        randomDir = 2
                     }
                 };
                 actions = cardActionList1;
@@ -80,14 +80,14 @@ public class BraidShoveIt : Card, IModdedCard
                     {
                         icons = new()
                         {
-                            new Icon(StableSpr.icons_attack, GetDmg(s, 1), Colors.redd),
-                            new Icon(ModEntry.Instance.ARandomMove.Sprite, 5, Colors.redd)
+                            new Icon(StableSpr.icons_attack, GetDmg(s, 2), Colors.redd),
+                            new Icon(ModEntry.Instance.ARandomMove.Sprite, 4, Colors.redd)
                         }
                     },
                     new AAttackRandomMove()
                     {
                         damage = GetDmg(s, 2),
-                        randomDir = 5
+                        randomDir = 2
                     }
                 };
                 actions = cardActionList2;
@@ -98,7 +98,7 @@ public class BraidShoveIt : Card, IModdedCard
                     new AAttack()
                     {
                         damage = GetDmg(s, 1),
-                        moveEnemy = 3
+                        moveEnemy = 2
                     }
                 };
                 actions = cardActionList3;
