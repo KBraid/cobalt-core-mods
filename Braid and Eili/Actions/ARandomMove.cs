@@ -7,9 +7,9 @@ internal class AAttackRandomMove : AAttackNoIcon
     public int randomDir;
     public override void Begin(G g, State s, Combat c)
     {
-        Ship ship = (targetPlayer ? s.ship : c.otherShip);
-        Ship ship2 = (targetPlayer ? c.otherShip : s.ship);
-        if (ship == null || ship2 == null || ship.hull <= 0 || (fromDroneX.HasValue && !c.stuff.ContainsKey(fromDroneX.Value)))
+        Ship target = (targetPlayer ? s.ship : c.otherShip);
+        Ship source = (targetPlayer ? c.otherShip : s.ship);
+        if (target == null || source == null || target.hull <= 0 || (fromDroneX.HasValue && !c.stuff.ContainsKey(fromDroneX.Value)))
         {
             return;
         }
@@ -18,14 +18,17 @@ internal class AAttackRandomMove : AAttackNoIcon
         RaycastResult? raycastResult;
         if (fromDroneX.HasValue)
         {
-            raycastResult = ((RaycastResult?)CombatUtils.RaycastGlobal(c, ship, fromDrone: true, fromDroneX.Value));
+            raycastResult = ((RaycastResult?)CombatUtils.RaycastGlobal(c, target, fromDrone: true, fromDroneX.Value));
         }
         else
         {
             raycastResult = ((num.HasValue ? CombatUtils.RaycastFromShipLocal(s, c, num.Value, targetPlayer) : null));
         }
+        bool flag = true;
+        if (target.Get(Status.autododgeLeft) > 0 || target.Get(Status.autododgeRight) > 0)
+            flag = false;
         base.Begin(g, s, c);
-        if (raycastResult != null && raycastResult.hitShip)
+        if (raycastResult != null && raycastResult.hitShip && flag)
         {
             c.QueueImmediate(new AMove()
             {
