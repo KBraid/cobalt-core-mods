@@ -106,7 +106,7 @@
     },
     "braid": {
       "dialogue1": {
-        "who": "KBraid.BraidEili::Eili",
+        "who": "KBraid.BraidEili::Braid",
         "what": "Ammo."
       }
     }
