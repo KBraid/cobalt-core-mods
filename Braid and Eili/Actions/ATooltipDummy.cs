@@ -24,7 +24,8 @@ public class ATooltipDummy : ADummyAction
         return new ATooltipDummy()
         {
             tooltips = action.GetTooltips(s),
-            icons = icon == null ? new() : new() { (Icon)action.GetIcon(s)! }
+            icons = icon == null ? new() : new() { (Icon)action.GetIcon(s)! },
+            disabled = action.disabled
         };
     }
 
@@ -47,7 +48,8 @@ public class ATooltipDummy : ADummyAction
         return new ATooltipDummy()
         {
             tooltips = astatus.GetTooltips(s),
-            icons = icons
+            icons = icons,
+            disabled = astatus.disabled
         };
     }
 
@@ -91,7 +93,8 @@ public class ATooltipDummy : ADummyAction
         return new ATooltipDummy()
         {
             tooltips = tooltips,
-            icons = icons
+            icons = icons,
+            disabled = aattack.disabled
         };
     }
 
