@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static System.Collections.Specialized.BitVector32;
 
 namespace KBraid.BraidEili.Actions;
 public class ATooltipDummy : ADummyAction
@@ -24,7 +25,8 @@ public class ATooltipDummy : ADummyAction
         return new ATooltipDummy()
         {
             tooltips = action.GetTooltips(s),
-            icons = icon == null ? new() : new() { (Icon)action.GetIcon(s)! }
+            icons = icon == null ? new() : new() { (Icon)action.GetIcon(s)! },
+            disabled = action.disabled
         };
     }
 
@@ -47,7 +49,8 @@ public class ATooltipDummy : ADummyAction
         return new ATooltipDummy()
         {
             tooltips = astatus.GetTooltips(s),
-            icons = icons
+            icons = icons,
+            disabled = astatus.disabled
         };
     }
 
@@ -91,7 +94,8 @@ public class ATooltipDummy : ADummyAction
         return new ATooltipDummy()
         {
             tooltips = tooltips,
-            icons = icons
+            icons = icons,
+            disabled = aattack.disabled
         };
     }
 
