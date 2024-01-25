@@ -5,6 +5,7 @@
 
         BRAID-only loopTags
         "blink"
+        "determined"
         "ending_a"
         "ending_b"
         "ending_c"
@@ -25,6 +26,7 @@
         "cheeky"
         "cheeky_a"
         "concerned"
+        "determined"
         "happy"
         "manic"
         "sad"
@@ -74,7 +76,7 @@
     "dialogue1": {
       "choice1": {
         "who": "KBraid.BraidEili::Eili",
-        "what": "SMmmh... is it morning already?",
+        "what": "Mmmh... is it morning already?",
         "loopTag": "sad"
       },
       "choice2": {
@@ -101,7 +103,7 @@
     "eili": {
       "dialogue1": {
         "who": "KBraid.BraidEili::Eili",
-        "what": "Brownies."
+        "what": "Brownies!"
       }
     },
     "braid": {
@@ -143,9 +145,14 @@
     },
     "dialogue7": {
       "who": "comp",
-      "what": "Welcome abord!"
+      "what": "...",
+      "loopTag": "squint"
     },
     "dialogue8": {
+      "who": "comp",
+      "what": "Welcome abord!"
+    },
+    "dialogue9": {
       "who": "KBraid.BraidEili::Eili",
       "what": "Thank you!",
       "loopTag": "happy",
@@ -450,17 +457,17 @@
       "choice1": {
         "who": "KBraid.BraidEili::Eili",
         "what": "This will work... This will work!",
-        "loopTag": "happy"
+        "loopTag": "determined"
       },
       "choice2": {
         "who": "KBraid.BraidEili::Eili",
         "what": "Oh yeah, it's all coming together!",
-        "loopTag": "happy"
+        "loopTag": "determined"
       },
       "choice3": {
         "who": "KBraid.BraidEili::Eili",
         "what": "Now things get fun!",
-        "loopTag": "happy"
+        "loopTag": "determined"
       }
     }
   },
