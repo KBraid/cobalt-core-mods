@@ -1,7 +1,6 @@
 using KBraid.BraidEili.Actions;
 using Nickel;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace KBraid.BraidEili.Cards;
@@ -30,7 +29,7 @@ public class EiliHullCrack : Card, IModdedCard
             cost = 2,
             exhaust = upgrade == Upgrade.A ? false : true,
             art = ModEntry.Instance.BasicBackground.Sprite,
-            description = ModEntry.Instance.Localizations.Localize(["card", "HullCrack", "description", upgrade.ToString()]),
+            //description = ModEntry.Instance.Localizations.Localize(["card", "HullCrack", "description", upgrade.ToString()]),
         };
         return data;
     }
@@ -43,17 +42,36 @@ public class EiliHullCrack : Card, IModdedCard
             case Upgrade.None:
                 List<CardAction> cardActionList1 = new List<CardAction>()
                 {
+                    new ADummyAction(),
+                    new ATooltipDummy()
+                    {
+                        icons = new()
+                        {
+                            new Icon(StableSpr.icons_attack, GetDmg(s, 1), Colors.redd),
+                            new Icon(ModEntry.Instance.AApplyTempBrittle_Icon.Sprite, null, Colors.textMain)
+                        }
+                    },
                     new ATempBrittleAttack()
                     {
                         damage = GetDmg(s, 1),
                         piercing = true,
-                    },
+                    }
                 };
                 actions = cardActionList1;
                 break;
             case Upgrade.A:
                 List<CardAction> cardActionList2 = new List<CardAction>()
                 {
+                    new ADummyAction(),
+                    new ATooltipDummy()
+                    {
+                        icons = new()
+                        {
+                            new Icon(StableSpr.icons_attack, GetDmg(s, 1), Colors.redd),
+                            new Icon(ModEntry.Instance.AApplyTempBrittle_Icon.Sprite, null, Colors.textMain)
+                        },
+
+                    },
                     new ATempBrittleAttack()
                     {
                         damage = GetDmg(s, 1),

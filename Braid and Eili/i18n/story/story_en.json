@@ -35,78 +35,80 @@
         "neutral"
 */
 {
-  "ChoiceCardRewardOfYourColorChoice_KBraid.BraidEili::Eili_0": {
+  "KBraid.BraidEili::Eili_ChoiceCardRewardOfYourColorChoice_0": {
     "dialogue1": {
       "who": "KBraid.BraidEili::Eili",
       "what": "Hey guys! i just had the craziest idea!",
       "loopTag": "happy"
     }
   },
-  "ChoiceCardRewardOfYourColorChoice_KBraid.BraidEili::Braid_0": {
+  "KBraid.BraidEili::Braid_ChoiceCardRewardOfYourColorChoice_0": {
     "dialogue1": {
       "who": "KBraid.BraidEili::Braid",
       "what": "...",
       "loopTag": "serious"
     }
   },
-  "LoseCharacterCard_KBraid.BraidEili::Eili_0": {
+  "KBraid.BraidEili::Eili_LoseCharacterCard_0": {
     "dialogue1": {
-      "who": "KBraid.BraidEili::Eili",
-      "what": "Aw... That was my favorite...",
-      "loopTag": "sad"
+      "choice1": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "Aw... That was my favorite...",
+        "loopTag": "sad"
+      },
+      "choice2": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "To be honest, i actually wasn't expecting that to work.",
+        "loopTag": "concerned"
+      }
     }
   },
-  "LoseCharacterCard_KBraid.BraidEili::Eili_1": {
-    "dialogue1": {
-      "who": "KBraid.BraidEili::Eili",
-      "what": "To be honest, i actually wasn't expecting that to work.",
-      "loopTag": "concerned"
-    }
-  },
-  "LoseCharacterCard_KBraid.BraidEili::Braid_0": {
+  "KBraid.BraidEili::Braid_LoseCharacterCard_0": {
     "dialogue1": {
       "who": "KBraid.BraidEili::Braid",
       "what": "Survival was more important.",
       "loopTag": "serious"
     }
   },
-  "CrystallizedFriendEvent_KBraid.BraidEili::Eili_0": {
+  "KBraid.BraidEili::Eili_CrystallizedFriendEvent_0": {
     "dialogue1": {
-      "who": "KBraid.BraidEili::Eili",
-      "what": "SMmmh... is it morning already?",
-      "loopTag": "sad"
+      "choice1": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "SMmmh... is it morning already?",
+        "loopTag": "sad"
+      },
+      "choice2": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "Hello again!",
+        "loopTag": "happy"
+      }
     }
   },
-  "CrystallizedFriendEvent_KBraid.BraidEili::Eili_1": {
+  "KBraid.BraidEili::Braid_CrystallizedFriendEvent_0": {
     "dialogue1": {
-      "who": "KBraid.BraidEili::Eili",
-      "what": "Hello again!",
-      "loopTag": "happy"
+      "choice1": {
+        "who": "KBraid.BraidEili::Braid",
+        "what": "...",
+        "loopTag": "blink"
+      },
+      "choice2": {
+        "who": "KBraid.BraidEili::Braid",
+        "what": "What are your orders."
+      }
     }
   },
-  "CrystallizedFriendEvent_KBraid.BraidEili::Braid_0": {
-    "dialogue1": {
-      "who": "KBraid.BraidEili::Braid",
-      "what": "...",
-      "loopTag": "blink"
-    }
-  },
-  "CrystallizedFriendEvent_KBraid.BraidEili::Braid_1": {
-    "dialogue1": {
-      "who": "KBraid.BraidEili::Braid",
-      "what": "What are your orders."
-    }
-  },
-  "GrandmaShop_KBraid.BraidEili::Eili_0": {
-    "dialogue1": {
-      "who": "KBraid.BraidEili::Eili",
-      "what": "Brownies."
-    }
-  },
-  "GrandmaShop_KBraid.BraidEili::Braid_0": {
-    "dialogue1": {
-      "who": "KBraid.BraidEili::Braid",
-      "what": "Ammo."
+  "GrandmaShop": {
+    "eili": {
+      "dialogue1": {
+        "who": "KBraid.BraidEili::Eili",
+        "what": "Brownies."
+      }
+    },
+    "braid": {
+      "dialogue1": {
+        "who": "KBraid.BraidEili::Braid",
+        "what": "Ammo."
+      }
     }
   },
   "KBraid.BraidEili::Eili_CharStart_0": {

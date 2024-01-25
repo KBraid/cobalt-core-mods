@@ -15,7 +15,8 @@ namespace KBraid.BraidEili;
  * DONE : TempShieldNextTurn Status
  * DONE : KineticGenerator Status
  * DONE : EqualPayback Status
- * DONE : TempPowerdrive Status
+ * KINDA: TempPowerdrive Status
+ *        ISSUE: Missing flashing 'heat_warning' sprite
  * DONE : Bide Status
  * DONE : Perfect Timing Status
  * DONE : Revenge: Lost Hull Status
@@ -30,12 +31,13 @@ namespace KBraid.BraidEili;
  * DONE : ATempBrittlePart Action + ATempBrittleAttack Action
  * DONE : ATempArmorPart Action
  * DONE : Removed Coils card, added B.Cannon, B.Charge, B.Shot cards & B.Charge status
- * KINDA: Shove It random move
- *        ISSUE: Render move random alongside attack. Currently using text instead
+ * DONE : Shove It random move
+ * DONE : ATooltipDummy -custom card icon render
  * REMAINING STUFF TO-DO
  * Eili Artifacts
  * Braid Artifacts
  * Story
+ * Sounds
  */
 public sealed class ModEntry : SimpleMod
 {
@@ -146,18 +148,18 @@ public sealed class ModEntry : SimpleMod
 
     internal static IReadOnlyList<Type> BraidStarterCardTypes { get; } = [
         typeof(BraidBigHit),
-        typeof(BraidShoveIt)
+        typeof(BraidLeftHook)
     ];
 
     internal static IReadOnlyList<Type> BraidCommonCardTypes { get; } = [
         typeof(BraidDriveby),
         typeof(BraidPummel),
-        typeof(BraidLeftHook),
         typeof(BraidHaymaker),
         typeof(BraidChargeBlast),
         typeof(BraidMaxBlast),
         typeof(BraidLimiterOff),
         typeof(BraidSneakAttack),
+        typeof(BraidShoveIt)
     ];
 
     internal static IReadOnlyList<Type> BraidUncommonCardTypes { get; } = [
@@ -211,7 +213,6 @@ public sealed class ModEntry : SimpleMod
     internal static IEnumerable<Type> BraidArtifactTypes
         => BraidCommonArtifactTypes
         .Concat(BraidBossArtifactTypes);
-
     public ModEntry(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
     {
         Instance = this;
@@ -232,9 +233,11 @@ public sealed class ModEntry : SimpleMod
         _ = new ResolveManager();
         _ = new RetreatManager();
         _ = new EngineStallNextTurnManager();
+        _ = new ATooltipDummyManager();
+        _ = new ShipPatchesManager();
 
         CustomTTGlossary.ApplyPatches(Harmony);
-        
+
         this.AnyLocalizations = new JsonLocalizationProvider(
             tokenExtractor: new SimpleLocalizationTokenExtractor(),
             localeStreamFunction: locale => package.PackageRoot.GetRelativeFile($"i18n/{locale}.json").OpenRead()
@@ -312,7 +315,7 @@ public sealed class ModEntry : SimpleMod
             Definition = new()
             {
                 icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/disabledDampeners.png")).Sprite,
-                color = new("42add1"),
+                color = new("9fd0ff"),
                 isGood = true
             },
             Name = this.AnyLocalizations.Bind(["status", "DisabledDampeners", "name"]).Localize,
@@ -323,7 +326,7 @@ public sealed class ModEntry : SimpleMod
             Definition = new()
             {
                 icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/shockAbsorber.png")).Sprite,
-                color = new("42add1"),
+                color = new("ff92b6"),
                 isGood = true
             },
             Name = this.AnyLocalizations.Bind(["status", "ShockAbsorber", "name"]).Localize,
@@ -334,7 +337,7 @@ public sealed class ModEntry : SimpleMod
             Definition = new()
             {
                 icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/tempShieldNextTurn.png")).Sprite,
-                color = new("42add1"),
+                color = new("b500be"),
                 isGood = true
             },
             Name = this.AnyLocalizations.Bind(["status", "TempShieldNextTurn", "name"]).Localize,
@@ -345,7 +348,7 @@ public sealed class ModEntry : SimpleMod
             Definition = new()
             {
                 icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/kineticGenerator.png")).Sprite,
-                color = new("42add1"),
+                color = new("b2f2ff"),
                 isGood = true
             },
             Name = this.AnyLocalizations.Bind(["status", "KineticGenerator", "name"]).Localize,
@@ -356,7 +359,7 @@ public sealed class ModEntry : SimpleMod
             Definition = new()
             {
                 icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/equalPayback.png")).Sprite,
-                color = new("c0c9e6"),
+                color = new("e61ec8"),
                 isGood = true
             },
             Name = this.AnyLocalizations.Bind(["status", "EqualPayback", "name"]).Localize,
@@ -367,7 +370,7 @@ public sealed class ModEntry : SimpleMod
             Definition = new()
             {
                 icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/tempPowerdrive.png")).Sprite,
-                color = new("c0c9e6"),
+                color = new("e61ec8"),
                 isGood = true
             },
             Name = this.AnyLocalizations.Bind(["status", "TempPowerdrive", "name"]).Localize,
@@ -378,7 +381,7 @@ public sealed class ModEntry : SimpleMod
             Definition = new()
             {
                 icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/bide.png")).Sprite,
-                color = new("c0c9e6"),
+                color = new("ff7517"),
                 isGood = true
             },
             Name = this.AnyLocalizations.Bind(["status", "Bide", "name"]).Localize,
@@ -389,7 +392,7 @@ public sealed class ModEntry : SimpleMod
             Definition = new()
             {
                 icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/perfectTiming.png")).Sprite,
-                color = new("c0c9e6"),
+                color = new("ff7517"),
                 isGood = true
             },
             Name = this.AnyLocalizations.Bind(["status", "PerfectTiming", "name"]).Localize,
@@ -400,9 +403,9 @@ public sealed class ModEntry : SimpleMod
             Definition = new()
             {
                 icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/lostHull.png")).Sprite,
-                color = new("c0c9e6"),
-                isGood = true
-                
+                color = new("740f63"),
+                isGood = false
+
             },
             Name = this.AnyLocalizations.Bind(["status", "LostHull", "name"]).Localize,
             Description = this.AnyLocalizations.Bind(["status", "LostHull", "description"]).Localize
@@ -412,7 +415,7 @@ public sealed class ModEntry : SimpleMod
             Definition = new()
             {
                 icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/resolve.png")).Sprite,
-                color = new("c0c9e6"),
+                color = new("6fffc1"),
                 isGood = true
             },
             Name = this.AnyLocalizations.Bind(["status", "Resolve", "name"]).Localize,
@@ -423,7 +426,7 @@ public sealed class ModEntry : SimpleMod
             Definition = new()
             {
                 icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/retreat.png")).Sprite,
-                color = new("c0c9e6"),
+                color = new("ff52f5"),
                 isGood = true
             },
             Name = this.AnyLocalizations.Bind(["status", "Retreat", "name"]).Localize,
@@ -434,7 +437,7 @@ public sealed class ModEntry : SimpleMod
             Definition = new()
             {
                 icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/engineStallNextTurn.png")).Sprite,
-                color = new("c0c9e6"),
+                color = new("ffed9a"),
                 isGood = false
             },
             Name = this.AnyLocalizations.Bind(["status", "EngineStallNextTurn", "name"]).Localize,
@@ -445,7 +448,7 @@ public sealed class ModEntry : SimpleMod
             Definition = new()
             {
                 icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/busterCharge.png")).Sprite,
-                color = new("c0c9e6"),
+                color = new("ffbd26"),
                 isGood = true
             },
             Name = this.AnyLocalizations.Bind(["status", "BusterCharge", "name"]).Localize,
@@ -868,7 +871,9 @@ public sealed class ModEntry : SimpleMod
         _ = new UnlockCharactersManager();
         // TRANSPILER STUFF
         _ = new EqualPaybackManager();
-
+        // DIALOGUE STUFF
         _ = new Dialogue();
+        // SOUND STUFF
+        _ = new StatusMetaPatchesManager();
     }
 }

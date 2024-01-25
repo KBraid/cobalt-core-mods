@@ -1,8 +1,7 @@
+using KBraid.BraidEili.Actions;
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
-using KBraid.BraidEili.Actions;
-using System.Linq;
 
 namespace KBraid.BraidEili.Cards;
 public class BraidShoveIt : Card, IModdedCard
@@ -26,32 +25,23 @@ public class BraidShoveIt : Card, IModdedCard
     public override CardData GetData(State state)
     {
         bool flag = false;
-        int dmg = 0;
-        int num = 0;
         switch (upgrade)
         {
             case Upgrade.None:
                 flag = false;
-                dmg = 1;
-                num = 3;
                 break;
             case Upgrade.A:
                 flag = false;
-                dmg = 2;
-                num = 5;
                 break;
             case Upgrade.B:
                 flag = true;
-                dmg = 1;
-                num = 3;
                 break;
         }
         CardData data = new CardData()
         {
             cost = 1,
             art = new Spr?(StableSpr.cards_Strafe),
-            flippable = flag,
-            description = upgrade == Upgrade.B ? null : ModEntry.Instance.Localizations.Localize(["card", "ShoveIt", "description"], new { Damage = GetDmg(state, dmg), Move = num })
+            flippable = flag
         };
         return data;
     }
@@ -65,10 +55,19 @@ public class BraidShoveIt : Card, IModdedCard
             case Upgrade.None:
                 List<CardAction> cardActionList1 = new List<CardAction>()
                 {
+                    new ADummyAction(),
+                    new ATooltipDummy()
+                    {
+                        icons = new()
+                        {
+                            new Icon(StableSpr.icons_attack, GetDmg(s, 1), Colors.redd),
+                            new Icon(ModEntry.Instance.ARandomMove.Sprite, 2, Colors.redd)
+                        }
+                    },
                     new AAttackRandomMove()
                     {
                         damage = GetDmg(s, 1),
-                        randomDir = 3
+                        randomDir = 2
                     }
                 };
                 actions = cardActionList1;
@@ -76,10 +75,19 @@ public class BraidShoveIt : Card, IModdedCard
             case Upgrade.A:
                 List<CardAction> cardActionList2 = new List<CardAction>()
                 {
+                    new ADummyAction(),
+                    new ATooltipDummy()
+                    {
+                        icons = new()
+                        {
+                            new Icon(StableSpr.icons_attack, GetDmg(s, 2), Colors.redd),
+                            new Icon(ModEntry.Instance.ARandomMove.Sprite, 4, Colors.redd)
+                        }
+                    },
                     new AAttackRandomMove()
                     {
                         damage = GetDmg(s, 2),
-                        randomDir = 5
+                        randomDir = 2
                     }
                 };
                 actions = cardActionList2;
@@ -90,7 +98,7 @@ public class BraidShoveIt : Card, IModdedCard
                     new AAttack()
                     {
                         damage = GetDmg(s, 1),
-                        moveEnemy = 3
+                        moveEnemy = 2
                     }
                 };
                 actions = cardActionList3;

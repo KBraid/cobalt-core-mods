@@ -1,13 +1,10 @@
 ﻿using HarmonyLib;
-using Nanoray.Shrike.Harmony;
 using Nanoray.Shrike;
+using Nanoray.Shrike.Harmony;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using static HarmonyLib.Code;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace KBraid.BraidEili;
 internal sealed class EqualPaybackManager : IStatusLogicHook

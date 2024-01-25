@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace KBraid.BraidEili.Actions;
 
-internal class AAttackRandomMove : AAttack
+internal class AAttackRandomMove : AAttackNoIcon
 {
     public int randomDir;
     public override void Begin(G g, State s, Combat c)
