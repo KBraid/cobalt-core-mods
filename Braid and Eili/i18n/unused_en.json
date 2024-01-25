@@ -102,6 +102,33 @@
   "KB_Braid_Memory_1:8": "...", //braid seriousC
 
   "t412days": "T-412 days.", //running away
+  "KB_Braid_Memory_2:0": "I can't...", //braid eyes closed
+  "KB_Braid_Memory_2:1": "I can't, keep doing this...", //braid eyes closed
+  "KB_Braid_Memory_2:2": "Why?", //braid eyes closed
+  "KB_Braid_Memory_2:3": "I was made for this.", //braid serious
+  "KB_Braid_Memory_2:4a": "...........", //sensor error
+  "KB_Braid_Memory_2:4b": "You wern't.", //Eili concerned
+  "KB_Braid_Memory_2:5": "They told me i was their best.", //braid neutral
+  "KB_Braid_Memory_2:6a": "..........", //sensor error
+  "KB_Braid_Memory_2:6b": "they lied.", //Eili concerned
+  "KB_Braid_Memory_2:7": "Why is this not easy anymore?", //braid neutral
+  "KB_Braid_Memory_2:8": "Why... does it hurt?", //braid eyes closed
+  "KB_Braid_Memory_2:9a": "...", //sensor error
+  "KB_Braid_Memory_2:9b": "...", //Eili concerned
+  "KB_Braid_Memory_2:10a": "...............", //sensor error
+  "KB_Braid_Memory_2:10b": "Let's run away.", //Eili neutral
+  "KB_Braid_Memory_2:11": "Run away?", //braid neutral
+  "KB_Braid_Memory_2:12": "And go where?", //braid serious
+  "KB_Braid_Memory_2:13": "This is all i know.", //braid serious b
+  "KB_Braid_Memory_2:14": "This is all...", //braid serious a
+  "KB_Braid_Memory_2:15": "I...", //braid eyes closed
+  "KB_Braid_Memory_2:16a": ".......................", //sensor error
+  "KB_Braid_Memory_2:16b": "Then lets go know more.", //Eili neutral
+  "KB_Braid_Memory_2:17": "...", //braid eyes closed
+  "KB_Braid_Memory_2:17": "They won't let us. they will persue.", //braid serious a
+  "KB_Braid_Memory_2:18a": ".............", //sensor error
+  "KB_Braid_Memory_2:18b": "Let them try.", //Eili determined
+  "KB_Braid_Memory_2:19": "...", //braid determined
 
   "t244minutes": "T-244 minutes.",
   "KB_Braid_Memory_3:0a": ".....................", //sensor error
@@ -120,7 +147,7 @@
   "KB_Braid_Memory_3:8": "...", //braid eyes closed
   "KB_Braid_Memory_3:9": "...", //braid serious
   "KB_Braid_Memory_3:10": "Alright.", //braid serious
-  "t6minutes": "T-6 minutes.",
+  "t3minutes": "T-3 minutes.",
   "KB_Braid_Memory_3:11": "Aagh! Frick!", //peri panic
   "KB_Braid_Memory_3:12": "We just need a place to hide.", //braid seriousA
   "KB_Braid_Memory_3:13": "Just a- After that unprovoked beatdown and not even a hello?", //peri squint
