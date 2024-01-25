@@ -84,6 +84,7 @@ public sealed class ModEntry : SimpleMod
         "blink",
         "crystallized",
         "defeat",
+        "determined",
         "ending_a",
         "ending_b",
         "ending_c",
@@ -864,6 +865,34 @@ public sealed class ModEntry : SimpleMod
                     Sprites["braid_unamused_1"].Sprite,
                     Sprites["braid_unamused_0"].Sprite,
                     Sprites["braid_unamused_1"].Sprite,
+                ]
+            }
+        );
+        Helper.Content.Characters.RegisterCharacterAnimation(
+            "eili_determined",
+            new()
+            {
+                Deck = EiliDeck.Deck,
+                LoopTag = "determined",
+                Frames = [
+                    Sprites["eili_determined_0"].Sprite,
+                    Sprites["eili_determined_1"].Sprite,
+                    Sprites["eili_determined_0"].Sprite,
+                    Sprites["eili_determined_1"].Sprite,
+                ]
+            }
+        );
+        Helper.Content.Characters.RegisterCharacterAnimation(
+            "braid_determined",
+            new()
+            {
+                Deck = BraidDeck.Deck,
+                LoopTag = "determined",
+                Frames = [
+                    Sprites["braid_determined_0"].Sprite,
+                    Sprites["braid_determined_1"].Sprite,
+                    Sprites["braid_determined_0"].Sprite,
+                    Sprites["braid_determined_1"].Sprite,
                 ]
             }
         );
