@@ -216,6 +216,7 @@
     "dialogue1": {
       "who": "KBraid.BraidEili::Eili",
       "what": "..."
+      "loopTag": "concerned"
     },
     "dialogue2": {
       "who": "KBraid.BraidEili::Braid",
