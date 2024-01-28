@@ -898,9 +898,10 @@ public sealed class ModEntry : SimpleMod
         // TRANSPILER STUFF
         _ = new EqualPaybackManager();
         // DIALOGUE STUFF
-        _ = new Dialogue();
+        Vault.charsWithLore.Add(BraidDeck.Deck);
         BGRunWin.charFullBodySprites.Add(EiliDeck.Deck, Sprites["eili_fullchar"].Sprite);
         BGRunWin.charFullBodySprites.Add(BraidDeck.Deck, Sprites["braid_fullchar"].Sprite);
+        _ = new DialogueManager();
         // SOUND STUFF
         _ = new StatusMetaPatchesManager();
     }

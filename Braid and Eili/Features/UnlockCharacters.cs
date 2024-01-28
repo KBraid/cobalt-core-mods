@@ -22,11 +22,11 @@ internal sealed class UnlockCharactersManager
         ModEntry.Instance.Helper.Events.OnLoadStringsForLocale += BraidLockedLocale;
     }
 
-    private void EiliLockedLocale(object? sender, Nickel.LoadStringsForLocaleEventArgs e)
+    private void EiliLockedLocale(object? sender, LoadStringsForLocaleEventArgs e)
     {
         e.Localizations[$"char.{ModEntry.Instance.EiliDeck.Deck}.desc.locked"] = ModEntry.Instance.AnyLocalizations.Bind(["character", "Eili", "locked"]).Localize(e.Locale) ?? "???";
     }
-    private void BraidLockedLocale(object? sender, Nickel.LoadStringsForLocaleEventArgs e)
+    private void BraidLockedLocale(object? sender, LoadStringsForLocaleEventArgs e)
     {
         e.Localizations[$"char.{ModEntry.Instance.BraidDeck.Deck}.desc.locked"] = ModEntry.Instance.AnyLocalizations.Bind(["character", "Braid", "locked"]).Localize(e.Locale) ?? "???";
     }
