@@ -80,54 +80,178 @@ internal static class EventDialogue
                 type = NodeType.@event,
                 oncePerRun = true,
                 allPresent = new()
-            {
-                eili
-            },
+                {
+                    eili
+                },
                 bg = "BGSupernova",
                 lines = new()
-            {
-                new SaySwitch()
                 {
-                    lines = new()
+                    new SaySwitch()
                     {
-                        new CustomSay()
+                        lines = new()
                         {
-                            who = Instance.StoryLocs.Localize([currentStory, "dialogue1", "choice1", "who"]) ?? "crew",
-                            Text = Instance.StoryLocs.Localize([currentStory, "dialogue1", "choice1", "what"]) ?? "...",
-                            loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue1", "choice1", "loopTag"])) ? loopTag : "neutral",
-                        },
-                        new CustomSay()
-                        {
-                            who = Instance.StoryLocs.Localize([currentStory, "dialogue1", "choice2", "who"]) ?? "crew",
-                            Text = Instance.StoryLocs.Localize([currentStory, "dialogue1", "choice2", "what"]) ?? "...",
-                            loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue1", "choice2", "loopTag"])) ? loopTag : "neutral",
+                            new CustomSay()
+                            {
+                                who = Instance.StoryLocs.Localize([currentStory, "dialogue1", "choice1", "who"]) ?? "crew",
+                                Text = Instance.StoryLocs.Localize([currentStory, "dialogue1", "choice1", "what"]) ?? "...",
+                                loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue1", "choice1", "loopTag"])) ? loopTag : "neutral",
+                            },
+                            new CustomSay()
+                            {
+                                who = Instance.StoryLocs.Localize([currentStory, "dialogue1", "choice2", "who"]) ?? "crew",
+                                Text = Instance.StoryLocs.Localize([currentStory, "dialogue1", "choice2", "what"]) ?? "...",
+                                loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue1", "choice2", "loopTag"])) ? loopTag : "neutral",
+                            }
                         }
                     }
                 }
-            }
             };
             DB.story.all[currentStory = $"{eili}_CrystallizedFriendEvent_0"] = new()
             {
                 type = NodeType.@event,
                 oncePerRun = true,
                 allPresent = new()
-            {
-                eili
-            },
+                {
+                    eili
+                },
                 bg = "BGCrystalizedFriend",
                 lines = new()
-            {
-                new Wait()
                 {
-                    secs = 1.5
-                },
-                new CustomSay()
-                {
-                    who = Instance.StoryLocs.Localize([currentStory, "dialogue1", "who"]) ?? "crew",
-                    Text = Instance.StoryLocs.Localize([currentStory, "dialogue1", "what"]) ?? "...",
-                    loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue1", "loopTag"])) ? loopTag : "neutral",
+                    new Wait()
+                    {
+                        secs = 1.5
+                    },
+                    new CustomSay()
+                    {
+                        who = Instance.StoryLocs.Localize([currentStory, "dialogue1", "who"]) ?? "crew",
+                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue1", "what"]) ?? "...",
+                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue1", "loopTag"])) ? loopTag : "neutral",
+                    }
                 }
-            }
+            };
+            DB.story.all[currentStory = $"{eili}_RunWin_1"] = new()
+            {
+                type = NodeType.@event,
+                once = true,
+                lookup = new()
+                {
+                    $"runWin_{eili}"
+                },
+                bg = "BGRunWin",
+                lines = new()
+                {
+                    new Wait()
+                    {
+                        secs = 3
+                    },
+                    new CustomSay()
+                    {
+                        who = Instance.StoryLocs.Localize([currentStory, "dialogue1", "who"]) ?? "crew",
+                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue1", "what"]) ?? "...",
+                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue1", "loopTag"])) ? loopTag : "neutral",
+                    },
+                    new CustomSay()
+                    {
+                        who = Instance.StoryLocs.Localize([currentStory, "dialogue2", "who"]) ?? "crew",
+                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue2", "what"]) ?? "...",
+                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue2", "loopTag"])) ? loopTag : "neutral",
+                    },
+                    new CustomSay()
+                    {
+                        who = Instance.StoryLocs.Localize([currentStory, "dialogue3", "who"]) ?? "crew",
+                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue3", "what"]) ?? "...",
+                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue3", "loopTag"])) ? loopTag : "neutral",
+                    },
+                    new CustomSay()
+                    {
+                        who = Instance.StoryLocs.Localize([currentStory, "dialogue4", "who"]) ?? "crew",
+                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue4", "what"]) ?? "...",
+                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue4", "loopTag"])) ? loopTag : "neutral",
+                    },
+                    new CustomSay()
+                    {
+                        who = Instance.StoryLocs.Localize([currentStory, "dialogue5", "who"]) ?? "crew",
+                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue5", "what"]) ?? "...",
+                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue5", "loopTag"])) ? loopTag : "neutral",
+                    },
+                    new CustomSay()
+                    {
+                        who = Instance.StoryLocs.Localize([currentStory, "dialogue6", "who"]) ?? "crew",
+                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue6", "what"]) ?? "...",
+                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue6", "loopTag"])) ? loopTag : "neutral",
+                    }
+                }
+            };
+            DB.story.all[currentStory = $"{braid}_RunWin_1"] = new()
+            {
+                type = NodeType.@event,
+                once = true,
+                lookup = new()
+                {
+                    $"runWin_{braid}"
+                },
+                bg = "BGRunWin",
+                lines = new()
+                {
+                    new Wait()
+                    {
+                        secs = 3
+                    },
+                    new CustomSay()
+                    {
+                        who = Instance.StoryLocs.Localize([currentStory, "dialogue1", "who"]) ?? "crew",
+                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue1", "what"]) ?? "...",
+                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue1", "loopTag"])) ? loopTag : "neutral",
+                    },
+                    new CustomSay()
+                    {
+                        who = Instance.StoryLocs.Localize([currentStory, "dialogue2", "who"]) ?? "crew",
+                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue2", "what"]) ?? "...",
+                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue2", "loopTag"])) ? loopTag : "neutral",
+                    },
+                    new CustomSay()
+                    {
+                        who = Instance.StoryLocs.Localize([currentStory, "dialogue3", "who"]) ?? "crew",
+                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue3", "what"]) ?? "...",
+                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue3", "loopTag"])) ? loopTag : "neutral",
+                    },
+                    new CustomSay()
+                    {
+                        who = Instance.StoryLocs.Localize([currentStory, "dialogue4", "who"]) ?? "crew",
+                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue4", "what"]) ?? "...",
+                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue4", "loopTag"])) ? loopTag : "neutral",
+                    },
+                    new CustomSay()
+                    {
+                        who = Instance.StoryLocs.Localize([currentStory, "dialogue5", "who"]) ?? "crew",
+                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue5", "what"]) ?? "...",
+                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue5", "loopTag"])) ? loopTag : "neutral",
+                    },
+                    new CustomSay()
+                    {
+                        who = Instance.StoryLocs.Localize([currentStory, "dialogue6", "who"]) ?? "crew",
+                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue6", "what"]) ?? "...",
+                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue6", "loopTag"])) ? loopTag : "neutral",
+                    },
+                    new CustomSay()
+                    {
+                        who = Instance.StoryLocs.Localize([currentStory, "dialogue7", "who"]) ?? "crew",
+                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue7", "what"]) ?? "...",
+                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue7", "loopTag"])) ? loopTag : "neutral",
+                    },
+                    new CustomSay()
+                    {
+                        who = Instance.StoryLocs.Localize([currentStory, "dialogue8", "who"]) ?? "crew",
+                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue8", "what"]) ?? "...",
+                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue8", "loopTag"])) ? loopTag : "neutral",
+                    },
+                    new CustomSay()
+                    {
+                        who = Instance.StoryLocs.Localize([currentStory, "dialogue9", "who"]) ?? "crew",
+                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue9", "what"]) ?? "...",
+                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue9", "loopTag"])) ? loopTag : "neutral",
+                    }
+                }
             };
         }
     }

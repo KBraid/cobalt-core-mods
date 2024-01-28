@@ -53,13 +53,13 @@
   "KB_BraidEili_Cobalt_0:0": "",
 
   // picking Eili flips a flag that changes Braid's memory dialogue, revealing Eili's text
-  "RunWinKBWho_Eili_1:0": "You should not exist.", //void
+  /*"RunWinKBWho_Eili_1:0": "You should not exist.", //void
   "RunWinKBWho_Eili_1:1": "I know.", //eili concerned
   "RunWinKBWho_Eili_1:2": "Your awareness over the situation is greater than you are letting on.", //void
   "RunWinKBWho_Eili_1:3": "Maybe.", //eili concerned
   "RunWinKBWho_Eili_1:4": "Is it to express individuality or to encourage introspective?", //void
   "RunWinKBWho_Eili_1:5": "A little of both.", //eili neutral
-
+  */
   "RunWinKBWho_Braid_1:0": "You treat your existence like it has no purpose.", //void
   "RunWinKBWho_Braid_1:1": "Surviving only in the moment. Any thoughts to the future being in consideration of tactical advantages.", //void
   "RunWinKBWho_Braid_1:2": "I am a soldier.", //braid neutral

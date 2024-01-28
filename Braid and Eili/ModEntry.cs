@@ -890,9 +890,6 @@ public sealed class ModEntry : SimpleMod
                 LoopTag = "determined",
                 Frames = [
                     Sprites["braid_determined_0"].Sprite,
-                    Sprites["braid_determined_1"].Sprite,
-                    Sprites["braid_determined_0"].Sprite,
-                    Sprites["braid_determined_1"].Sprite,
                 ]
             }
         );

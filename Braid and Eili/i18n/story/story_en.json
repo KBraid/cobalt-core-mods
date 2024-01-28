@@ -215,7 +215,7 @@
   "KBraid.BraidEili::BraidEili_CharStart_0": {
     "dialogue1": {
       "who": "KBraid.BraidEili::Eili",
-      "what": "..."
+      "what": "...",
       "loopTag": "concerned"
     },
     "dialogue2": {
@@ -529,6 +529,76 @@
       "who": "KBraid.BraidEili::Braid",
       "what": "NOT YET! WE'RE NOT FINISHED YET!!!",
       "loopTag": "serious_c"
+    }
+  },
+  "Kbraid.BraidEili::Eili_RunWin_1": {
+    "dialogue1": {
+      "who": "void",
+      "what": "You should not exist."
+    },
+    "dialogue2": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "I know.",
+      "loopTag": "concerned"
+    },
+    "dialogue3": {
+      "who": "void",
+      "what": "Your awareness over the situation is greater than you are letting on."
+    },
+    "dialogue4": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "Maybe.",
+      "loopTag": "concerned"
+    },
+    "dialogue5": {
+      "who": "void",
+      "what": "Is it to express individuality or to encourage introspective?",
+      "loopTag": "concerned"
+    },
+    "dialogue6": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "A little of both."
+    }
+  },
+  "Kbraid.BraidEili::Braid_RunWin_2": {
+    "dialogue1": {
+      "who": "void",
+      "what": "You treat your existence like it has no purpose."
+    },
+    "dialogue2": {
+      "who": "void",
+      "what": "Surviving only in the moment. Any thoughts to the future being in consideration of tactical advantages."
+    },
+    "dialogue3": {
+      "who": "Kbraid.BraidEili::Braid",
+      "what": "I am a soldier."
+    },
+    "dialogue4": {
+      "who": "void",
+      "what": "You are a living being, but treat yourself less than an animal.",
+      "loopTag": "concerned"
+    },
+    "dialogue5": {
+      "who": "Kbraid.BraidEili::Braid",
+      "what": "...",
+      "loopTag": "serious"
+    },
+    "dialogue6": {
+      "who": "void",
+      "what": "You're trading your potential for convenience."
+    },
+    "dialogue7": {
+      "who": "void",
+      "what": "This trade is disadvantageous..."
+    },
+    "dialogue8": {
+      "who": "void",
+      "what": "But worse, unjustified."
+    },
+    "dialogue9": {
+      "who": "Kbraid.BraidEili::Braid",
+      "what": "...",
+      "loopTag": "serious"
     }
   }
 }
