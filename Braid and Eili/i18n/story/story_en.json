@@ -531,7 +531,7 @@
       "loopTag": "serious_c"
     }
   },
-  "Kbraid.BraidEili::Eili_RunWin_1": {
+  "KBraid.BraidEili::Eili_RunWin_1": {
     "dialogue1": {
       "who": "void",
       "what": "You should not exist."
@@ -560,7 +560,7 @@
       "what": "A little of both."
     }
   },
-  "Kbraid.BraidEili::Braid_RunWin_2": {
+  "KBraid.BraidEili::Braid_RunWin_1": {
     "dialogue1": {
       "who": "void",
       "what": "You treat your existence like it has no purpose."

@@ -899,6 +899,8 @@ public sealed class ModEntry : SimpleMod
         _ = new EqualPaybackManager();
         // DIALOGUE STUFF
         _ = new Dialogue();
+        BGRunWin.charFullBodySprites.Add(EiliDeck.Deck, Sprites["eili_fullchar"].Sprite);
+        BGRunWin.charFullBodySprites.Add(BraidDeck.Deck, Sprites["braid_fullchar"].Sprite);
         // SOUND STUFF
         _ = new StatusMetaPatchesManager();
     }

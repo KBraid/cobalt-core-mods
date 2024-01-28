@@ -146,9 +146,9 @@ internal static class EventDialogue
                     },
                     new CustomSay()
                     {
-                        who = Instance.StoryLocs.Localize([currentStory, "dialogue1", "who"]) ?? "crew",
+                        who = "void",
+                        flipped = true,
                         Text = Instance.StoryLocs.Localize([currentStory, "dialogue1", "what"]) ?? "...",
-                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue1", "loopTag"])) ? loopTag : "neutral",
                     },
                     new CustomSay()
                     {
@@ -158,9 +158,9 @@ internal static class EventDialogue
                     },
                     new CustomSay()
                     {
-                        who = Instance.StoryLocs.Localize([currentStory, "dialogue3", "who"]) ?? "crew",
+                        who = "void",
+                        flipped = true,
                         Text = Instance.StoryLocs.Localize([currentStory, "dialogue3", "what"]) ?? "...",
-                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue3", "loopTag"])) ? loopTag : "neutral",
                     },
                     new CustomSay()
                     {
@@ -170,9 +170,9 @@ internal static class EventDialogue
                     },
                     new CustomSay()
                     {
-                        who = Instance.StoryLocs.Localize([currentStory, "dialogue5", "who"]) ?? "crew",
+                        who = "void",
+                        flipped = true,
                         Text = Instance.StoryLocs.Localize([currentStory, "dialogue5", "what"]) ?? "...",
-                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue5", "loopTag"])) ? loopTag : "neutral",
                     },
                     new CustomSay()
                     {
@@ -199,15 +199,15 @@ internal static class EventDialogue
                     },
                     new CustomSay()
                     {
-                        who = Instance.StoryLocs.Localize([currentStory, "dialogue1", "who"]) ?? "crew",
-                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue1", "what"]) ?? "...",
-                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue1", "loopTag"])) ? loopTag : "neutral",
+                        who = "void",
+                        flipped = true,
+                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue1", "what"]) ?? "..."
                     },
                     new CustomSay()
                     {
-                        who = Instance.StoryLocs.Localize([currentStory, "dialogue2", "who"]) ?? "crew",
-                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue2", "what"]) ?? "...",
-                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue2", "loopTag"])) ? loopTag : "neutral",
+                        who = "void",
+                        flipped = true,
+                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue2", "what"]) ?? "..."
                     },
                     new CustomSay()
                     {
@@ -217,9 +217,9 @@ internal static class EventDialogue
                     },
                     new CustomSay()
                     {
-                        who = Instance.StoryLocs.Localize([currentStory, "dialogue4", "who"]) ?? "crew",
-                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue4", "what"]) ?? "...",
-                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue4", "loopTag"])) ? loopTag : "neutral",
+                        who = "void",
+                        flipped = true,
+                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue4", "what"]) ?? "..."
                     },
                     new CustomSay()
                     {
@@ -229,21 +229,21 @@ internal static class EventDialogue
                     },
                     new CustomSay()
                     {
-                        who = Instance.StoryLocs.Localize([currentStory, "dialogue6", "who"]) ?? "crew",
-                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue6", "what"]) ?? "...",
-                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue6", "loopTag"])) ? loopTag : "neutral",
+                        who = "void",
+                        flipped = true,
+                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue6", "what"]) ?? "..."
                     },
                     new CustomSay()
                     {
-                        who = Instance.StoryLocs.Localize([currentStory, "dialogue7", "who"]) ?? "crew",
-                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue7", "what"]) ?? "...",
-                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue7", "loopTag"])) ? loopTag : "neutral",
+                        who = "void",
+                        flipped = true,
+                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue7", "what"]) ?? "..."
                     },
                     new CustomSay()
                     {
-                        who = Instance.StoryLocs.Localize([currentStory, "dialogue8", "who"]) ?? "crew",
-                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue8", "what"]) ?? "...",
-                        loopTag = Instance.FaceSprites.Contains(loopTag = Instance.StoryLocs.Localize([currentStory, "dialogue8", "loopTag"])) ? loopTag : "neutral",
+                        who = "void",
+                        flipped = true,
+                        Text = Instance.StoryLocs.Localize([currentStory, "dialogue8", "what"]) ?? "..."
                     },
                     new CustomSay()
                     {

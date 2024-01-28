@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using Nickel;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace KBraid.BraidEili;
@@ -11,11 +12,11 @@ internal sealed class UnlockCharactersManager
     {
         ModEntry.Instance.Harmony.Patch(
             original: AccessTools.DeclaredMethod(typeof(StoryVars), nameof(StoryVars.RecordRunWin)),
-            prefix: new HarmonyMethod(GetType(), nameof(StoryVars_RecordRunWin_Prefix))
+            postfix: new HarmonyMethod(GetType(), nameof(StoryVars_RecordRunWin_Postfix))
         );
         ModEntry.Instance.Harmony.Patch(
             original: AccessTools.DeclaredMethod(typeof(StoryVars), nameof(StoryVars.GetUnlockedChars)),
-            prefix: new HarmonyMethod(GetType(), nameof(StoryVars_GetUnlockedChars_Prefix))
+            postfix: new HarmonyMethod(GetType(), nameof(StoryVars_GetUnlockedChars_Postfix))
         );
         ModEntry.Instance.Helper.Events.OnLoadStringsForLocale += EiliLockedLocale;
         ModEntry.Instance.Helper.Events.OnLoadStringsForLocale += BraidLockedLocale;
@@ -30,29 +31,26 @@ internal sealed class UnlockCharactersManager
         e.Localizations[$"char.{ModEntry.Instance.BraidDeck.Deck}.desc.locked"] = ModEntry.Instance.AnyLocalizations.Bind(["character", "Braid", "locked"]).Localize(e.Locale) ?? "???";
     }
 
-    private static void StoryVars_RecordRunWin_Prefix(
+    private static void StoryVars_RecordRunWin_Postfix(
         StoryVars __instance,
         State state)
     {
         if (FeatureFlags.BypassUnlocks)
             return;
+        if (!ModEntry.Instance.LockedChar)
+            return;
         if (__instance.winCount > 4)
             __instance.UnlockChar(ModEntry.Instance.EiliDeck.Deck);
-        if (state.characters.Any(ch =>
-        {
-            Deck? deckType = ch.deckType;
-            Deck deck = ModEntry.Instance.EiliDeck.Deck;
-            return deckType.GetValueOrDefault() == deck & deckType.HasValue;
-        }))
+        if (state.characters.Any((Character ch) => ch.deckType == ModEntry.Instance.EiliDeck.Deck))
             __instance.UnlockChar(ModEntry.Instance.BraidDeck.Deck);
     }
-    private static void StoryVars_GetUnlockedChars_Prefix(
-        StoryVars __instance)
+    private static void StoryVars_GetUnlockedChars_Postfix(
+        ref HashSet<Deck> __result)
     {
         if (FeatureFlags.BypassUnlocks)
         {
-            __instance.unlockedChars.Add(ModEntry.Instance.EiliDeck.Deck);
-            __instance.unlockedChars.Add(ModEntry.Instance.BraidDeck.Deck);
+            __result.Add(ModEntry.Instance.EiliDeck.Deck);
+            __result.Add(ModEntry.Instance.BraidDeck.Deck);
         }
     }
 }
