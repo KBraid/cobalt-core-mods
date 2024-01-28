@@ -762,7 +762,7 @@ internal static class EventDialogue
                     },
                     new Wait()
                     {
-                        secs = 1
+                        secs = 3
                     },
                     new CustomTitle()
                     {
@@ -782,7 +782,7 @@ internal static class EventDialogue
                     },
                     new Wait()
                     {
-                        secs = 1
+                        secs = 3
                     },
                     new CustomTitle()
                     {
