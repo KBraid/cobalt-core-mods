@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using KBraid.BraidEili.Actions;
 
 namespace KBraid.BraidEili;
 
@@ -35,7 +36,7 @@ internal static class Extensions
         else
         {
             multiplier = 2;
-            c.Queue(new AExhaustOtherCard
+            c.Queue(new AExhaustACard()
             {
                 uuid = card.uuid
             });
