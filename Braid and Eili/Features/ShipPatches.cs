@@ -20,16 +20,20 @@ internal sealed class ShipPatchesManager
     }
     private static void Ship_NormalDamage_Prefix(
         Ship __instance,
+        int incomingDamage,
         bool piercing,
         ref int __state)
     {
-        if (!piercing)
+        if (__instance.Get(ModEntry.Instance.Bide.Status) > 0)
         {
-            __state = __instance.Get(Status.shield) + __instance.Get(Status.tempShield);
-        }
-        else
-        {
-            __state = 0;
+            if (piercing || __instance.Get(Status.shield) + __instance.Get(Status.tempShield) < incomingDamage)
+            {
+                __state = __instance.Get(Status.shield) + __instance.Get(Status.tempShield);
+            }
+            else
+            {
+                __state = 0;
+            }
         }
     }
     private static void Ship_NormalDamage_Postfix(
@@ -58,50 +62,53 @@ internal sealed class ShipPatchesManager
         {
             num = __instance.ModifyDamageDueToParts(s, c, incomingDamage, part, piercing);
         }
-        var num2 = __state;
-        if (num < __state)
-            num2 = num;
-        if (!piercing && num2 != 0)
+        var num2 = num;
+        if (num < incomingDamage)
+            num2 = incomingDamage;
+        if (!piercing && num2 != 0 && __state != 0)
         {
-            if (__instance.Get(ModEntry.Instance.Bide.Status) > 0)
+            if (num2 >= __state)
             {
-                var bide_status = ModEntry.Instance.Bide.Status;
-                __instance.PulseStatus(bide_status);
-                c.QueueImmediate(new AStatus()
+                if (__instance.Get(ModEntry.Instance.Bide.Status) > 0)
                 {
-                    status = ModEntry.Instance.PerfectTiming.Status,
-                    statusAmount = num2,
-                    targetPlayer = __instance.isPlayerShip
-                });
-            }
-            if (__instance.Get(ModEntry.Instance.DisabledDampeners.Status) > 0)
-            {
-                var disabledDampeners = ModEntry.Instance.DisabledDampeners.Status;
-                __instance.PulseStatus(disabledDampeners);
-                c.QueueImmediate(new AStatus()
+                    var bide_status = ModEntry.Instance.Bide.Status;
+                    __instance.PulseStatus(bide_status);
+                    c.QueueImmediate(new AStatus()
+                    {
+                        status = ModEntry.Instance.PerfectTiming.Status,
+                        statusAmount = __state,
+                        targetPlayer = __instance.isPlayerShip
+                    });
+                }
+                if (__instance.Get(ModEntry.Instance.DisabledDampeners.Status) > 0)
                 {
-                    timer = 0,
-                    status = Status.evade,
-                    statusAmount = num2 * __instance.Get(disabledDampeners),
-                    targetPlayer = __instance.isPlayerShip
-                });
-                c.QueueImmediate(new AMove()
+                    var disabledDampeners = ModEntry.Instance.DisabledDampeners.Status;
+                    __instance.PulseStatus(disabledDampeners);
+                    c.QueueImmediate(new AStatus()
+                    {
+                        timer = 0,
+                        status = Status.evade,
+                        statusAmount = __state * __instance.Get(disabledDampeners),
+                        targetPlayer = __instance.isPlayerShip
+                    });
+                    c.QueueImmediate(new AMove()
+                    {
+                        dir = __state * __instance.Get(disabledDampeners),
+                        isRandom = true,
+                        targetPlayer = __instance.isPlayerShip
+                    });
+                }
+                if (__instance.Get(ModEntry.Instance.ShockAbsorber.Status) > 0)
                 {
-                    dir = num2 * __instance.Get(disabledDampeners),
-                    isRandom = true,
-                    targetPlayer = __instance.isPlayerShip
-                });
-            }
-            if (__instance.Get(ModEntry.Instance.ShockAbsorber.Status) > 0)
-            {
-                var shockAbsorber = ModEntry.Instance.ShockAbsorber.Status;
-                __instance.PulseStatus(shockAbsorber);
-                c.QueueImmediate(new AStatus()
-                {
-                    status = ModEntry.Instance.TempShieldNextTurn.Status,
-                    statusAmount = num2 * __instance.Get(shockAbsorber),
-                    targetPlayer = __instance.isPlayerShip
-                });
+                    var shockAbsorber = ModEntry.Instance.ShockAbsorber.Status;
+                    __instance.PulseStatus(shockAbsorber);
+                    c.QueueImmediate(new AStatus()
+                    {
+                        status = ModEntry.Instance.TempShieldNextTurn.Status,
+                        statusAmount = __state * __instance.Get(shockAbsorber),
+                        targetPlayer = __instance.isPlayerShip
+                    });
+                }
             }
         }
     }
