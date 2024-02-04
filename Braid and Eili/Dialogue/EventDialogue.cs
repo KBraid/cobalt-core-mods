@@ -129,6 +129,9 @@ internal static class EventDialogue
                     }
                 }
             };
+        }
+        // NEW RUN WIN AND MEMORIES
+        {
             DB.story.all[currentStory = $"{eili}_RunWin_1"] = new()
             {
                 type = NodeType.@event,
@@ -407,7 +410,7 @@ internal static class EventDialogue
             {
                 type = NodeType.@event,
                 introDelay = false,
-                bg = "BGVault",
+                bg = "BGMemoryButCool",
                 lookup = new()
                 {
                     "vault",
@@ -490,7 +493,7 @@ internal static class EventDialogue
             {
                 type = NodeType.@event,
                 introDelay = false,
-                bg = "BGVault",
+                bg = "BGBarren",
                 lookup = new()
                 {
                     "vault",

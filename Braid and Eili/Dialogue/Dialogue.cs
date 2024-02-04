@@ -16,5 +16,4 @@ internal sealed class DialogueManager
             card.InjectDialogue();
         }
     }
-
 }

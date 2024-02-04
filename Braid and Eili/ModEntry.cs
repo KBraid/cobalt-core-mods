@@ -63,6 +63,7 @@ public sealed class ModEntry : SimpleMod
     internal ISpriteEntry AApplyTempBrittle_Icon { get; }
     internal ISpriteEntry AApplyTempArmor_Icon { get; }
     internal ISpriteEntry ARandomMove { get; }
+    internal ISpriteEntry BGBarren { get; }
 
     //internal ISpriteEntry EiliUncommonBorder { get; }
     //internal ISpriteEntry EiliRareBorder { get; }
@@ -258,6 +259,7 @@ public sealed class ModEntry : SimpleMod
         AApplyTempBrittle_Icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/tempBrittle.png"));
         AApplyTempArmor_Icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/tempArmorAction.png"));
         ARandomMove = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/randomMove.png"));
+        BGBarren = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/bg/barren.png"));
 
         //EiliUncommonBorder = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cardShared/border_eili_uncommon.png"));
         //EiliRareBorder = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cardShared/border_eili_rare.png"));
@@ -899,6 +901,8 @@ public sealed class ModEntry : SimpleMod
         _ = new EqualPaybackManager();
         // DIALOGUE STUFF
         Vault.charsWithLore.Add(BraidDeck.Deck);
+        DB.backgrounds["BGBarren"] = typeof(BGBarren);
+        DB.backgrounds["BGMemoryButCool"] = typeof(BGMemoryButCool);
         BGRunWin.charFullBodySprites.Add(EiliDeck.Deck, Sprites["eili_fullchar"].Sprite);
         BGRunWin.charFullBodySprites.Add(BraidDeck.Deck, Sprites["braid_fullchar"].Sprite);
         _ = new DialogueManager();
