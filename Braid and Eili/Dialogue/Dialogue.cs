@@ -2,9 +2,9 @@
 
 namespace KBraid.BraidEili;
 
-internal sealed class Dialogue
+internal sealed class DialogueManager
 {
-    public Dialogue()
+    public DialogueManager()
     {
         CombatDialogue.Inject();
         EventDialogue.Inject();
@@ -16,5 +16,4 @@ internal sealed class Dialogue
             card.InjectDialogue();
         }
     }
-
 }

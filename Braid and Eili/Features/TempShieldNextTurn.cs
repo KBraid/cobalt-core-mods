@@ -13,13 +13,21 @@ internal sealed class TempShieldNextTurnManager : IStatusLogicHook
             return false;
 
         if (amount > 0)
+        {
             combat.QueueImmediate(new AStatus()
             {
                 status = Status.tempShield,
                 statusAmount = amount,
                 targetPlayer = ship.isPlayerShip,
             });
-        amount = 0;
+            combat.QueueImmediate(new AStatus()
+            {
+                status = status,
+                statusAmount = 0,
+                mode = AStatusMode.Set,
+                targetPlayer = ship.isPlayerShip
+            });
+        }
         return false;
     }
 }

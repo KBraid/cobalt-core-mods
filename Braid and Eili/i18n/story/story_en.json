@@ -30,6 +30,7 @@
         "happy"
         "manic"
         "sad"
+        "sensor_error"
 
         BRAID AND EILI loopTags
         "crystallized"
@@ -215,7 +216,7 @@
   "KBraid.BraidEili::BraidEili_CharStart_0": {
     "dialogue1": {
       "who": "KBraid.BraidEili::Eili",
-      "what": "..."
+      "what": "...",
       "loopTag": "concerned"
     },
     "dialogue2": {
@@ -529,6 +530,453 @@
       "who": "KBraid.BraidEili::Braid",
       "what": "NOT YET! WE'RE NOT FINISHED YET!!!",
       "loopTag": "serious_c"
+    }
+  },
+  "KBraid.BraidEili::Eili_RunWin_1": {
+    "dialogue1": {
+      "who": "void",
+      "what": "You should not exist."
+    },
+    "dialogue2": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "I know.",
+      "loopTag": "concerned"
+    },
+    "dialogue3": {
+      "who": "void",
+      "what": "Your awareness over the situation is greater than you are letting on."
+    },
+    "dialogue4": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "Maybe.",
+      "loopTag": "concerned"
+    },
+    "dialogue5": {
+      "who": "void",
+      "what": "Is it to express individuality or to encourage introspective?",
+      "loopTag": "concerned"
+    },
+    "dialogue6": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "A little of both."
+    }
+  },
+  "KBraid.BraidEili::Braid_RunWin_1": {
+    "dialogue1": {
+      "who": "void",
+      "what": "You treat your existence like it has no purpose."
+    },
+    "dialogue2": {
+      "who": "void",
+      "what": "Surviving only in the moment. Any thoughts to the future being in consideration of tactical advantages."
+    },
+    "dialogue3": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "I am a soldier."
+    },
+    "dialogue4": {
+      "who": "void",
+      "what": "You are a living being, but treat yourself less than an animal."
+    },
+    "dialogue5": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "...",
+      "loopTag": "serious"
+    },
+    "dialogue6": {
+      "who": "void",
+      "what": "You're trading your potential for convenience."
+    },
+    "dialogue7": {
+      "who": "void",
+      "what": "This trade is disadvantageous..."
+    },
+    "dialogue8": {
+      "who": "void",
+      "what": "But worse, unjustified."
+    },
+    "dialogue9": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "...",
+      "loopTag": "serious"
+    }
+  },
+  "KBraid.BraidEili::Braid_RunWin_2": {
+    "dialogue1": {
+      "who": "void",
+      "what": "You were already on the path to becoming something greater than how you started."
+    },
+    "dialogue2": {
+      "who": "void",
+      "what": "Perhaps ending up in the time knot was what you needed to proceed all the way."
+    },
+    "dialogue3": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "I don't understand.",
+      "loopTag": "serious"
+    },
+    "dialogue4": {
+      "who": "void",
+      "what": "This defensive posturing is unnecessary."
+    },
+    "dialogue5": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "...",
+      "loopTag": "serious"
+    },
+    "dialogue6": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "..."
+    },
+    "dialogue7": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "I don't understand."
+    },
+    "dialogue8": {
+      "who": "void",
+      "what": "You have already begun to show willingness to protect more than yourself."
+    }
+  },
+  "KBraid.BraidEili::Braid_RunWin_3": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "I am ready to understand more."
+    },
+    "dialogue2": {
+      "who": "void",
+      "what": "You have not been alone starting your journey, and you are even less alone now."
+    },
+    "dialogue3": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "..."
+    },
+    "dialogue4": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "I have something worth protecting."
+    },
+    "dialogue5": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "Something worth fighting for.",
+      "loopTag": "serious"
+    },
+    "dialogue6": {
+      "who": "void",
+      "what": "More than that. Widen your potential."
+    },
+    "dialogue7": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "Something worth..."
+    },
+    "dialogue8": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "Something worth...",
+      "loopTag": "serious"
+    },
+    "dialogue9": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "...",
+      "loopTag": "eyes_closed"
+    },
+    "dialogue10": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "...Caring for."
+    }
+  },
+  "KBraid.BraidEili::Braid_Memory_1": {
+    "dialogue1": {
+      "who": "void",
+      "what": "Rise and shine KB-26."
+    },
+    "dialogue2": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "...",
+      "loopTag": "blink"
+    },
+    "dialogue3": {
+      "who": "void",
+      "what": "Ah, What a fine specimen."
+    },
+    "dialogue4": {
+      "who": "void",
+      "what": "Definitely the exemplary of your batch!"
+    },
+    "dialogue5": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "What are your orders."
+    },
+    "dialogue6": {
+      "who": "void",
+      "what": "Right of course. A demonstration of your capabilities are in order... Bring in the target."
+    },
+    "dialogue7": {
+      "who": "void",
+      "what": "Where am i? Why are you keeping me here!? Let go of me!"
+    },
+    "dialogue8": {
+      "who": "void",
+      "what": "KB-26... Kill."
+    },
+    "dialogue9": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "...",
+      "loopTag": "serious_c"
+    }
+  },
+  "KBraid.BraidEili::Braid_Memory_2": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "I can't...",
+      "loopTag": "eyes_closed"
+    },
+    "dialogue2": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "I can't, keep doing this...",
+      "loopTag": "eyes_closed"
+    },
+    "dialogue3": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "Why?",
+      "loopTag": "eyes_closed"
+    },
+    "dialogue4": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "I was made for this.",
+      "loopTag": "serious"
+    },
+    "dialogue5": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "You weren't.",
+      "loopTag": "concerned"
+    },
+    "dialogue6": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "They told me i was their best."
+    },
+    "dialogue7": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "They lied.",
+      "loopTag": "concerned"
+    },
+    "dialogue8": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "Why is this not easy anymore?"
+    },
+    "dialogue9": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "Why... does it hurt?"
+    },
+    "dialogue10": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "...",
+      "loopTag": "concerned"
+    },
+    "dialogue11": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "Let's run away."
+    },
+    "dialogue12": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "Run away?"
+    },
+    "dialogue13": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "And go where?",
+      "loopTag": "serious"
+    },
+    "dialogue14": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "This is all I know.",
+      "loopTag": "serious_b"
+    },
+    "dialogue15": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "This is all...",
+      "loopTag": "serious_a"
+    },
+    "dialogue16": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "I...",
+      "loopTag": "eyes_closed"
+    },
+    "dialogue17": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "Then lets go know more."
+    },
+    "dialogue18": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "...",
+      "loopTag": "eyes_closed"
+    },
+    "dialogue19": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "They won't let us. they will persue.",
+      "loopTag": "serious_a"
+    },
+    "dialogue20": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "Let them try.",
+      "loopTag": "determined"
+    },
+    "dialogue21": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "...",
+      "loopTag": "determined"
+    }
+  },
+  "KBraid.BraidEili::Braid_Memory_3": {
+    "dialogue1": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "I think we lost them.",
+      "loopTag": "concerned"
+    },
+    "dialogue2": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "We haven't.",
+      "loopTag": "serious"
+    },
+    "dialogue3": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "It's been a few days since the last encounter, before they'd already be on us again."
+    },
+    "dialogue4": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "We have a lead over them. That's all.",
+      "loopTag": "serious"
+    },
+    "dialogue5": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "Hey! what about that ship over there? I bet we could hide in there no problem!"
+    },
+    "dialogue6": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "Not a chance. That ship is heavily armed and would tear us to pieces.",
+      "loopTag": "serious"
+    },
+    "dialogue7": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "That's what makes it the perfect hiding spot!",
+      "loopTag": "happy"
+    },
+    "dialogue8": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "Anyone coming into this sector would take one look at that thing and turn tail, they'd never find us!",
+      "loopTag": "happy"
+    },
+    "dialogue9": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "...",
+      "loopTag": "eyes_closed"
+    },
+    "dialogue10": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "...",
+      "loopTag": "serious"
+    },
+    "dialogue11": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "Alright",
+      "loopTag": "serious"
+    },
+
+    "dialogue12": {
+      "who": "peri",
+      "what": "Aagh! Frick!",
+      "loopTag": "panic"
+    },
+    "dialogue13": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "We just need a place to hide.",
+      "loopTag": "serious_a"
+    },
+    "dialogue14": {
+      "who": "peri",
+      "what": "Just a- After that unprovoked beatdown and not even a hello?",
+      "loopTag": "squint"
+    },
+    "dialogue15": {
+      "who": "peri",
+      "what": "Urrgh... you could at least give me your name first if you plan on sticking around. There's clearly no getting you off the ship now.",
+      "loopTag": "mad"
+    },
+    "dialogue16": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "KB-26.",
+      "loopTag": "serious"
+    },
+    "dialogue17": {
+      "who": "peri",
+      "what": "I said a name not a registration number.",
+      "loopTag": "squint"
+    },
+    "dialogue18": {
+      "who": "peri",
+      "what": "Of all the threats I was expecting to finally encounter on this job. A one man raid by such a jacked little guy wasn't one of them...",
+      "loopTag": "neutral"
+    },
+    "dialogue19": {
+      "who": "KBraid.BraidEili::Eili",
+      "what": "Braid!",
+      "loopTag": "happy"
+    },
+    "dialogue20": {
+      "who": "peri",
+      "what": "Huh?",
+      "loopTag": "neutral"
+    },
+    "dialogue21": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "B-...Braid?"
+    },
+    "dialogue22": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "That's my name. Braid.",
+      "loopTag": "serious"
+    },
+    "dialogue23": {
+      "who": "peri",
+      "what": "That's a dumb name.",
+      "loopTag": "neutral"
+    },
+    "dialogue24": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "...",
+      "loopTag": "unamused"
+    },
+
+    "dialogue25": {
+      "who": "peri",
+      "what": "What the!?",
+      "loopTag": "panic"
+    },
+    "dialogue26": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "!!!",
+      "loopTag": "serious"
+    },
+    "dialogue27": {
+      "who": "peri",
+      "what": "Wait! That wasn't me!",
+      "loopTag": "panic"
+    },
+    "dialogue28": {
+      "who": "peri",
+      "what": "Oh no, they didn't...",
+      "loopTag": "squint"
+    },
+    "dialogue29": {
+      "who": "peri",
+      "what": "Those idiots!",
+      "loopTag": "mad"
+    },
+    "dialogue30": {
+      "who": "peri",
+      "what": "Stay right here or follow me. I don't care which!",
+      "loopTag": "mad"
+    },
+    "dialogue31": {
+      "who": "KBraid.BraidEili::Braid",
+      "what": "Roger that.",
+      "loopTag": "serious_a"
     }
   }
 }
