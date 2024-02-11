@@ -23,12 +23,14 @@ public class BraidFollowthrough : Card, IModdedCard
 
     public override CardData GetData(State state)
     {
-        CardData data = new CardData();
-        data.cost = 2;
-        data.flippable = upgrade == Upgrade.B ? true : false;
-        data.exhaust = upgrade == Upgrade.B ? true : false;
-        data.art = new Spr?(StableSpr.cards_Scattershot);
-        return data;
+        return new()
+        {
+            cost = 2,
+            floppable = upgrade == Upgrade.B ? false : true,
+            flippable = upgrade == Upgrade.B ? true : false,
+            exhaust = upgrade == Upgrade.B ? true : false,
+            art = flipped ? new Spr?(StableSpr.cards_MiningDrill_Bottom) : new Spr?(StableSpr.cards_MiningDrill_Top),
+        };
     }
 
     public override List<CardAction> GetActions(State s, Combat c)
@@ -42,19 +44,30 @@ public class BraidFollowthrough : Card, IModdedCard
                     new AVariableHint()
                     {
                         status = Status.evade,
+                        disabled = flipped
                     },
                     new AAttack()
                     {
                         damage = GetDmg(s, s.ship.Get(Status.evade)),
-                        xHint = 1
+                        xHint = 1,
+                        disabled = flipped
                     },
                     new AStatus()
                     {
                         status = Status.evade,
                         statusAmount = 0,
                         mode = AStatusMode.Set,
-                        targetPlayer = true
+                        targetPlayer = true,
+                        disabled = flipped
+                    },
+                    new AStatus()
+                    {
+                        status = Status.evade,
+                        statusAmount = 2,
+                        targetPlayer = true,
+                        disabled = !flipped
                     }
+                    
                 };
                 actions = cardActionList1;
                 break;
@@ -64,12 +77,21 @@ public class BraidFollowthrough : Card, IModdedCard
                     new AVariableHint()
                     {
                         status = Status.evade,
+                        disabled = flipped
                     },
                     new AAttack()
                     {
                         damage = GetDmg(s, s.ship.Get(Status.evade)),
-                        xHint = 1
+                        xHint = 1,
+                        disabled = flipped
                     },
+                    new AStatus()
+                    {
+                        status = Status.evade,
+                        statusAmount = 2,
+                        targetPlayer = true,
+                        disabled = !flipped
+                    }
                 };
                 actions = cardActionList2;
                 break;
@@ -79,25 +101,36 @@ public class BraidFollowthrough : Card, IModdedCard
                     new AVariableHint()
                     {
                         status = Status.evade,
+                        //disabled = flipped
                     },
                     new AAttack()
                     {
                         damage = GetDmg(s, s.ship.Get(Status.evade)),
-                        xHint = 1
+                        xHint = 1,
+                        //disabled = flipped
                     },
                     new AStatus()
                     {
                         status = Status.evade,
                         statusAmount = 0,
                         mode = AStatusMode.Set,
-                        targetPlayer = true
+                        targetPlayer = true,
+                        //disabled = flipped
                     },
                     new AMove()
                     {
                         dir = s.ship.Get(Status.evade),
                         xHint = 1,
                         targetPlayer = true,
-                    }
+                        //disabled = flipped
+                    },
+                    /*new AStatus()
+                    {
+                        status = Status.evade,
+                        statusAmount = 2,
+                        targetPlayer = true,
+                        disabled = !flipped
+                    }*/
                 };
                 actions = cardActionList3;
                 break;
