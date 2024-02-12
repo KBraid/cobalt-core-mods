@@ -987,5 +987,195 @@ internal static class EventDialogue
                 }
             };
         }
+        // START RUN
+        {
+            DB.story.all[currentStory = $"{eili}_CharStart_0"] = new()
+            {
+                type = NodeType.@event,
+                priority = true,
+                once = true,
+                lookup = new()
+                {
+                    "zone_first"
+                },
+                allPresent = new()
+                {
+                    eili,
+                },
+                bg = "BGRunStart",
+                lines = new()
+                {
+                    new CustomSay()
+                    {
+                        who = "comp",
+                        Text = Instance.StoryLocs.Localize([currentStory, "1", "what"])
+                    },
+                    new CustomSay()
+                    {
+                        who = "comp",
+                        Text = Instance.StoryLocs.Localize([currentStory, "2", "what"]),
+                        loopTag = "grumpy"
+                    },
+                    new CustomSay()
+                    {
+                        who = eili,
+                        flipped = true,
+                        Text = Instance.StoryLocs.Localize([currentStory, "3", "what"]),
+                        loopTag = "happy"
+                    },
+                    new CustomSay()
+                    {
+                        who = "comp",
+                        Text = Instance.StoryLocs.Localize([currentStory, "4", "what"]),
+                        loopTag = "worried"
+                    },
+                    new CustomSay()
+                    {
+                        who = "comp",
+                        Text = Instance.StoryLocs.Localize([currentStory, "5", "what"]),
+                        loopTag = "squint"
+                    },
+                    new CustomSay()
+                    {
+                        who = eili,
+                        flipped = true,
+                        Text = Instance.StoryLocs.Localize([currentStory, "6", "what"])
+                    },
+                    new CustomSay()
+                    {
+                        who = "comp",
+                        Text = Instance.StoryLocs.Localize([currentStory, "7", "what"]),
+                        loopTag = "squint"
+                    },
+                    new CustomSay()
+                    {
+                        who = "comp",
+                        Text = Instance.StoryLocs.Localize([currentStory, "8", "what"])
+                    },
+                    new CustomSay()
+                    {
+                        who = eili,
+                        flipped = true,
+                        Text = Instance.StoryLocs.Localize([currentStory, "9", "what"]),
+                        loopTag = "happy"
+                    }
+                }
+            };
+            DB.story.all[currentStory = $"{braid}_CharStart_0"] = new()
+            {
+                type = NodeType.@event,
+                priority = true,
+                once = true,
+                lookup = new()
+                {
+                    "zone_first"
+                },
+                allPresent = new()
+                {
+                    braid,
+                },
+                bg = "BGRunStart",
+                lines = new()
+                {
+                    new CustomSay()
+                    {
+                        who = "comp",
+                        Text = Instance.StoryLocs.Localize([currentStory, "1", "what"]),
+                        loopTag = "grumpy"
+                    },
+                    new CustomSay()
+                    {
+                        who = braid,
+                        flipped = true,
+                        Text = Instance.StoryLocs.Localize([currentStory, "2", "what"]),
+                        loopTag = "blink"
+                    },
+                    new CustomSay()
+                    {
+                        who = "comp",
+                        Text = Instance.StoryLocs.Localize([currentStory, "3", "what"]),
+                        loopTag = "worried"
+                    },
+                    new CustomSay()
+                    {
+                        who = braid,
+                        flipped = true,
+                        Text = Instance.StoryLocs.Localize([currentStory, "4", "what"])
+                    },
+                    new CustomSay()
+                    {
+                        who = "comp",
+                        Text = Instance.StoryLocs.Localize([currentStory, "5", "what"]),
+                        loopTag = "mad"
+                    },
+                    new CustomSay()
+                    {
+                        who = braid,
+                        flipped = true,
+                        Text = Instance.StoryLocs.Localize([currentStory, "6", "what"])
+                    },
+                    new CustomSay()
+                    {
+                        who = "comp",
+                        Text = Instance.StoryLocs.Localize([currentStory, "7", "what"]),
+                        loopTag = "squint"
+                    },
+                    new CustomSay()
+                    {
+                        who = "comp",
+                        Text = Instance.StoryLocs.Localize([currentStory, "8", "what"])
+                    },
+                    new CustomSay()
+                    {
+                        who = braid,
+                        flipped = true,
+                        Text = Instance.StoryLocs.Localize([currentStory, "9", "what"])
+                    },
+                    new CustomSay()
+                    {
+                        who = "comp",
+                        Text = Instance.StoryLocs.Localize([currentStory, "10", "what"]),
+                        loopTag = "squint"
+                    }
+                }
+            };
+            DB.story.all[currentStory = $"{braid}Eili_CharStart_0"] = new()
+            {
+                type = NodeType.@event,
+                priority = true,
+                once = true,
+                lookup = new()
+                {
+                    "zone_first"
+                },
+                allPresent = new()
+                {
+                    braid,
+                    eili
+                },
+                bg = "BGRunStart",
+                lines = new()
+                {
+                    new CustomSay()
+                    {
+                        who = eili,
+                        Text = Instance.StoryLocs.Localize([currentStory, "1", "what"]),
+                        loopTag = "concerned"
+                    },
+                    new CustomSay()
+                    {
+                        who = braid,
+                        flipped = true,
+                        Text = Instance.StoryLocs.Localize([currentStory, "2", "what"])
+                    },
+                    new CustomSay()
+                    {
+                        who = eili,
+                        Text = Instance.StoryLocs.Localize([currentStory, "3", "what"]),
+                        loopTag = "happy"
+                    }
+                }
+            };
+        }
     }
 }
