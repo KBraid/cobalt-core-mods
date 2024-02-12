@@ -64,10 +64,6 @@
       "description": "The next attack deals additional damage.",
       "combatDescription": "The next <c=attack>attack</c> deals <c=boldPink>{{Amount}}</c> additional damage."
     },
-    "LostHull": {
-      "name": "Lost Hull",
-      "description": "The amount of hull this ship has lost this combat."
-    },
     "Resolve": {
       "name": "Resolve",
       "description": "If you would take lethal damage, instead set your hull to 1 and lose <c=hurt>max hull</c> equal to the overflow."

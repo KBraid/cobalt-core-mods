@@ -17,7 +17,7 @@ internal sealed class PerfectTimingManager : IStatusLogicHook
     }
     public bool? IsAffectedByBoost(State state, Combat combat, Ship ship, Status status)
     {
-        if (status != ModEntry.Instance.LostHull.Status)
+        if (status != ModEntry.Instance.PerfectTiming.Status)
             return null;
         return false;
     }

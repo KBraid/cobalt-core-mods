@@ -110,10 +110,6 @@ internal sealed class ShipPatchesManager
         ref int amt,
         ref Dictionary<string, int> __state)
     {
-        __state = new Dictionary<string, int>
-        {
-            { "lostHull", __instance.hull }
-        };
         if (__instance.hullMax > 1 && __instance.Get(ModEntry.Instance.Resolve.Status) > 0)
         {
             if (amt >= __instance.hull)
@@ -142,34 +138,10 @@ internal sealed class ShipPatchesManager
                 {
                     __instance.hull = 0;
                 }
-                else
-                {
-                    c.QueueImmediate(new AStatus()
-                    {
-                        timer = 0,
-                        status = ModEntry.Instance.LostHull.Status,
-                        statusAmount = value + __instance.Get(ModEntry.Instance.LostHull.Status),
-                        mode = AStatusMode.Set,
-                        targetPlayer = __instance.isPlayerShip,
-                        dialogueSelector = __instance.isPlayerShip ? ".resolvetriggered" : null
-
-                    });
-                }
             }
         }
         if (__instance.hull <= 0 || amt <= 0)
             return;
-        if (__state.TryGetValue("lostHull", out int value2) && value2 > 0)
-        {
-            c.QueueImmediate(new AStatus()
-            {
-                timer = 0,
-                status = ModEntry.Instance.LostHull.Status,
-                statusAmount = (value2 - __instance.hull) + __instance.Get(ModEntry.Instance.LostHull.Status),
-                mode = AStatusMode.Set,
-                targetPlayer = __instance.isPlayerShip
-            });
-        }
         if (__instance.Get(ModEntry.Instance.Bide.Status) > 0)
         {
             var bide_status = ModEntry.Instance.Bide.Status;

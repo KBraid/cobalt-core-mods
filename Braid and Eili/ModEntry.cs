@@ -77,7 +77,6 @@ public sealed class ModEntry : SimpleMod
     internal IStatusEntry TempPowerdrive { get; }
     internal IStatusEntry Bide { get; }
     internal IStatusEntry PerfectTiming { get; }
-    internal IStatusEntry LostHull { get; }
     internal IStatusEntry Resolve { get; }
     internal IStatusEntry Retreat { get; }
     internal IStatusEntry EngineStallNextTurn { get; }
@@ -233,7 +232,6 @@ public sealed class ModEntry : SimpleMod
         _ = new TempPowerdriveManager();
         _ = new BideManager();
         _ = new PerfectTimingManager();
-        _ = new LostHullManager();
         _ = new ResolveManager();
         _ = new RetreatManager();
         _ = new EngineStallNextTurnManager();
@@ -402,18 +400,6 @@ public sealed class ModEntry : SimpleMod
             },
             Name = AnyLocalizations.Bind(["status", "PerfectTiming", "name"]).Localize,
             Description = AnyLocalizations.Bind(["status", "PerfectTiming", "description"]).Localize
-        });
-        LostHull = Helper.Content.Statuses.RegisterStatus("LostHull", new()
-        {
-            Definition = new()
-            {
-                icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/lostHull.png")).Sprite,
-                color = new("740f63"),
-                isGood = false
-
-            },
-            Name = AnyLocalizations.Bind(["status", "LostHull", "name"]).Localize,
-            Description = AnyLocalizations.Bind(["status", "LostHull", "description"]).Localize
         });
         Resolve = Helper.Content.Statuses.RegisterStatus("Resolve", new()
         {

@@ -24,8 +24,6 @@ public sealed class ApiImplementation : IBraidEiliApi
         => ModEntry.Instance.Bide;
     public IStatusEntry PerfectTiming
         => ModEntry.Instance.PerfectTiming;
-    public IStatusEntry LostHull
-        => ModEntry.Instance.LostHull;
     public IStatusEntry Resolve
         => ModEntry.Instance.Resolve;
     public IStatusEntry Retreat
