@@ -1074,6 +1074,10 @@ internal static class EventDialogue
                 {
                     braid,
                 },
+                requiredScenes = new()
+                {
+                    $"{eili}_CharStart_0",
+                },
                 bg = "BGRunStart",
                 lines = new()
                 {
@@ -1152,6 +1156,10 @@ internal static class EventDialogue
                 {
                     braid,
                     eili
+                },
+                requiredScenes = new()
+                {
+                    $"{braid}_CharStart_0",
                 },
                 bg = "BGRunStart",
                 lines = new()
