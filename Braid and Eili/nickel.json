@@ -1,6 +1,6 @@
 {
   "UniqueName": "KBraid.BraidEili",
-  "Version": "0.7.3",
+  "Version": "0.8.0",
   "RequiredApiVersion": "0.7.0",
   "EntryPointAssembly": "BraidEili.dll",
   "LoadPhase": "AfterDbInit",
