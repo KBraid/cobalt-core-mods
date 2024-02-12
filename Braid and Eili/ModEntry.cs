@@ -240,19 +240,19 @@ public sealed class ModEntry : SimpleMod
 
         CustomTTGlossary.ApplyPatches(Harmony);
 
-        this.AnyLocalizations = new JsonLocalizationProvider(
+        AnyLocalizations = new JsonLocalizationProvider(
             tokenExtractor: new SimpleLocalizationTokenExtractor(),
             localeStreamFunction: locale => package.PackageRoot.GetRelativeFile($"i18n/{locale}.json").OpenRead()
         );
-        this.Localizations = new MissingPlaceholderLocalizationProvider<IReadOnlyList<string>>(
-            new CurrentLocaleOrEnglishLocalizationProvider<IReadOnlyList<string>>(this.AnyLocalizations)
+        Localizations = new MissingPlaceholderLocalizationProvider<IReadOnlyList<string>>(
+            new CurrentLocaleOrEnglishLocalizationProvider<IReadOnlyList<string>>(AnyLocalizations)
         );
-        this.AnyStoryLoc = new JsonLocalizationProvider(
+        AnyStoryLoc = new JsonLocalizationProvider(
             tokenExtractor: new SimpleLocalizationTokenExtractor(),
             localeStreamFunction: locale => package.PackageRoot.GetRelativeFile($"i18n/story/story_{locale}.json").OpenRead()
         );
-        this.StoryLocs = new MissingPlaceholderLocalizationProvider<IReadOnlyList<string>>(
-            new CurrentLocaleOrEnglishLocalizationProvider<IReadOnlyList<string>>(this.AnyStoryLoc)
+        StoryLocs = new MissingPlaceholderLocalizationProvider<IReadOnlyList<string>>(
+            new CurrentLocaleOrEnglishLocalizationProvider<IReadOnlyList<string>>(AnyStoryLoc)
         );
         BasicBackground = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/empty_backgroud.png"));
         ASacrificePermanent = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/sacrificePermanent.png"));
@@ -302,14 +302,14 @@ public sealed class ModEntry : SimpleMod
             Definition = new() { color = EiliColor, titleColor = EiliCardTitleColor },
             DefaultCardArt = BasicBackground.Sprite,
             BorderSprite = Sprites["eili_border"].Sprite,
-            Name = this.AnyLocalizations.Bind(["character", "Eili", "name"]).Localize,
+            Name = AnyLocalizations.Bind(["character", "Eili", "name"]).Localize,
         });
         BraidDeck = Helper.Content.Decks.RegisterDeck("Braid", new()
         {
             Definition = new() { color = BraidColor, titleColor = BraidCardTitleColor },
             DefaultCardArt = BasicBackground.Sprite,
             BorderSprite = Sprites["braid_border"].Sprite,
-            Name = this.AnyLocalizations.Bind(["character", "Braid", "name"]).Localize
+            Name = AnyLocalizations.Bind(["character", "Braid", "name"]).Localize
         });
 
         // Register statuses
@@ -321,8 +321,8 @@ public sealed class ModEntry : SimpleMod
                 color = new("9fd0ff"),
                 isGood = true
             },
-            Name = this.AnyLocalizations.Bind(["status", "DisabledDampeners", "name"]).Localize,
-            Description = this.AnyLocalizations.Bind(["status", "DisabledDampeners", "description"]).Localize
+            Name = AnyLocalizations.Bind(["status", "DisabledDampeners", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "DisabledDampeners", "description"]).Localize
         });
         ShockAbsorber = Helper.Content.Statuses.RegisterStatus("ShockAbsorption", new()
         {
@@ -332,8 +332,8 @@ public sealed class ModEntry : SimpleMod
                 color = new("ff92b6"),
                 isGood = true
             },
-            Name = this.AnyLocalizations.Bind(["status", "ShockAbsorber", "name"]).Localize,
-            Description = this.AnyLocalizations.Bind(["status", "ShockAbsorber", "description"]).Localize
+            Name = AnyLocalizations.Bind(["status", "ShockAbsorber", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "ShockAbsorber", "description"]).Localize
         });
         TempShieldNextTurn = Helper.Content.Statuses.RegisterStatus("TempShieldNextTurn", new()
         {
@@ -343,8 +343,8 @@ public sealed class ModEntry : SimpleMod
                 color = new("b500be"),
                 isGood = true
             },
-            Name = this.AnyLocalizations.Bind(["status", "TempShieldNextTurn", "name"]).Localize,
-            Description = this.AnyLocalizations.Bind(["status", "TempShieldNextTurn", "description"]).Localize
+            Name = AnyLocalizations.Bind(["status", "TempShieldNextTurn", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "TempShieldNextTurn", "description"]).Localize
         });
         KineticGenerator = Helper.Content.Statuses.RegisterStatus("KineticGenerator", new()
         {
@@ -354,8 +354,8 @@ public sealed class ModEntry : SimpleMod
                 color = new("b2f2ff"),
                 isGood = true
             },
-            Name = this.AnyLocalizations.Bind(["status", "KineticGenerator", "name"]).Localize,
-            Description = this.AnyLocalizations.Bind(["status", "KineticGenerator", "description"]).Localize
+            Name = AnyLocalizations.Bind(["status", "KineticGenerator", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "KineticGenerator", "description"]).Localize
         });
         EqualPayback = Helper.Content.Statuses.RegisterStatus("EqualPayback", new()
         {
@@ -365,8 +365,8 @@ public sealed class ModEntry : SimpleMod
                 color = new("e61ec8"),
                 isGood = true
             },
-            Name = this.AnyLocalizations.Bind(["status", "EqualPayback", "name"]).Localize,
-            Description = this.AnyLocalizations.Bind(["status", "EqualPayback", "description"]).Localize
+            Name = AnyLocalizations.Bind(["status", "EqualPayback", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "EqualPayback", "description"]).Localize
         });
         TempPowerdrive = Helper.Content.Statuses.RegisterStatus("TempPowerdrive", new()
         {
@@ -376,8 +376,8 @@ public sealed class ModEntry : SimpleMod
                 color = new("e61ec8"),
                 isGood = true
             },
-            Name = this.AnyLocalizations.Bind(["status", "TempPowerdrive", "name"]).Localize,
-            Description = this.AnyLocalizations.Bind(["status", "TempPowerdrive", "description"]).Localize
+            Name = AnyLocalizations.Bind(["status", "TempPowerdrive", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "TempPowerdrive", "description"]).Localize
         });
         Bide = Helper.Content.Statuses.RegisterStatus("Bide", new()
         {
@@ -387,8 +387,8 @@ public sealed class ModEntry : SimpleMod
                 color = new("ff7517"),
                 isGood = true
             },
-            Name = this.AnyLocalizations.Bind(["status", "Bide", "name"]).Localize,
-            Description = this.AnyLocalizations.Bind(["status", "Bide", "description"]).Localize
+            Name = AnyLocalizations.Bind(["status", "Bide", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "Bide", "description"]).Localize
         });
         PerfectTiming = Helper.Content.Statuses.RegisterStatus("PerfectTiming", new()
         {
@@ -398,8 +398,8 @@ public sealed class ModEntry : SimpleMod
                 color = new("ff7517"),
                 isGood = true
             },
-            Name = this.AnyLocalizations.Bind(["status", "PerfectTiming", "name"]).Localize,
-            Description = this.AnyLocalizations.Bind(["status", "PerfectTiming", "description"]).Localize
+            Name = AnyLocalizations.Bind(["status", "PerfectTiming", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "PerfectTiming", "description"]).Localize
         });
         LostHull = Helper.Content.Statuses.RegisterStatus("LostHull", new()
         {
@@ -410,8 +410,8 @@ public sealed class ModEntry : SimpleMod
                 isGood = false
 
             },
-            Name = this.AnyLocalizations.Bind(["status", "LostHull", "name"]).Localize,
-            Description = this.AnyLocalizations.Bind(["status", "LostHull", "description"]).Localize
+            Name = AnyLocalizations.Bind(["status", "LostHull", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "LostHull", "description"]).Localize
         });
         Resolve = Helper.Content.Statuses.RegisterStatus("Resolve", new()
         {
@@ -421,8 +421,8 @@ public sealed class ModEntry : SimpleMod
                 color = new("6fffc1"),
                 isGood = true
             },
-            Name = this.AnyLocalizations.Bind(["status", "Resolve", "name"]).Localize,
-            Description = this.AnyLocalizations.Bind(["status", "Resolve", "description"]).Localize
+            Name = AnyLocalizations.Bind(["status", "Resolve", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "Resolve", "description"]).Localize
         });
         Retreat = Helper.Content.Statuses.RegisterStatus("Retreat", new()
         {
@@ -432,8 +432,8 @@ public sealed class ModEntry : SimpleMod
                 color = new("ff52f5"),
                 isGood = true
             },
-            Name = this.AnyLocalizations.Bind(["status", "Retreat", "name"]).Localize,
-            Description = this.AnyLocalizations.Bind(["status", "Retreat", "description"]).Localize
+            Name = AnyLocalizations.Bind(["status", "Retreat", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "Retreat", "description"]).Localize
         });
         EngineStallNextTurn = Helper.Content.Statuses.RegisterStatus("EngineStallNextTurn", new()
         {
@@ -443,8 +443,8 @@ public sealed class ModEntry : SimpleMod
                 color = new("ffed9a"),
                 isGood = false
             },
-            Name = this.AnyLocalizations.Bind(["status", "EngineStallNextTurn", "name"]).Localize,
-            Description = this.AnyLocalizations.Bind(["status", "EngineStallNextTurn", "description"]).Localize
+            Name = AnyLocalizations.Bind(["status", "EngineStallNextTurn", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "EngineStallNextTurn", "description"]).Localize
         });
         BusterCharge = Helper.Content.Statuses.RegisterStatus("BusterCharge", new()
         {
@@ -454,8 +454,8 @@ public sealed class ModEntry : SimpleMod
                 color = new("ffbd26"),
                 isGood = true
             },
-            Name = this.AnyLocalizations.Bind(["status", "BusterCharge", "name"]).Localize,
-            Description = this.AnyLocalizations.Bind(["status", "BusterCharge", "description"]).Localize
+            Name = AnyLocalizations.Bind(["status", "BusterCharge", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "BusterCharge", "description"]).Localize
         });
 
         // Register cards
@@ -469,9 +469,15 @@ public sealed class ModEntry : SimpleMod
         {
             Deck = EiliDeck.Deck,
             StartLocked = LockedChar,
-            Description = this.AnyLocalizations.Bind(["character", "Eili", "description"]).Localize,
+            Description = AnyLocalizations.Bind(["character", "Eili", "description"]).Localize,
             BorderSprite = Sprites["eili_panel"].Sprite,
-            StarterCardTypes = EiliStarterCardTypes,
+            Starters = new()
+            {
+                cards = [
+                    new EiliPadding(),
+                    new EiliPlanAhead()
+                ]
+            },
             NeutralAnimation = new()
             {
                 Deck = EiliDeck.Deck,
@@ -496,9 +502,15 @@ public sealed class ModEntry : SimpleMod
         {
             Deck = BraidDeck.Deck,
             StartLocked = LockedChar,
-            Description = this.AnyLocalizations.Bind(["character", "Braid", "description"]).Localize,
+            Description = AnyLocalizations.Bind(["character", "Braid", "description"]).Localize,
             BorderSprite = Sprites["braid_panel"].Sprite,
-            StarterCardTypes = BraidStarterCardTypes,
+            Starters = new()
+            {
+                cards = [
+                    new BraidBigHit(),
+                    new BraidLeftHook()
+                ]
+            },
             NeutralAnimation = new()
             {
                 Deck = BraidDeck.Deck,

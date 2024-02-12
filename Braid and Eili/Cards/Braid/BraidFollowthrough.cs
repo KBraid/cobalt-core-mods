@@ -67,7 +67,7 @@ public class BraidFollowthrough : Card, IModdedCard
                         targetPlayer = true,
                         disabled = !flipped
                     }
-                    
+
                 };
                 actions = cardActionList1;
                 break;

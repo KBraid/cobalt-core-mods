@@ -1,8 +1,4 @@
-﻿using FMOD;
-using HarmonyLib;
-using Microsoft.Xna.Framework.Media;
-
-namespace KBraid.BraidEili;
+﻿namespace KBraid.BraidEili;
 internal sealed class LostHullManager : IStatusLogicHook
 {
     public LostHullManager()
