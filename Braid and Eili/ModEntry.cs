@@ -46,6 +46,7 @@ public sealed class ModEntry : SimpleMod
     internal static ModEntry Instance { get; private set; } = null!;
     internal Harmony Harmony { get; }
     internal IKokoroApi KokoroApi { get; }
+    internal IDraculaApi? DraculaApi { get; }
     internal ILocalizationProvider<IReadOnlyList<string>> AnyLocalizations { get; }
     internal ILocaleBoundNonNullLocalizationProvider<IReadOnlyList<string>> Localizations { get; }
     internal ILocalizationProvider<IReadOnlyList<string>> AnyStoryLoc { get; }
@@ -220,6 +221,7 @@ public sealed class ModEntry : SimpleMod
         Instance = this;
         Harmony = new(package.Manifest.UniqueName);
         KokoroApi = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!;
+        DraculaApi = helper.ModRegistry.GetApi<IDraculaApi>("Shockah.Dracula");
         //KokoroApi.RegisterTypeForExtensionData(typeof(AHurt));
         //KokoroApi.RegisterTypeForExtensionData(typeof(AAttack));
         //KokoroApi.RegisterCardRenderHook(new SpacingCardRenderHook(), 0);
@@ -907,6 +909,49 @@ public sealed class ModEntry : SimpleMod
                 ]
             }
         );
+
+        // DRACULA BLOCK
+        DraculaApi?.RegisterBloodTapOptionProvider(DisabledDampeners.Status, (_, _, status) => [
+            new AStatus { targetPlayer = true, status = status, statusAmount = 1 },
+            new AHurt { targetPlayer = true, hurtAmount = 1 },
+        ]);
+        DraculaApi?.RegisterBloodTapOptionProvider(ShockAbsorber.Status, (_, _, status) => [
+            new AStatus { targetPlayer = true, status = status, statusAmount = 1 },
+            new AHurt { targetPlayer = true, hurtAmount = 1 },
+        ]);
+        DraculaApi?.RegisterBloodTapOptionProvider(TempShieldNextTurn.Status, (_, _, status) => [
+            new AHurt { targetPlayer = true, hurtAmount = 1 },
+            new AStatus { targetPlayer = false, status = status, statusAmount = 2 },
+        ]);
+        DraculaApi?.RegisterBloodTapOptionProvider(KineticGenerator.Status, (_, _, status) => [
+            new AStatus { targetPlayer = true, status = status, statusAmount = 1 },
+            new AHurt { targetPlayer = true, hurtAmount = 1 },
+        ]);
+        DraculaApi?.RegisterBloodTapOptionProvider(EqualPayback.Status, (_, _, status) => [
+            new AHurt { targetPlayer = true, hurtAmount = 1 },
+            new AStatus { targetPlayer = true, status = status, statusAmount = 1 },
+        ]);
+        DraculaApi?.RegisterBloodTapOptionProvider(TempPowerdrive.Status, (_, _, status) => [
+            new AHurt { targetPlayer = true, hurtAmount = 1 },
+            new AStatus { targetPlayer = true, status = status, statusAmount = 1 },
+        ]);
+        DraculaApi?.RegisterBloodTapOptionProvider(Bide.Status, (_, _, status) => [
+            new AStatus { targetPlayer = true, status = status, statusAmount = 1 },
+            new AHurt { targetPlayer = true, hurtAmount = 1 },
+        ]);
+        DraculaApi?.RegisterBloodTapOptionProvider(PerfectTiming.Status, (_, _, status) => [
+            new AHurt { targetPlayer = true, hurtAmount = 1 },
+            new AStatus { targetPlayer = true, status = status, statusAmount = 2 },
+        ]);
+        DraculaApi?.RegisterBloodTapOptionProvider(EngineStallNextTurn.Status, (_, _, status) => [
+            new AHurt { targetPlayer = true, hurtAmount = 1 },
+            new AStatus { targetPlayer = true, status = status, statusAmount = 1 },
+        ]);
+        DraculaApi?.RegisterBloodTapOptionProvider(BusterCharge.Status, (_, _, status) => [
+            new AHurt { targetPlayer = true, hurtAmount = 1 },
+            new AStatus { targetPlayer = true, status = status, statusAmount = 2 },
+        ]);
+
         // CHARACTER UNLOCK
         _ = new UnlockCharactersManager();
         // TRANSPILER STUFF
