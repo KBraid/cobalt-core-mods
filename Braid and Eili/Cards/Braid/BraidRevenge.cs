@@ -1,8 +1,17 @@
+using KBraid.BraidEili.Actions;
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
 
 namespace KBraid.BraidEili.Cards;
+internal static class LostHullExt
+{
+    public static int? GetLostHullThisCombat(this Combat self)
+        => ModEntry.Instance.Helper.ModData.GetOptionalModData<int>(self, "LostHullThisCombat");
+
+    public static void SetLostHullThisCombat(this Combat self, int? value)
+        => ModEntry.Instance.Helper.ModData.SetOptionalModData(self, "LostHullThisCombat", value);
+}
 public class BraidRevenge : Card, IModdedCard
 {
     public static void Register(IModHelper helper)
@@ -18,63 +27,53 @@ public class BraidRevenge : Card, IModdedCard
             },
             Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "Revenge", "name"]).Localize
         });
+        helper.Events.RegisterBeforeArtifactsHook(nameof(Artifact.OnPlayerLoseHull), (State state, Combat combat, int amount) =>
+        {
+            int num = amount;
+            if (combat.GetLostHullThisCombat() is not null)
+                num += (int)combat.GetLostHullThisCombat()!;
+            combat.SetLostHullThisCombat(num);
+        }, 0);
     }
     public override string Name() => "Revenge";
     public override CardData GetData(State state)
     {
-        CardData data = new CardData();
-        data.cost = upgrade == Upgrade.B ? 0 : 3;
-        data.exhaust = upgrade == Upgrade.B ? false : true;
-        data.singleUse = upgrade == Upgrade.B ? true : false;
-        data.retain = upgrade == Upgrade.A ? true : false;
-        data.art = new Spr?(StableSpr.cards_Scattershot);
+        int num = 0;
         var str = "";
-        if (state.route is Combat)
-            str = string.Format("\n<c=boldPink>{0}</c>.", GetDmg(state, state.ship.Get(ModEntry.Instance.LostHull.Status)));
-        data.description = ModEntry.Instance.Localizations.Localize(["card", "Revenge", "description", upgrade.ToString()], new { Amount = str });
-        return data;
+        if (state.route is Combat combat)
+        {
+            num = combat.GetLostHullThisCombat() is not null ? (int)combat.GetLostHullThisCombat()! : 0;
+            str = string.Format(" (<c=boldPink>{0}</c>)", GetDmg(state, num));
+        }
+        return new()
+        {
+            cost = upgrade == Upgrade.B ? 0 : 3,
+            exhaust = upgrade == Upgrade.B ? false : true,
+            singleUse = upgrade == Upgrade.B ? true : false,
+            retain = upgrade == Upgrade.A ? true : false,
+            art = new Spr?(StableSpr.cards_Scattershot),
+            //description = ModEntry.Instance.Localizations.Localize(["card", "Revenge", "description", upgrade.ToString()], new { Amount = str })
+        };
     }
 
     public override List<CardAction> GetActions(State s, Combat c)
     {
-        List<CardAction> actions = new();
-        switch (upgrade)
+        var num = c.GetLostHullThisCombat() is not null ? (int)c.GetLostHullThisCombat()! : 0;
+        return new()
         {
-            case Upgrade.None:
-                List<CardAction> cardActionList1 = new List<CardAction>()
-                {
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, s.ship.Get(ModEntry.Instance.LostHull.Status)),
-                        piercing = true,
-                    }
-                };
-                actions = cardActionList1;
-                break;
-            case Upgrade.A:
-                List<CardAction> cardActionList2 = new List<CardAction>()
-                {
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, s.ship.Get(ModEntry.Instance.LostHull.Status)),
-                        piercing = true,
-                    }
-                };
-                actions = cardActionList2;
-                break;
-            case Upgrade.B:
-                List<CardAction> cardActionList3 = new List<CardAction>()
-                {
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, s.ship.Get(ModEntry.Instance.LostHull.Status)),
-                        piercing = true,
-                        brittle = true,
-                    }
-                };
-                actions = cardActionList3;
-                break;
-        }
-        return actions;
+            new AVariableHintLostHull()
+            {
+                sprite = ModEntry.Instance.LostHull.Sprite,
+                name = ModEntry.Instance.Localizations.Localize(["misc", "lostHull", "name"]),
+                amount = num
+            },
+            new AAttack()
+            {
+                damage = GetDmg(s, num),
+                piercing = true,
+                brittle = upgrade == Upgrade.B ? true : false,
+                xHint = 1
+            }
+        };
     }
 }

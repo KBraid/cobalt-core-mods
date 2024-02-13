@@ -18,9 +18,7 @@ internal sealed class StatusMetaPatchesManager
         bool isIncrease,
         ref GUID __result)
     {
-        if (status == Instance.LostHull.Status)
-            __result = new GUID() { Data1 = 0, Data2 = 0, Data3 = 0, Data4 = 0 };
-        else if (status == Instance.DisabledDampeners.Status || status == Instance.Bide.Status || status == Instance.BusterCharge.Status || status == Instance.PerfectTiming.Status)
+        if (status == Instance.DisabledDampeners.Status || status == Instance.Bide.Status || status == Instance.BusterCharge.Status || status == Instance.PerfectTiming.Status)
         {
             __result = isIncrease ? FSPRO.Event.Status_EvadeUp : FSPRO.Event.Status_EvadeDown;
         }

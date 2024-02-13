@@ -13,7 +13,6 @@ public interface IBraidEiliApi
     IStatusEntry TempPowerdrive { get; }
     IStatusEntry Bide { get; }
     IStatusEntry PerfectTiming { get; }
-    IStatusEntry LostHull { get; }
     IStatusEntry Resolve { get; }
     IStatusEntry Retreat { get; }
     IStatusEntry EngineStallNextTurn { get; }

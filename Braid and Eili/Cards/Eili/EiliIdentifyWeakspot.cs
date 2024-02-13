@@ -59,14 +59,13 @@ public class EiliIdentifyWeakspot : Card, IModdedCard
 
     public override CardData GetData(State state)
     {
-        CardData data = new CardData()
+        return new()
         {
             cost = upgrade == Upgrade.A ? 0 : 1,
             exhaust = upgrade == Upgrade.B ? false : true,
             art = ModEntry.Instance.BasicBackground.Sprite,
             description = ModEntry.Instance.Localizations.Localize(["card", "IdentifyWeakspot", "description"]),
         };
-        return data;
     }
 
     public override List<CardAction> GetActions(State s, Combat c)

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace KBraid.BraidEili;
+﻿namespace KBraid.BraidEili;
 
 internal sealed class DialogueManager
 {
