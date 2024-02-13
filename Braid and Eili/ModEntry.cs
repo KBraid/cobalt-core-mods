@@ -65,6 +65,7 @@ public sealed class ModEntry : SimpleMod
     internal ISpriteEntry AApplyTempArmor_Icon { get; }
     internal ISpriteEntry ARandomMove { get; }
     internal ISpriteEntry BGBarren { get; }
+    internal ISpriteEntry LostHull { get; }
 
     //internal ISpriteEntry EiliUncommonBorder { get; }
     //internal ISpriteEntry EiliRareBorder { get; }
@@ -260,6 +261,7 @@ public sealed class ModEntry : SimpleMod
         AApplyTempArmor_Icon = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/tempArmorAction.png"));
         ARandomMove = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/randomMove.png"));
         BGBarren = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/bg/barren.png"));
+        LostHull = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/lostHull.png"));
 
         //EiliUncommonBorder = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cardShared/border_eili_uncommon.png"));
         //EiliRareBorder = Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cardShared/border_eili_rare.png"));

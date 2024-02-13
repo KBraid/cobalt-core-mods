@@ -272,7 +272,7 @@
         "A": "Pierce ATK. Dmg = Cards discarded when created. (<c=keyword>{{Damage}}</c>)",
         "B": "Stun ATK. Dmg = Cards discarded when created. (<c=keyword>{{Damage}}</c>)"
       }
-      },
+    },
     "SneakAttack": {
       "name": "Sneak Attack"
     },
@@ -322,6 +322,11 @@
     },
     "Resolve": {
       "name": "Resolve"
+    }
+  },
+  "misc": {
+    "lostHull": {
+      "name": "Lost Hull this combat"
     }
   }
 }
