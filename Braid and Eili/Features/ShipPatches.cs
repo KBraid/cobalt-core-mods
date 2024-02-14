@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using KBraid.BraidEili.Cards;
 using System.Collections.Generic;
 
 namespace KBraid.BraidEili;
@@ -108,37 +109,34 @@ internal sealed class ShipPatchesManager
     private static void Ship_DirectHullDamage_Prefix(
         Ship __instance,
         ref int amt,
-        ref Dictionary<string, int> __state)
+        ref int __state)
     {
         if (__instance.hullMax > 1 && __instance.Get(ModEntry.Instance.Resolve.Status) > 0)
         {
-            if (amt >= __instance.hull)
-            {
-                var num = amt - __instance.hull;
-                if (num == 0)
-                    num = 1;
-                __state.Add("resolve", num);
-                amt -= 1;
-            }
+            var num = amt - __instance.hull;
+            if (num < 0)
+                return;
+            else if (num == 0)
+                num = 1;
+            __state = num;
+            amt -= 1;
         }
     }
     private static void Ship_DirectHullDamage_Postfix(
         Ship __instance,
         Combat c,
         ref int amt,
-        ref Dictionary<string, int> __state)
+        ref int __state)
     {
-        if (__instance.Get(ModEntry.Instance.Resolve.Status) > 0)
+        if (__instance.Get(ModEntry.Instance.Resolve.Status) > 0 && __state > 0)
         {
-            if (__state.TryGetValue("resolve", out int value) && value > 0)
+            __instance.PulseStatus(ModEntry.Instance.Resolve.Status);
+            __instance.hullMax -= __state;
+            if (__instance.hullMax <= 0)
             {
-                __instance.PulseStatus(ModEntry.Instance.Resolve.Status);
-                __instance.hullMax -= value;
-                if (__instance.hullMax <= 0)
-                {
-                    __instance.hull = 0;
-                }
+                __instance.hull = 0;
             }
+            c.SetLostHullThisCombat(c.GetLostHullThisCombat() + __state);
         }
         if (__instance.hull <= 0 || amt <= 0)
             return;
