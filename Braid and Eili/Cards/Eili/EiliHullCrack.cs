@@ -87,7 +87,7 @@ public class EiliHullCrack : Card, IModdedCard
                     {
                         damage = GetDmg(s, 1),
                         piercing = true,
-                        brittle = true,
+                        weaken = true,
                     },
                 };
                 actions = cardActionList3;

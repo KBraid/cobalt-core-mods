@@ -83,12 +83,12 @@ internal sealed class ShipPatchesManager
                 {
                     timer = 0,
                     status = Status.evade,
-                    statusAmount = num2 * __instance.Get(disabledDampeners),
+                    statusAmount = num2,
                     targetPlayer = __instance.isPlayerShip
                 });
                 c.QueueImmediate(new AMove()
                 {
-                    dir = num2 * __instance.Get(disabledDampeners),
+                    dir = num2,
                     isRandom = true,
                     targetPlayer = __instance.isPlayerShip
                 });
@@ -100,7 +100,7 @@ internal sealed class ShipPatchesManager
                 c.QueueImmediate(new AStatus()
                 {
                     status = ModEntry.Instance.TempShieldNextTurn.Status,
-                    statusAmount = num2 * __instance.Get(shockAbsorber),
+                    statusAmount = num2,
                     targetPlayer = __instance.isPlayerShip
                 });
             }
