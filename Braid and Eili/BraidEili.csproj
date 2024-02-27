@@ -13,7 +13,7 @@
 		<CheckEolTargetFramework>false</CheckEolTargetFramework>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Nickel.ModBuildConfig" Version="0.4.0" />
+		<PackageReference Include="Nickel.ModBuildConfig" Version="0.8.0-alpha1" />
 		<PackageReference Include="MakeTypesPublic" Version="1.0.3" PrivateAssets="All" ExcludeAssets="runtime" />
 		<PackageReference Include="EnumByNameSourceGenerator" Version="1.1.1" PrivateAssets="All" ExcludeAssets="runtime" />
 	</ItemGroup>

@@ -14,4 +14,15 @@ internal sealed class ShockAbsorberManager : IStatusLogicHook
             return tooltips;
         return tooltips.Concat(StatusMeta.GetTooltips(ModEntry.Instance.TempShieldNextTurn.Status, 1)).ToList();
     }
+    public bool HandleStatusTurnAutoStep(State state, Combat combat, StatusTurnTriggerTiming timing, Ship ship, Status status, ref int amount, ref StatusTurnAutoStepSetStrategy setStrategy)
+    {
+        if (status != ModEntry.Instance.ShockAbsorber.Status)
+            return false;
+        if (timing != StatusTurnTriggerTiming.TurnStart)
+            return false;
+
+        if (amount > 0)
+            amount--;
+        return false;
+    }
 }

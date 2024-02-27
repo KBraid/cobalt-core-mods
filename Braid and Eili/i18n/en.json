@@ -15,23 +15,20 @@
     "DisabledDampeners": {
       "name": "Disabled Dampeners",
       "description": [
-        "Whenever you are damaged, gain as much <c=status>EVADE</c> and <c=status>MOVE RANDOM</c> times this status.",
-        "<c=downside>Decreases by 1 at the start of each turn</c>."
-      ],
-      "combatDescription": [
-        "Whenever you are damaged, gain as much <c=status>EVADE</c> <c=boldPink>x{{Amount}}</c> and <c=status>MOVE RANDOM</c> <c=boldPink>x{{Amount}}</c>.",
+        "Whenever you are damaged, gain as much <c=status>EVADE</c> and <c=status>MOVE RANDOM</c>.",
         "<c=downside>Decreases by 1 at the start of each turn</c>."
       ]
     },
     "ShockAbsorber": {
       "name": "Shock Absorber",
-      "description": "Whenever you are damaged, gain as much <c=status>TEMP SHIELD NEXT TURN</c> times this status.",
-      "combatDescription": "Whenever you are damaged, gain as much <c=status>TEMP SHIELD NEXT TURN</c> <c=boldPink>x{{Amount}}</c>."
+      "description": [
+        "Whenever you are damaged, gain as much <c=status>TEMP SHIELD NEXT TURN</c>.",
+        "<c=downside>Decreases by 1 at the start of each turn</c>."
+      ]
     },
     "TempShieldNextTurn": {
       "name": "Temp Shield Next Turn",
-      "description": "At the start of next turn, gain <c=status>TEMP SHIELD</c>.",
-      "combatDescription": "At the start of next turn, gain <c=boldPink>{[Amount]}</c> <c=status>TEMP SHIELD</c>."
+      "description": "At the start of next turn, gain <c=boldPink>{0}</c> <c=status>TEMP SHIELD</c>."
     },
     "KineticGenerator": {
       "name": "Kinetic Generator",
@@ -49,20 +46,18 @@
     },
     "TempPowerdrive": {
       "name": "Temp Powerdrive",
-      "description": "Add damage to all attacks. <c=downside>Goes away at end of turn</c>.",
-      "combatDescription": "Add <c=boldPink>{{Amount}}</c> damage to all attacks. <c=downside>Goes away at end of turn</c>."
+      "description": "Add <c=boldPink>{0}</c> damage to all attacks. <c=downside>Goes away at end of turn</c>."
     },
     "Bide": {
       "name": "Bide",
       "description": [
         "Damage received is stored to power up your next attack.",
-        "<c=downside>Decreases by 1 after each attack."
+        "<c=downside>Decreases by 1 after each attack</c>."
       ]
     },
     "PerfectTiming": {
       "name": "Perfect Timing",
-      "description": "The next attack deals additional damage.",
-      "combatDescription": "The next <c=attack>attack</c> deals <c=boldPink>{{Amount}}</c> additional damage."
+      "description": "The next attack deals <c=boldPink>{0}</c> additional damage."
     },
     "Resolve": {
       "name": "Resolve",
@@ -74,13 +69,11 @@
     },
     "EngineStallNextTurn": {
       "name": "Engine Stall Next Turn",
-      "description": "At the start of next turn, gain <c=status>ENGINE STALL</c>.",
-      "combatDescription": "At the start of next turn, gain <c=boldPink>{[Amount]}</c> <c=status>ENGINE STALL</c>."
+      "description": "At the start of next turn, gain <c=boldPink>{0}</c> <c=status>ENGINE STALL</c>."
     },
     "BusterCharge": {
       "name": "Buster Charge",
-      "description": "Power up <c=card>Buster Shot</c>.",
-      "combatDescription": "Power up <c=card>Buster Shot</c>."
+      "description": "Power up <c=card>Buster Shot</c>."
     }
   },
   "cardtrait": {
